@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>esby space</title>
+
+    <script defer src="scripts/script.js"></script>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+
+</head>
+
+<body>
+
+    <header></header>
+
+    <main>
+
+        <section class="card">
+
+            <h2>where is the ISS?</h2>
+            <button id="iss-button" class="center">find the ISS!</button>
+            <button id="position-button">get your location!</button>
+            <p id="iss-coordinates"></p>
+            <div id="iss-map"></div>
+            <p>this idea was taken from <a
+                    href="https://www.youtube.com/watch?v=nZaZ2dB6pow&list=PLRqwX-V7Uu6YxDKpFzf_2D84p0cyk4T7X&index=7">the
+                    coding train</a><br>thanks to the people at <a href="https://wheretheiss.at/">where is the iss
+                    at?</a> for
+                maintaining the api!</p>
+
+        </section>
+
+        <section class="card">
+
+            <h2>upcoming rocket launches:</h2>
+            <button id="launch-list-button">plan your departure from earth!</button>
+            <ul id="launch-list"></ul>
+            <p>please do not spam this button, the rate limit is low<br>thanks to <a href="https://thespacedevs.com/">the space devs</a> for making everything free!</p>
+
+        </section>
+
+    </main>
+
+    <footer></footer>
+
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>esby projects</title>
+
+    <script defer src="scripts/script.js"></script>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+
+</head>
+
+<body>
+
+    <header></header>
+
+    <main>
+
+        <h2>elementary cellular automaton simulation</h2>
+        <p>This is a reverse engineering of Spaciecat's <a href="https://spaciecat.github.io/cells/">from cell's
+                to systems)</a>, play that for an amazing exploration! In
+            short, cells can either be alive or dead based on a rule you give. The first row can be whatever you like
+            (though it's standard to have one live cell in the center), but the rest will be determined by that rule. To
+            start, enter in the rule (a number from 0 to 255), and click the cells in the first row to set your starting
+            condition. Clicking any other cell will change your rule to make that cell change state. ECA is famous for
+            its simple conditions and starting points and its many complicated results, so play around a little! <a
+                href="#more-eca">here is a list of interesting rules!</a><br><br>(this
+            won't work in safari or mobile because css is not my friend, sorry!)</p>
+
+        <section id="eca" class="card">
+            <h3>elementary cellular automaton</h3>
+            <div id="eca-input">
+                <label for="eca-row"><b>number of rows: </b></label>
+                <input type="number" id="eca-row">
+                <label for="eca-column"><b>number of columns: </b></label>
+                <input type="number" id="eca-column">
+                <button>randomize first layer</button>
+                <button>reset all</button>
+                <div>
+                    <label for="eca-rule"><b>eca rule number: </b></label>
+                    <input type="number" id="eca-rule">
+                </div>
+
+            </div>
+            <div id="eca-grid"></div>
+        </section>
+
+        <h3 id="more-eca">interesting rules for eca!</h3>
+        <ul>
+            <li><b>rule 18, 22, 26, 60, 82, 90</b> - are all sierpiński's triangle (there's probably more, but that's
+                how far the wikipedia went)</li>
+            <li><b>rule 30</b> - entually leads to randomness, so it's used to make psuedo-rando numbers
+                (they're not totally random because you could recreate them if you had the starting conditions). it
+                also has a similar appearance to the shell of the <i>Conus textile</i> snail!</li>
+            <li><b>rule 90</b> - is often called the "simplest, non-trivial cellular automaton" as it is just the XOR
+                function</li>
+            <li><b>rule 110</b> - is turing complete, meaning it can simulate the logic of any computer alogirthm!
+                so far, it's the only one with a rigourous proof behind it, but there might be others. it lies on
+                the boundry of order and chaos (just like me, when programming this)</li>
+            <li><b>rule 184</b> - is used as a model of traffic flow in a single lane, surface deposition, and
+                ballistic annihilation</li>
+        </ul>
+        <h3>sources and further reading if you're interested!</h3>
+        <ul>
+            <li><a href="https://spaciecat.github.io/cells/">From Cells to Systems</a> by SpacieCat</li>
+            <li><a href="https://en.wikipedia.org/wiki/Elementary_cellular_automaton">Elementary cellular automaton</a>
+                by Wikipedia</li>
+            <li><a
+                    href="https://www.math.clemson.edu/~macaule/classes/f16_math4500/slides/f16_math4500_cellular-automata_handout.pdf">Cellular
+                    automata and agent-based mode</a> by Matthew Macauley</li>
+            <li><a href="https://wpmedia.wolfram.com/uploads/sites/13/2018/02/15-1-1.pdf">Universality in Elementary
+                    Cellular Automata</a> by Matthew Cook</li>
+        </ul>
+
+    </main>
+
+    <footer></footer>
+
+</body>
+
+</html>
