@@ -58,7 +58,7 @@ switch (page) {
             const attribution = "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a>";
             L.tileLayer(tileUrl, { attribution }).addTo(map);
             const issIcon = L.icon({
-                iconUrl: '../images/space/issIcon.png',
+                iconUrl: './images/space/issIcon.png',
                 iconSize: [50, 35],
                 iconAnchor: [25, 17.5],
             });
@@ -86,7 +86,7 @@ switch (page) {
                 let latitude = position.coords.latitude;
                 let longitude = position.coords.longitude;
                 const userIcon = L.icon({
-                    iconUrl: '../images/space/circle.svg',
+                    iconUrl: './images/space/circle.svg',
                     iconSize: [12, 12],
                     iconAnchor: [6, 6],
                 });
