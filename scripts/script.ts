@@ -1,8 +1,10 @@
+// Original program files written in Typescript, in script.ts
+
 ///////////////
 // FUNCTIONS //
 ///////////////
 
-// you can never escape the bad jquery
+// you can never escape the worse jquery
 const $ = (query: string): any => {
     return document.querySelector(query);
 };
@@ -13,20 +15,38 @@ const $all = (query: string): any[] => {
 
 const loadHTML = async (path: string, selector: string): Promise<void> => {
     const element = $(selector);
-    if (!element) {
-        return;
-    }
+    if (!element) return;
     const file = await fetch(path);
     const html = await file.text();
     element.innerHTML = html;
 };
 
-////////////////////////
-// LOAD PAGE ELEMENTS //
-////////////////////////
+///////////////
+// GLOBAL JS //
+///////////////
 
+let widescreen = false;
 loadHTML('page/header.html', 'header');
-loadHTML('page/footer.html', 'footer');
+loadHTML('page/footer.html', 'footer').then(() => {
+    $('#scroll-button').onclick = () => {
+        window.scrollTo(0, 0);
+    };
+
+    $('#wide-button').onclick = () => {
+        if (widescreen) {
+            $('header').style.maxWidth = '50rem';
+            $('main').style.maxWidth = '50rem';
+            $('footer').style.maxWidth = '50rem';
+            $('#wide-button').innerHTML = '↔ widescreen';
+        } else {
+            $('header').style.maxWidth = 'none';
+            $('main').style.maxWidth = 'none';
+            $('footer').style.maxWidth = 'none';
+            $('#wide-button').innerHTML = '⇄ normal';
+        }
+        widescreen = !widescreen;
+    };
+});
 // i have no idea if this is remotely good,
 // but i got tired of copy pasting html
 
@@ -40,6 +60,7 @@ const page = path.split('/').pop();
 
 switch (page) {
     // there has to be a better way to do this, right?
+    case '':
     case 'index.html':
         const issArtDiv = $('#iss-art');
 
@@ -86,9 +107,8 @@ switch (page) {
                 );
                 const data = await response.json();
                 const { latitude, longitude } = data;
-                $('#iss-coordinates').innerHTML = `Latitude: ${
-                    Math.round(latitude * 100) / 100
-                }°<br>Longitude: ${Math.round(longitude * 100) / 100}°`;
+                $('#iss-coordinates').innerHTML = `Latitude: ${Math.round(latitude * 100) / 100
+                    }°<br>Longitude: ${Math.round(longitude * 100) / 100}°`;
                 issMarker.setLatLng([latitude, longitude]).addTo(map);
                 if (first) {
                     map.setView([latitude, longitude], 2);
@@ -151,9 +171,8 @@ switch (page) {
                 const data = await response.json();
                 data['results'].forEach((launch: any) => {
                     const item = document.createElement('li');
-                    item.innerHTML = `<p>${toDate(launch.net)}: ${
-                        launch.name
-                    }<\p>`;
+                    item.innerHTML = `<p>${toDate(launch.net)}: ${launch.name
+                        }<\p>`;
                     $('#launch-list').appendChild(item);
                 });
             };
@@ -165,112 +184,209 @@ switch (page) {
     case 'projects.html':
 
         // ECA //
-        const columns = 15;
-        const rows = 10;
-        const container: Element[][] = [];
-        const rule = 30;
+        interface ECA {
+            rule: number;
+            rows: number;
+            columns: number;
+            color: Boolean;
+            cells: Element[][];
+            ruleArray: number[];
 
-        // convert rule to primary rules stored in an array
-        const processRule = (rule: number): number[] => {
-            let binary = rule.toString(2);
-            let binaryArray = Array.from(binary);
-            let ruleList: number[] = [];
-            for (let i = 0; i < binaryArray.length; i++) {
-                let x = parseInt(binaryArray[binaryArray.length - i - 1]);
-                if (x == 1) {
-                    ruleList.push(2 ** i);
-                }
-            }
-            return ruleList;
-        }
-        const ruleArray = processRule(rule);
+            alive(cell: Element): void;
+            kill(cell: Element): void;
+            toggle(cell: Element): void;
 
-        // check neighbors of previous line
-        const cellState = (row: number, i: number): number => {
-            let state = '';
-            if (container[row - 1][i - 1] && container[row - 1][i - 1].classList.contains('alive')) {
-                state += '1';
-            } else {
-                state += '0';
-            }
-            if (container[row - 1][i] && container[row - 1][i].classList.contains('alive')) {
-                state += '1';
-            } else {
-                state += '0';
-            }
-            if (container[row - 1][i + 1] && container[row - 1][i + 1].classList.contains('alive')) {
-                state += '1';
-            } else {
-                state += '0';
-            }
-            let rule = 2 ** parseInt(state, 2);
-            return rule;
-        };
+            makeCells(selector?: string): void;
+            cellState(row: number, column: number): number;
+            generate(): void;
 
-        // generate next layer
-        const generateLayer = (
-            rule: number,
-            container: Element[][]
-        ): void => {
-            for (let i = 0; i < container.length; i++) {
-                if (i == 0) {
-                    continue;
-                }
-                for (let j = 0; j < container[0].length; j++) {
-                    let item = container[i][j];
-                    item.classList.remove('alive');
-                    item.classList.add('dead');
-                    if (ruleArray.includes(cellState(i, j))) {
-                        item.classList.add('alive');
-                        item.classList.remove('dead');
-                    }
-                }
-            }
-        };
-
-        // make items in 2D array
-        for (let i = 0; i < rows; i++) {
-            container[i] = [];
-            for (let j = 0; j < columns; j++) {
-                const item = document.createElement('div');
-                item.classList.add('cell', 'dead');
-                container[i][j] = item;
-
-                item.onmouseenter = item.onmouseleave = () => {
-                    item.classList.toggle('select');
-                    if (container[i - 1] && container[i - 1][j - 1]) {
-                        container[i - 1][j - 1].classList.toggle('select');
-                    }
-                    if (container[i - 1] && container[i - 1][j]) {
-                        container[i - 1][j].classList.toggle('select');
-                    }
-                    if (container[i - 1] && container[i - 1][j + 1]) {
-                        container[i - 1][j + 1].classList.toggle('select');
-                    }
-                };
-
-                if (i == 0) {
-                    item.onclick = () => {
-                        item.classList.toggle('alive');
-                        item.classList.toggle('dead');
-                        generateLayer(rule, container);
-                    };
-                }
-            }
+            [key: string]: any;
         }
 
-        // plot
-        container.forEach((list) => {
-            const row = document.createElement('div');
-            row.classList.add('cell-row');
-            list.forEach((item) => {
-                row.appendChild(item);
+        const ECA: ECA = {
+            rule: 30,
+            rows: 10,
+            columns: 15,
+            color: false,
+            cells: [],
+
+            // me being lazy functions
+            alive: function (cell: Element) {
+                cell.classList.remove('dead');
+                cell.classList.add('alive');
+            },
+
+            kill: function (cell: Element) {
+                cell.classList.remove('alive');
+                cell.classList.add('dead');
+            },
+
+            toggle: function (cell: Element) {
+                cell.classList.toggle('alive');
+                cell.classList.toggle('dead');
+            },
+
+            // turn rule into binary, then sums of power of 2
+            get ruleArray(): number[] {
+                const binary = this.rule.toString(2);
+                const binaryArray = Array.from(binary).reverse();
+                const ruleList: number[] = [];
+                binaryArray.forEach((x, i) => {
+                    let digit = parseInt(x);
+                    digit == 1 && ruleList.push(2 ** i);
+                });
+                return ruleList;
+            },
+
+            // fill 2D array with cells, rows * (3 * columns)
+            makeCells: function (selector?: string): void {
+                selector && (this.selector = selector);
+                this.cells = [];
+                for (let i = 0; i < this.rows; i++) {
+                    this.cells[i] = [];
+                    for (let j = 0; j < 3 * this.columns; j++) {
+                        // need to *3 so that it doesn't colide into the edge
+                        const cell = document.createElement('div');
+                        cell.classList.add('cell', 'dead');
+                        this.cells[i][j] = cell;
+                        cell.onmouseenter = cell.onmouseleave = () => {
+                            cell.classList.toggle('select');
+                        };
+
+                        cell.onclick =
+                            i == 0
+                                ? () => {
+                                    this.toggle(cell);
+                                    this.generate();
+                                }
+                                : () => {
+                                    this.toggle(cell);
+                                    const ruleChange = this.cellState(i, j);
+                                    this.ruleArray.includes(ruleChange)
+                                        ? (this.rule -= ruleChange)
+                                        : (this.rule += ruleChange);
+                                    this.generate();
+                                    $('#eca-rule').value = this.rule;
+                                    // bad form, i know
+                                };
+                    }
+                }
+
+                // plot cells to the website
+                $(this.selector).innerHTML = '';
+                this.cells.forEach((layer) => {
+                    const row = document.createElement('div');
+                    row.classList.add('cell-row');
+                    for (let i = layer.length / 3; i < (2 * layer.length) / 3; i++) {
+                        row.appendChild(layer[i]);
+                    }
+                    $(this.selector).appendChild(row);
+                });
+            },
+
+            // determine the cells above a cell
+            cellState: function (row: number, column: number): number {
+                let state = '';
+                for (let i = -1; i <= 1; i++) {
+                    this.cells[row - 1][column + i] &&
+                        this.cells[row - 1][column + i].classList.contains('alive')
+                        ? (state += '1')
+                        : (state += '0');
+                }
+                return 2 ** parseInt(state, 2);
+            },
+
+            // make cells alive or dead, color them
+            generate: function (): void {
+                this.cells.forEach((layer, i) => {
+                    if (i == 0) return;
+                    layer.forEach((cell, j) => {
+                        const state = this.cellState(i, j);
+                        let classes = Array.from(cell.classList);
+                        classes.forEach((cellClass) => {
+                            cellClass.includes('color') && cell.classList.remove(cellClass);
+                            return;
+                        });
+                        if (this.ruleArray.includes(state)) {
+                            this.alive(cell);
+                            this.color && cell.classList.add(`color-${state}`);
+                        } else {
+                            this.kill(cell);
+                        }
+                    });
+                });
+            },
+        };
+
+        ECA.makeCells('#eca-cells');
+
+        $('#eca-rule').value = ECA.rule;
+        $('#eca-row').value = ECA.rows;
+        $('#eca-column').value = ECA.columns;
+
+        // user input
+        $('#eca-rule').oninput = () => {
+            ECA.rule = parseInt($('#eca-rule').value);
+            ECA.generate();
+        };
+
+        $('#eca-random-rule').onclick = () => {
+            ECA.rule = Math.floor(Math.random() * 256);
+            $('#eca-rule').value = ECA.rule;
+            ECA.generate();
+        };
+
+        $('#eca-row').onchange = () => {
+            ECA.rows = parseInt($('#eca-row').value);
+            ECA.makeCells();
+        };
+
+        $('#eca-column').onchange = () => {
+            ECA.columns = parseInt($('#eca-column').value);
+            ECA.makeCells();
+        };
+
+        $('#eca-random-first').onclick = () => {
+            const length = ECA.cells[0].length;
+            for (let i = length / 3; i < (2 * length) / 3; i++) {
+                ECA.kill(ECA.cells[0][i]);
+                Math.random() > 0.5 && ECA.toggle(ECA.cells[0][i]);
+            }
+            ECA.generate();
+        };
+
+        $('#eca-clear-first').onclick = () => {
+            ECA.cells[0].forEach((cell) => {
+                ECA.kill(cell);
             });
-            generateLayer(rule, container);
-            $('#eca-grid').appendChild(row);
-        });
+            ECA.generate();
+        };
 
-        break;
+        $('#eca-color').onclick = () => {
+            ECA.color = !ECA.color;
+            $('#eca-color').innerHTML = ECA.color ? 'no color' : 'color mode!';
+            ECA.generate();
+        };
+
+        $('#eca-button').onclick = () => {
+            $all('.cell-row').forEach((element) => {
+                element.style.margin = '0px auto';
+            });
+            $all('.cell-row').forEach((element) => {
+                element.style.gap = '0px';
+            });
+            $all('.cell').forEach((element) => {
+                element.style.borderRadius = '0px';
+            });
+        };
+
+        $('#eca-reset').onclick = () => {
+            window.location.reload();
+        };
+
+        // i just realized that dave shiffman did a tutorial on this
+        // and did it way better than me
+        // oh well!
 }
 
 // /\__/\
