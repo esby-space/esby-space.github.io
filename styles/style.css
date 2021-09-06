@@ -9,7 +9,9 @@
   scroll-behavior: smooth;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -29,7 +31,8 @@ header {
   border-radius: 16px;
   text-align: center;
 }
-header h1, header nav {
+header h1,
+header nav {
   margin: auto;
   max-width: max-content;
 }
@@ -43,7 +46,8 @@ main {
   margin: 2rem auto;
   padding: 0 1rem;
 }
-main img, main iframe {
+main img,
+main iframe {
   width: 100%;
   max-width: 25rem;
   margin: 2rem auto;
@@ -82,7 +86,7 @@ button {
   color: white;
   background-color: var(--primary-color);
   border: none;
-  border-radius: 16px;
+  border-radius: 8px;
   cursor: pointer;
   box-shadow: 0 4px var(--shadow-color);
   transition: all 0.15s ease-in-out;
@@ -112,6 +116,10 @@ input[type=text]:focus {
 
 hr {
   border: 0.5px solid;
+}
+
+canvas {
+  border: 1px solid black;
 }
 
 .card {
@@ -195,14 +203,15 @@ hr {
 #eca .color-128 {
   background-color: #eb47e2;
 }
-#eca #eca-input {
+
+.card-input {
   max-width: 50rem;
   display: grid;
   width: 100%;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 1rem;
 }
-#eca #eca-input div {
+.card-input div {
   grid-area: 1/1/4/3;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -210,11 +219,11 @@ hr {
   padding: 0.5px 1px;
   text-align: center;
   color: white;
-  border-radius: 16px;
+  border-radius: 8px;
   background-color: var(--primary-color);
   box-shadow: 0 4px var(--shadow-color);
 }
-#eca #eca-input div input {
+.card-input div input {
   padding: 1px 1rem;
   color: white;
   border: none;

@@ -10,7 +10,9 @@
     scroll-behavior: smooth;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
@@ -29,8 +31,9 @@ header {
     color: white;
     border-radius: 16px;
     text-align: center;
-    
-    h1, nav {
+
+    h1,
+    nav {
         margin: auto;
         max-width: max-content;
     }
@@ -46,7 +49,8 @@ main {
     margin: 2rem auto;
     padding: 0 1rem;
 
-    img, iframe {
+    img,
+    iframe {
         width: 100%;
         max-width: 25rem;
         margin: 2rem auto;
@@ -88,7 +92,7 @@ button {
     color: white;
     background-color: var(--primary-color);
     border: none;
-    border-radius: 16px;
+    border-radius: 8px;
     cursor: pointer;
     box-shadow: 0 4px var(--shadow-color);
     transition: all 0.15s ease-in-out;
@@ -104,8 +108,8 @@ button {
     }
 }
 
-input[type="number"],
-input[type="text"] {
+input[type='number'],
+input[type='text'] {
     width: 100%;
     border: none;
     border-bottom-style: solid;
@@ -120,6 +124,10 @@ input[type="text"] {
 
 hr {
     border: 0.5px solid;
+}
+
+canvas {
+    border: 1px solid black;
 }
 
 .card {
@@ -161,7 +169,8 @@ hr {
 }
 
 @keyframes bounce {
-    0%, 100% {
+    0%,
+    100% {
         transform: translateY(10px);
     }
     50% {
@@ -183,19 +192,19 @@ hr {
     display: none;
 }
 
-#eca {    
+#eca {
     .color-1 {
         background-color: hsl(348, 80%, 60%);
     }
-    
+
     .color-2 {
         background-color: hsl(393, 80%, 60%);
     }
-    
+
     .color-4 {
         background-color: hsl(78, 80%, 60%);
     }
-    
+
     .color-8 {
         background-color: hsl(123, 80%, 60%);
     }
@@ -203,43 +212,44 @@ hr {
     .color-16 {
         background-color: hsl(168, 80%, 60%);
     }
-    
+
     .color-32 {
         background-color: hsl(213, 80%, 60%);
     }
-   
+
     .color-64 {
         background-color: hsl(258, 80%, 60%);
     }
-    
+
     .color-128 {
         background-color: hsl(303, 80%, 60%);
     }
-    
-    #eca-input {
-        max-width: 50rem;
+
+}
+
+.card-input {
+    max-width: 50rem;
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+
+    div {
+        grid-area: 1 / 1 / 4 / 3;
         display: grid;
-        width: 100%;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
         gap: 1rem;
+        padding: 0.5px 1px;
+        text-align: center;
+        color: white;
+        border-radius: 8px;
+        background-color: var(--primary-color);
+        box-shadow: 0 4px var(--shadow-color);
 
-        div {
-            grid-area: 1 / 1 / 4 / 3;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            padding: 0.5px 1px;
-            text-align: center;
+        input {
+            padding: 1px 1rem;
             color: white;
-            border-radius: 16px;
-            background-color: var(--primary-color);
-            box-shadow: 0 4px var(--shadow-color);
-
-            input {
-                padding: 1px 1rem;
-                color: white;
-                border: none;
-            }
+            border: none;
         }
     }
 }
@@ -261,7 +271,7 @@ hr {
         display: flex;
         flex-direction: row;
         gap: 1px;
-        
+
         .cell {
             flex-grow: 1;
             border-radius: 2px;
@@ -270,7 +280,7 @@ hr {
             cursor: pointer;
             transition: all 0.15s ease-in-out;
         }
-        
+
         .select {
             transform: scale(0.9);
             // box-shadow: 0px 0px 0px 5px var(--primary-color);

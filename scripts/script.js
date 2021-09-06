@@ -55,6 +55,7 @@ switch (page) {
     // there has to be a better way to do this, right?
     case '':
     case 'index.html':
+        // HOME SCREEN //
         const issArtDiv = $('#iss-art');
         let issSpaceState = false;
         issArtDiv.onclick = () => {
@@ -65,9 +66,32 @@ switch (page) {
             issSpaceState = !issSpaceState;
         };
         break;
-    case 'space.html':
-        break;
     case 'projects.html':
+        const Cells = {
+            // me being lazy functions
+            alive: function (cell) {
+                cell.classList.remove('dead');
+                cell.classList.add('alive');
+            },
+            kill: function (cell) {
+                cell.classList.remove('alive');
+                cell.classList.add('dead');
+            },
+            toggle: function (cell) {
+                cell.classList.toggle('alive');
+                cell.classList.toggle('dead');
+            },
+        };
+        const Mouse = {
+            // me overcomplicating things again
+            pressed: false
+        };
+        document.body.onmousedown = () => {
+            Mouse.pressed = true;
+        };
+        document.body.onmouseup = () => {
+            Mouse.pressed = false;
+        };
         const ECA = {
             rule: 30,
             rows: 10,
@@ -115,11 +139,11 @@ switch (page) {
                         cell.onclick =
                             i == 0
                                 ? () => {
-                                    this.toggle(cell);
+                                    Cells.toggle(cell);
                                     this.generate();
                                 }
                                 : () => {
-                                    this.toggle(cell);
+                                    Cells.toggle(cell);
                                     const ruleChange = this.cellState(i, j);
                                     this.ruleArray.includes(ruleChange)
                                         ? (this.rule -= ruleChange)
@@ -161,25 +185,26 @@ switch (page) {
                         const state = this.cellState(i, j);
                         let classes = Array.from(cell.classList);
                         classes.forEach((cellClass) => {
-                            cellClass.includes('color') && cell.classList.remove(cellClass);
+                            cellClass.includes('color') &&
+                                cell.classList.remove(cellClass);
                             return;
                         });
                         if (this.ruleArray.includes(state)) {
-                            this.alive(cell);
+                            Cells.alive(cell);
                             this.color && cell.classList.add(`color-${state}`);
                         }
                         else {
-                            this.kill(cell);
+                            Cells.kill(cell);
                         }
                     });
                 });
             },
         };
         ECA.makeCells('#eca-cells');
+        // eca user input
         $('#eca-rule').value = ECA.rule;
         $('#eca-row').value = ECA.rows;
         $('#eca-column').value = ECA.columns;
-        // user input
         $('#eca-rule').onchange = () => {
             ECA.rule = parseInt($('#eca-rule').value);
             ECA.generate();
@@ -216,23 +241,120 @@ switch (page) {
             $('#eca-color').innerHTML = ECA.color ? 'no color' : 'color mode!';
             ECA.generate();
         };
-        $('#eca-button').onclick = () => {
-            $all('.cell-row').forEach((element) => {
+        $('#eca-boxy').onclick = () => {
+            $all('#eca .cell-row').forEach((element) => {
                 element.style.margin = '0px auto';
             });
-            $all('.cell-row').forEach((element) => {
+            $all('#eca .cell-row').forEach((element) => {
                 element.style.gap = '0px';
             });
-            $all('.cell').forEach((element) => {
+            $all('#eca .cell').forEach((element) => {
                 element.style.borderRadius = '0px';
             });
         };
         $('#eca-reset').onclick = () => {
             window.location.reload();
         };
-        // i just realized that dave shiffman did a tutorial on this
-        // and did it way better than me
-        // oh well!
+        const GOL = {
+            rows: 150,
+            columns: 150,
+            cells: [],
+            makeCells: function (selector) {
+                selector && (this.selector = selector);
+                this.cells = [];
+                for (let i = 0; i < this.rows; i++) {
+                    this.cells[i] = [];
+                    for (let j = 0; j < this.columns; j++) {
+                        const cell = document.createElement('div');
+                        cell.classList.add('cell', 'dead');
+                        this.cells[i][j] = cell;
+                        cell.onmousedown = (event) => {
+                            event.preventDefault();
+                            Cells.toggle(cell);
+                        };
+                        cell.onmouseenter = () => {
+                            cell.classList.add('select');
+                            if (Mouse.pressed) {
+                                Cells.toggle(cell);
+                            }
+                        };
+                        cell.onmouseleave = () => {
+                            cell.classList.remove('select');
+                        };
+                    }
+                }
+                $(this.selector).innerHTML = '';
+                this.cells.forEach((layer) => {
+                    const row = document.createElement('div');
+                    row.classList.add('cell-row');
+                    layer.forEach((cell) => {
+                        row.appendChild(cell);
+                    });
+                    $(this.selector).appendChild(row);
+                });
+            },
+            generate: function () {
+                let aliveCells = [];
+                let deadCells = [];
+                this.cells.forEach((layer, i) => {
+                    layer.forEach((cell, j) => {
+                        let count = 0;
+                        for (let ii = -1; ii <= 1; ii++) {
+                            for (let jj = -1; jj <= 1; jj++) {
+                                if (ii == 0 && jj == 0)
+                                    continue;
+                                // counting the number of cells that are alive
+                                this.cells[i + ii] &&
+                                    this.cells[i + ii][j + jj] &&
+                                    this.cells[i + ii][j + jj]
+                                        .classList.contains('alive') &&
+                                    count++;
+                            }
+                        }
+                        // the three rules
+                        cell.classList.contains('dead') &&
+                            count == 3 &&
+                            aliveCells.push(cell);
+                        cell.classList.contains('alive') &&
+                            count > 3 &&
+                            deadCells.push(cell);
+                        cell.classList.contains('alive') &&
+                            count < 2 &&
+                            deadCells.push(cell);
+                    });
+                });
+                aliveCells.forEach((cell) => {
+                    Cells.alive(cell);
+                });
+                deadCells.forEach((cell) => {
+                    Cells.kill(cell);
+                });
+            },
+            // TODO: allow user to customize rule
+        };
+        GOL.makeCells('#gol-cells');
+        // gol user input
+        $('#gol-generate').onclick = () => {
+            GOL.generate();
+        };
+        let generate = false;
+        let interval;
+        $('#gol-auto').onclick = () => {
+            generate ? (clearInterval(interval)) : (interval = setInterval(GOL.generate.bind(GOL), 150));
+            $('#gol-auto').innerHTML = generate ? 'auto generate' : 'stop';
+            generate = !generate;
+        };
+        $('#gol-boxy').onclick = () => {
+            $all('#gol .cell-row').forEach((element) => {
+                element.style.margin = '0px auto';
+            });
+            $all('#gol .cell-row').forEach((element) => {
+                element.style.gap = '0px';
+            });
+            $all('#gol .cell').forEach((element) => {
+                element.style.borderRadius = '0px';
+            });
+        };
         // ISS MAP //
         const L = window.L;
         let map;
@@ -287,7 +409,7 @@ switch (page) {
         $('#launch-list-button').onclick = () => {
             // turn launch api's 2021-08-28Twhatever into something readable
             const toDate = (net) => {
-                let months = [
+                const months = [
                     'January',
                     'February',
                     'March',
@@ -301,10 +423,10 @@ switch (page) {
                     'November',
                     'December',
                 ];
-                let date = net.split('-');
-                let year = date[0];
-                let month = months[parseInt(date[1]) - 1];
-                let day = date[2].slice(0, 2);
+                const date = net.split('-');
+                const year = date[0];
+                const month = months[parseInt(date[1]) - 1];
+                const day = date[2].slice(0, 2);
                 return `${month} ${day}, ${year}`;
             };
             // fetch api

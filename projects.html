@@ -1,199 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>esby projects</title>
 
-        <script defer src="scripts/script.js"></script>
-        <link rel="stylesheet" href="styles/style.css" />
-        <link
-            rel="shortcut icon"
-            href="images/favicon.png"
-            type="image/x-icon"
-        />
+<head>
 
-        <link
-        rel="stylesheet"
-        href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-        crossorigin=""
-    />
-    <script
-        src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-        crossorigin=""
-    ></script>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width,initial-scale=1" name="viewport">
 
+    <title>esby projects</title>
+    <script src="scripts/script.js" defer></script>
+    <link href="styles/style.css" rel="stylesheet">
+    <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon">
 
-    </head>
+    <link href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" rel="stylesheet" crossorigin=""
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==">
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" crossorigin=""
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="></script>
 
-    <body>
-        <header></header>
+</head>
 
-        <main>
-            <h2>elementary cellular automaton simulation</h2>
-            <p>
-                (this won't work in safari or mobile because css is not my
-                friend, sorry!)
-            </p>
-            <h3>introduction</h3>
-            <p>
-                This is a reverse engineering of Spaciecat's
-                <a href="https://spaciecat.github.io/cells/"
-                    >From Cell's To Systems</a
-                >, play that for an amazing exploration! In short, cells can
-                either be alive or dead based on a rule you give. The first row
-                can be whatever you like, but the rest will be determined by
-                that rule. To start, enter in the rule (a number from 0 to 255),
-                and click the cells in the first row and watch them come alive!
-                ECA is famous for its simple conditions and starting points and
-                its many complicated results, so play around a little!
-                <a href="#more-eca">Here is a list of interesting rules!</a>
-            </p>
-            <h3>tips and stuff</h3>
-            <p>
-                <ul>
-                    <li>use the widescreen button at the lower-right to be able to see
-                        more cells!</li>
-                    <li>clicking any cell other than the top row will change the rule to
-                        satisfy</li>
-                    <li>click the boxy button if you want to use more cells to remove
-                        some styling, but you may have to reclick when you change
-                        something</li>
-                    <li>the number of cells you can have will depend on your system and
-                        my ability to write really bad code. for example, adding more
-                        columns will do worse to performance then adding more rows. my
-                        computer could handle 350 rows and 250 columns before the
-                        browser crahsed, so... ¯\_(ツ)_/¯</li>
-                </ul>
-            </p>
+<body>
 
-            <section id="eca" class="card">
-                <h3>elementary cellular automaton</h3>
-                <div id="eca-input">
-                    <div>
-                        <label for="eca-rule"><b>rule number: </b></label>
-                        <input type="number" autocomplete="off" id="eca-rule" />
-                        <label for="eca-row"><b>number of rows: </b></label>
-                        <input type="number" autocomplete="off" id="eca-row" />
-                        <label for="eca-column"
-                            ><b>number of columns: </b></label
-                        >
-                        <input
-                            type="number"
-                            autocomplete="off"
-                            id="eca-column"
-                        />
-                    </div>
-                    <button id="eca-random-rule">random rule</button>
-                    <button id="eca-random-first">randomize first layer</button>
-                    <button id="eca-clear-first">clear cells</button>
-                    <button id="eca-color">color mode!</button>
-                    <button id="eca-button">boxy mode</button>
-                    <button id="eca-reset">reset all</button>
+    <header></header>
+
+    <main>
+
+        <h2>projects im kinda working on!</h2>
+        <p>a lot of these are either common programming projects for beginners, following along with tutorials, or me
+            trying to replicate another project. i'll try to give full credit</p>
+        <p>(many of these won't work in safari or mobile because css is not my friend, sorry!)</p>
+        <hr>
+
+        <h2>elementary cellular automaton simulation</h2>
+        <h3>introduction</h3>
+        <p>This is a reverse engineering of Spaciecat's <a href="https://spaciecat.github.io/cells">From Cell's To
+                Systems</a>, play that for an amazing exploration! In short, cells can either be alive or dead based on
+            a
+            rule you give. The first row can be whatever you like, but the rest will be determined by that rule. To
+            start, enter in the rule (a number from 0 to 255), and click the cells in the first row and watch them come
+            alive! ECA is famous for its simple conditions and starting points and its many complicated results, so play
+            around a little! <a href="#more-eca">Here is a list of interesting rules!</a></p>
+
+        <h3>tips and stuff</h3>
+        <ul>
+            <li>use the widescreen button at the lower-right to be able to see more cells!</li>
+            <li>clicking any cell other than the top row will change the rule to satisfy</li>
+            <li>click the boxy button if you want to use more cells to remove some styling, but you may have to reclick
+                when you change something</li>
+            <li>the number of cells you can have will depend on your system and my ability to write really bad code. my
+                computer could handle 300 rows and 200 columns before the browser crahsed, so... ¯\_(ツ)_/¯</li>
+            <li>note for random start: any cells not inside of the box will be considered dead, so random initial
+                conditions will not be so random</li>
+        </ul>
+
+        <section class="card" id="eca">
+            <h3>elementary cellular automaton</h3>
+            <div class="card-input">
+                <div>
+                    <label for="eca-rule"><b>rule number:</b></label>
+                    <input autocomplete="off" id="eca-rule" type="number">
+                    <label for="eca-row"><b>number of rows:</b></label>
+                    <input autocomplete="off" id="eca-row" type="number">
+                    <label for="eca-column"><b>number of columns:</b></label>
+                    <input autocomplete="off" id="eca-column" type="number">
                 </div>
-                <div id="eca-cells" class="cells"></div>
-            </section>
+                <button id="eca-random-rule">random rule</button>
+                <button id="eca-random-first">randomize first layer</button>
+                <button id="eca-clear-first">clear cells</button>
+                <button id="eca-color">color mode!</button>
+                <button id="eca-boxy">boxy mode</button>
+                <button id="eca-reset">reset all</button>
+            </div>
 
-            <h3 id="more-eca">interesting rules for eca!</h3>
-            <ul>
-                <li>
-                    <b>rule 18, 22, 26, 60, 82, 90, 126, 129</b> - are all
-                    sierpiński's triangle (there's probably more, but that's how
-                    far the wikipedia went)
-                </li>
-                <li>
-                    <b>rule 30</b> - entually leads to randomness, so it's used
-                    to make psuedo-random numbers (they're not totally random
-                    because you could recreate them if you had the starting
-                    conditions). it also has a similar appearance to the shell
-                    of the <i>Conus textile</i> snail!
-                </li>
-                <li>
-                    <b>rule 90</b> - is often called the "simplest, non-trivial
-                    cellular automaton" as it is just the XOR function
-                </li>
-                <li>
-                    <b>rule 110</b> - is turing complete, meaning it can
-                    simulate the logic of any computer alogirthm! so far, it's
-                    the only one with a rigourous proof behind it, but there
-                    might be others. it lies on the boundry of order and chaos
-                    (just like me, when programming this)
-                </li>
-                <li>
-                    <b>rule 184</b> - is used as a model of traffic flow in a
-                    single lane, surface deposition, and ballistic annihilation
-                </li>
-            </ul>
-            <h3>sources and further reading if you're interested!</h3>
-            <ul>
-                <li>
-                    <a href="https://spaciecat.github.io/cells/"
-                        >From Cells to Systems</a
-                    >
-                    by SpacieCat
-                </li>
-                <li>
-                    <a
-                        href="https://en.wikipedia.org/wiki/Elementary_cellular_automaton"
-                        >Elementary cellular automaton</a
-                    >
-                    by Wikipedia
-                </li>
-                <li>
-                    <a
-                        href="https://www.math.clemson.edu/~macaule/classes/f16_math4500/slides/f16_math4500_cellular-automata_handout.pdf"
-                        >Cellular automata and agent-based models</a
-                    >
-                    by Matthew Macauley
-                </li>
-                <li>
-                    <a
-                        href="https://wpmedia.wolfram.com/uploads/sites/13/2018/02/15-1-1.pdf"
-                        >Universality in Elementary Cellular Automata</a
-                    >
-                    by Matthew Cook
-                </li>
-            </ul>
+            <div id="eca-cells" class="cells"></div>
 
-            <hr>
-            <h2>space related apis</h2>
-            
-            <section class="card">
-                <h3>where is the ISS?</h3>
-                <button id="iss-button" class="center">find the ISS!</button>
-                <button id="position-button">get your location!</button>
-                <p id="iss-coordinates"></p>
-                <div id="iss-map"></div>
-                <p>
-                    this idea was taken from
-                    <a
-                        href="https://www.youtube.com/watch?v=nZaZ2dB6pow&list=PLRqwX-V7Uu6YxDKpFzf_2D84p0cyk4T7X&index=7"
-                        >the coding train</a
-                    ><br />thanks to the people at
-                    <a href="https://wheretheiss.at/">where is the iss at?</a>
-                    for maintaining the api!
-                </p>
-            </section>
+        </section>
 
-            <section class="card">
-                <h3>upcoming rocket launches:</h3>
-                <button id="launch-list-button">
-                    plan your departure from earth!
-                </button>
-                <ul id="launch-list"></ul>
-                <p>
-                    please do not spam this button, the rate limit is low<br />thanks
-                    to
-                    <a href="https://thespacedevs.com/">the space devs</a> for
-                    making everything free!
-                </p>
-            </section>
+        <h3 id="more-eca">interesting rules for eca!</h3>
+        <ul>
+            <li><b>rule 18, 22, 26, 60, 82, 90, 126, 129</b> - are all sierpiński's triangle (there's probably more, but
+                that's how far the wikipedia went)</li>
+            <li><b>rule 30</b> - entually leads to randomness, so it's used to make psuedo-random numbers (they're not
+                totally random because you could recreate them if you had the starting conditions). it also has a
+                similar</li>
+            appearance to the shell of the <i>Conus textile</i> snail!
+            <li><b>rule 90</b> - is often called the "simplest, non-trivial cellular automaton" as it is just the XOR
+                function</li>
+            <li><b>rule 110</b> - is turing complete, meaning it can simulate the logic of any computer alogirthm! so
+                far, it's the only one with a rigourous proof behind it, but there might be others. it lies on the
+                boundry of order and chaos (just like me, when programming this)</li>
+            <li><b>rule 184</b> - is used as a model of traffic flow in a single lane, surface deposition, and ballistic
+                annihilation</li>
+        </ul>
 
-        </main>
+        <h3>sources and further reading if you're interested!</h3>
+        <ul>
+            <li><a href="https://spaciecat.github.io/cells" />From Cells to Systems</a> by SpacieCat
+            <li><a href="https://en.wikipedia.org/wiki/Elementary_cellular_automaton">Elementary cellular automaton</a>
+                by
+                Wikipedia
+            <li><a
+                    href="https://www.math.clemson.edu/~macaule/classes/f16_math4500/slides/f16_math4500_cellular-automata_handout.pdf">Cellular
+                    automata and agent-based models</a> by Matthew Macauley
+            <li><a href="https://wpmedia.wolfram.com/uploads/sites/13/2018/02/15-1-1.pdf">Universality in Elementary
+                    Cellular Automata</a> by Matthew Cook
+        </ul>
+        <hr>
 
-        <footer></footer>
-    </body>
+        <h2>conway's game of life</h2>
+        <p>i know conway didn't really like how popular this got, but i had fun coding it in! Rest in Peace John Conway,
+            thank you for inspiring me and me and so many others.</p>
+
+        <section class="card" id="gol">
+            <h3>game of life</h3>
+            <div class="card-input">
+                <button id="gol-generate">generate next</button>
+                <button id="gol-auto">auto generate</button>
+                <button id="gol-boxy">boxy mode</button>
+            </div>
+            <div id="gol-cells" class="cells"></div>
+        </section>
+        <hr>
+
+        <h2>space related apis</h2>
+        <section class="card">
+            <h3>where is the ISS?</h3>
+            <button id="iss-button" class="center">find the ISS!</button>
+            <button id="position-button">get your location!</button>
+            <p id="iss-coordinates"></p>
+
+            <div id="iss-map"></div>
+
+            <p>this idea was taken from <a href="https://www.youtube.com/watch?v=nZaZ2dB6pow">the coding
+                    train</a><br>thanks to the people at <a href="https://wheretheiss.at">where is the iss at?</a> for
+                maintaining the api!</p>
+        </section>
+
+        <section class="card">
+            <h3>upcoming rocket launches:</h3>
+            <button id="launch-list-button">plan your departure from earth!</button>
+            <ul id="launch-list"></ul>
+            <p>please do not spam this button, the rate limit is low<br>thanks to <a href="https://thespacedevs.com">the
+                    space devs</a> for making everything free!</p>
+        </section>
+
+    </main>
+
+    <footer></footer>
+
+</body>
+
 </html>

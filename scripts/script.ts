@@ -62,8 +62,8 @@ switch (page) {
     // there has to be a better way to do this, right?
     case '':
     case 'index.html':
+        // HOME SCREEN //
         const issArtDiv = $('#iss-art');
-
         let issSpaceState = false;
         issArtDiv.onclick = () => {
             issArtDiv.style.backgroundColor = issSpaceState ? 'white' : 'black';
@@ -74,10 +74,48 @@ switch (page) {
         };
         break;
 
-    case 'space.html':
-        break;
-
     case 'projects.html':
+        // HELPER OBJECTS //
+        interface Cell {
+            alive(cell: Element): void;
+            kill(cell: Element): void;
+            toggle(cell: Element): void;
+        }
+
+        const Cells: Cell = {
+            // me being lazy functions
+            alive: function (cell: Element) {
+                cell.classList.remove('dead');
+                cell.classList.add('alive');
+            },
+
+            kill: function (cell: Element) {
+                cell.classList.remove('alive');
+                cell.classList.add('dead');
+            },
+
+            toggle: function (cell: Element) {
+                cell.classList.toggle('alive');
+                cell.classList.toggle('dead');
+            },
+        };
+
+        interface Mouse {
+            pressed: boolean;
+        }
+
+        const Mouse: Mouse = {
+            // me overcomplicating things again
+            pressed: false
+        }
+
+        document.body.onmousedown = () => {
+            Mouse.pressed = true;
+        }
+
+        document.body.onmouseup = () => {
+            Mouse.pressed = false;
+        }
 
         // ECA //
         interface ECA {
@@ -87,10 +125,6 @@ switch (page) {
             color: Boolean;
             cells: Element[][];
             ruleArray: number[];
-
-            alive(cell: Element): void;
-            kill(cell: Element): void;
-            toggle(cell: Element): void;
 
             makeCells(selector?: string): void;
             cellState(row: number, column: number): number;
@@ -145,6 +179,7 @@ switch (page) {
                         const cell = document.createElement('div');
                         cell.classList.add('cell', 'dead');
                         this.cells[i][j] = cell;
+
                         cell.onmouseenter = cell.onmouseleave = () => {
                             cell.classList.toggle('select');
                         };
@@ -152,11 +187,11 @@ switch (page) {
                         cell.onclick =
                             i == 0
                                 ? () => {
-                                    this.toggle(cell);
+                                    Cells.toggle(cell);
                                     this.generate();
                                 }
                                 : () => {
-                                    this.toggle(cell);
+                                    Cells.toggle(cell);
                                     const ruleChange = this.cellState(i, j);
                                     this.ruleArray.includes(ruleChange)
                                         ? (this.rule -= ruleChange)
@@ -173,7 +208,11 @@ switch (page) {
                 this.cells.forEach((layer) => {
                     const row = document.createElement('div');
                     row.classList.add('cell-row');
-                    for (let i = layer.length / 3; i < (2 * layer.length) / 3; i++) {
+                    for (
+                        let i = layer.length / 3;
+                        i < (2 * layer.length) / 3;
+                        i++
+                    ) {
                         row.appendChild(layer[i]);
                     }
                     $(this.selector).appendChild(row);
@@ -200,14 +239,15 @@ switch (page) {
                         const state = this.cellState(i, j);
                         let classes = Array.from(cell.classList);
                         classes.forEach((cellClass) => {
-                            cellClass.includes('color') && cell.classList.remove(cellClass);
+                            cellClass.includes('color') &&
+                                cell.classList.remove(cellClass);
                             return;
                         });
                         if (this.ruleArray.includes(state)) {
-                            this.alive(cell);
+                            Cells.alive(cell);
                             this.color && cell.classList.add(`color-${state}`);
                         } else {
-                            this.kill(cell);
+                            Cells.kill(cell);
                         }
                     });
                 });
@@ -216,11 +256,11 @@ switch (page) {
 
         ECA.makeCells('#eca-cells');
 
+        // eca user input
         $('#eca-rule').value = ECA.rule;
         $('#eca-row').value = ECA.rows;
         $('#eca-column').value = ECA.columns;
 
-        // user input
         $('#eca-rule').onchange = () => {
             ECA.rule = parseInt($('#eca-rule').value);
             ECA.generate();
@@ -264,14 +304,14 @@ switch (page) {
             ECA.generate();
         };
 
-        $('#eca-button').onclick = () => {
-            $all('.cell-row').forEach((element) => {
+        $('#eca-boxy').onclick = () => {
+            $all('#eca .cell-row').forEach((element) => {
                 element.style.margin = '0px auto';
             });
-            $all('.cell-row').forEach((element) => {
+            $all('#eca .cell-row').forEach((element) => {
                 element.style.gap = '0px';
             });
-            $all('.cell').forEach((element) => {
+            $all('#eca .cell').forEach((element) => {
                 element.style.borderRadius = '0px';
             });
         };
@@ -283,6 +323,132 @@ switch (page) {
         // i just realized that dave shiffman did a tutorial on this
         // and did it way better than me
         // oh well!
+
+        // GAME OF LIFE //
+
+        interface GOL {
+            rows: number;
+            columns: number;
+            cells: Element[][];
+
+            makeCells(selector?: string): void;
+            generate(): void;
+
+            [key: string]: any;
+        }
+
+        const GOL: GOL = {
+            rows: 150,
+            columns: 150,
+            cells: [],
+
+            makeCells: function (selector?: string): void {
+                selector && (this.selector = selector);
+                this.cells = [];
+                for (let i = 0; i < this.rows; i++) {
+                    this.cells[i] = [];
+                    for (let j = 0; j < this.columns; j++) {
+                        const cell = document.createElement('div');
+                        cell.classList.add('cell', 'dead');
+                        this.cells[i][j] = cell;
+
+                        cell.onmousedown = (event) => {
+                            event.preventDefault();
+                            Cells.toggle(cell);
+                        };
+
+                        cell.onmouseenter = () => {
+                            cell.classList.add('select');
+                            if (Mouse.pressed) {
+                                Cells.toggle(cell);
+                            }
+                        };
+
+                        cell.onmouseleave = () => {
+                            cell.classList.remove('select');
+                        };
+                    }
+                }
+
+                $(this.selector).innerHTML = '';
+                this.cells.forEach((layer) => {
+                    const row = document.createElement('div');
+                    row.classList.add('cell-row');
+                    layer.forEach((cell) => {
+                        row.appendChild(cell);
+                    });
+                    $(this.selector).appendChild(row);
+                });
+            },
+
+            generate: function (): void {
+                let aliveCells: Element[] = [];
+                let deadCells: Element[] = [];
+                this.cells.forEach((layer, i) => {
+                    layer.forEach((cell, j) => {
+                        let count = 0;
+                        for (let ii = -1; ii <= 1; ii++) {
+                            for (let jj = -1; jj <= 1; jj++) {
+                                if (ii == 0 && jj == 0) continue;
+                                // counting the number of cells that are alive
+                                this.cells[i + ii] &&
+                                    this.cells[i + ii][j + jj] &&
+                                    this.cells[i + ii][j + jj]
+                                        .classList.contains('alive') &&
+                                    count++;
+                            }
+                        }
+                        // the three rules
+                        cell.classList.contains('dead') &&
+                            count == 3 &&
+                            aliveCells.push(cell);
+                        cell.classList.contains('alive') &&
+                            count > 3 &&
+                            deadCells.push(cell);
+                        cell.classList.contains('alive') &&
+                            count < 2 &&
+                            deadCells.push(cell);
+                    });
+                });
+
+                aliveCells.forEach((cell) => {
+                    Cells.alive(cell);
+                });
+
+                deadCells.forEach((cell) => {
+                    Cells.kill(cell);
+                });
+            },
+
+            // TODO: allow user to customize rule
+        };
+
+        GOL.makeCells('#gol-cells');
+
+        // gol user input
+        $('#gol-generate').onclick = () => {
+            GOL.generate();
+        };
+
+        let generate = false;
+        let interval: number;
+        $('#gol-auto').onclick = () => {
+            generate ? (clearInterval(interval)) : (interval = setInterval(GOL.generate.bind(GOL), 150));
+            $('#gol-auto').innerHTML = generate ? 'auto generate' : 'stop';
+            generate = !generate;
+        };
+
+        $('#gol-boxy').onclick = () => {
+            $all('#gol .cell-row').forEach((element) => {
+                element.style.margin = '0px auto';
+            });
+            $all('#gol .cell-row').forEach((element) => {
+                element.style.gap = '0px';
+            });
+            $all('#gol .cell').forEach((element) => {
+                element.style.borderRadius = '0px';
+            });
+        };
 
         // ISS MAP //
         const L = (window as any).L;
@@ -351,7 +517,7 @@ switch (page) {
         $('#launch-list-button').onclick = () => {
             // turn launch api's 2021-08-28Twhatever into something readable
             const toDate = (net: string): string => {
-                let months = [
+                const months = [
                     'January',
                     'February',
                     'March',
@@ -365,10 +531,10 @@ switch (page) {
                     'November',
                     'December',
                 ];
-                let date = net.split('-');
-                let year = date[0];
-                let month = months[parseInt(date[1]) - 1];
-                let day = date[2].slice(0, 2);
+                const date = net.split('-');
+                const year = date[0];
+                const month = months[parseInt(date[1]) - 1];
+                const day = date[2].slice(0, 2);
                 return `${month} ${day}, ${year}`;
             };
 
