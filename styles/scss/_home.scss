@@ -1,0 +1,36 @@
+#iss-art {
+    padding: 4px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+
+    img {
+        animation: bounce 3s ease-in-out infinite;
+    }
+}
+
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(10px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    gap: 1rem;
+
+    img {
+        margin: auto;
+        aspect-ratio: 3/2;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+}

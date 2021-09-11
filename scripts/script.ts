@@ -1,7 +1,5 @@
-// Original program files written in Typescript, in script.ts
-
 ///////////////
-// FUNCTIONS //
+// GLOBAL JS //
 ///////////////
 
 // you can never escape the worse jquery
@@ -13,42 +11,21 @@ const $all = (query: string): any[] => {
     return Array.from(document.querySelectorAll(query));
 };
 
-const loadHTML = async (path: string, selector: string): Promise<void> => {
-    const element = $(selector);
-    if (!element) return;
-    const file = await fetch(path);
-    const html = await file.text();
-    element.innerHTML = html;
+let widescreen = false;
+$('#scroll-button').onclick = () => {
+    window.scrollTo(0, 0);
 };
 
-///////////////
-// GLOBAL JS //
-///////////////
-
-let widescreen = false;
-loadHTML('page/header.html', 'header');
-loadHTML('page/footer.html', 'footer').then(() => {
-    $('#scroll-button').onclick = () => {
-        window.scrollTo(0, 0);
-    };
-
-    $('#wide-button').onclick = () => {
-        if (widescreen) {
-            $('header').style.maxWidth = '50rem';
-            $('main').style.maxWidth = '50rem';
-            $('footer').style.maxWidth = '50rem';
-            $('#wide-button').innerHTML = '↔ widescreen';
-        } else {
-            $('header').style.maxWidth = 'none';
-            $('main').style.maxWidth = 'none';
-            $('footer').style.maxWidth = 'none';
-            $('#wide-button').innerHTML = '⇄ normal';
-        }
-        widescreen = !widescreen;
-    };
-});
-// i have no idea if this is remotely good,
-// but i got tired of copy pasting html
+$('#wide-button').onclick = () => {
+    if (widescreen) {
+        $('body').style.width = 'min(95vw, 50rem)';
+        $('#wide-button').innerHTML = '↔ widescreen';
+    } else {
+        $('body').style.width = '95vw';
+        $('#wide-button').innerHTML = 'normal';
+    }
+    widescreen = !widescreen;
+};
 
 //////////////////////
 // PAGE SPECIFIC JS //
@@ -68,8 +45,8 @@ switch (page) {
         issArtDiv.onclick = () => {
             issArtDiv.style.backgroundColor = issSpaceState ? 'white' : 'black';
             $('#iss-art img').src = issSpaceState
-                ? 'images/home/issArt.png'
-                : 'images/home/issArt.svg';
+                ? '../images/home/issArt.png'
+                : '../images/home/issArt.svg';
             issSpaceState = !issSpaceState;
         };
         break;
@@ -305,15 +282,7 @@ switch (page) {
         };
 
         $('#eca-boxy').onclick = () => {
-            $all('#eca .cell-row').forEach((element) => {
-                element.style.margin = '0px auto';
-            });
-            $all('#eca .cell-row').forEach((element) => {
-                element.style.gap = '0px';
-            });
-            $all('#eca .cell').forEach((element) => {
-                element.style.borderRadius = '0px';
-            });
+            $('#cell-style').setAttribute('href', "../styles/boxy.css");
         };
 
         $('#eca-reset').onclick = () => {
@@ -338,8 +307,8 @@ switch (page) {
         }
 
         const GOL: GOL = {
-            rows: 150,
-            columns: 150,
+            rows: 10,
+            columns: 15,
             cells: [],
 
             makeCells: function (selector?: string): void {
@@ -468,7 +437,7 @@ switch (page) {
             L.tileLayer(tileUrl, { attribution }).addTo(map);
 
             const issIcon = L.icon({
-                iconUrl: './images/space/issIcon.png',
+                iconUrl: '/images/iss/issIcon.png',
                 iconSize: [50, 35],
                 iconAnchor: [25, 17.5],
             });
@@ -501,7 +470,7 @@ switch (page) {
                 let latitude = position.coords.latitude;
                 let longitude = position.coords.longitude;
                 const userIcon = L.icon({
-                    iconUrl: './images/space/circle.svg',
+                    iconUrl: '/images/iss/circle.svg',
                     iconSize: [12, 12],
                     iconAnchor: [6, 6],
                 });

@@ -1,0 +1,115 @@
+:root {
+    font-family: 'Helvetica', 'Arial', 'Roboto', sans-serif;
+    font-size: 100%;
+    font-weight: 300;
+    line-height: 2rem;
+    --primary-color: hsl(265, 100%, 50%);
+    --shadow-color: hsl(0, 0%, 80%);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    width: min(95vw, 50rem);
+    margin: 0 auto;
+    padding: 0;
+}
+
+header {
+    margin-block: 2rem;
+    padding: 5rem 0;
+    background-color: var(--primary-color);
+    text-align: center;
+    border-radius: 8px;
+
+    nav {
+        max-width: max-content;
+        max-height: max-content;
+        margin-inline: auto;
+    }
+
+    h1 {
+        color: white;
+    }
+
+    span,
+    a {
+        height: 2rem;
+        color: white;
+        font-size: 1.5rem;
+    }
+}
+
+main {
+    img {
+        display: block;
+        width: min(25rem, 100%);
+        margin: 1rem auto;
+    }
+}
+
+footer {
+    margin-top: 2rem;
+
+    pre {
+        line-height: 1.3rem;
+        // background-color: #f6f8fa;
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 8px;
+    }
+
+    #page-buttons {
+        position: fixed;
+        bottom: 1vh;
+        right: 1vh;
+        float: right;
+    }
+}
+
+a {
+    position: relative;
+    top: 0;
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: all 0.15s ease-in-out;
+
+    &:hover {
+        top: -3px;
+    }
+}
+
+button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--primary-color);
+    font-family: inherit;
+    font-size: 1rem;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 4px var(--shadow-color);
+    transition: all 0.15s ease-in-out;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px var(--shadow-color);
+    }
+
+    &:active {
+        transform: translateY(2px);
+        box-shadow: 0 2px var(--shadow-color);
+    }
+}
+
+.card {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+    transition: all 0.15s ease-in-out;
+    box-shadow: 0 0 16px var(--shadow-color);
+}

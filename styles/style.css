@@ -1,12 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;700&display=swap");
 :root {
-  font-family: "IBM Plex Sans", sans-serif;
-  font-size: 18px;
+  font-family: "Helvetica", "Arial", "Roboto", sans-serif;
+  font-size: 100%;
   font-weight: 300;
   line-height: 2rem;
   --primary-color: hsl(265, 100%, 50%);
-  --shadow-color: hsl(0, 0%, 60%);
-  scroll-behavior: smooth;
+  --shadow-color: hsl(0, 0%, 80%);
 }
 
 *,
@@ -16,64 +14,61 @@
 }
 
 body {
-  margin: 0;
+  width: min(95vw, 50rem);
+  margin: 0 auto;
   padding: 0;
 }
 
 header {
-  max-width: 50rem;
-  margin: 2rem auto;
-  height: 16rem;
-  display: grid;
-  place-items: center;
+  margin-block: 2rem;
+  padding: 5rem 0;
   background-color: var(--primary-color);
-  color: white;
-  border-radius: 16px;
   text-align: center;
+  border-radius: 8px;
 }
-header h1,
 header nav {
-  margin: auto;
   max-width: max-content;
+  max-height: max-content;
+  margin-inline: auto;
 }
-header a {
-  font-size: x-large;
+header h1 {
   color: white;
+}
+header span,
+header a {
+  height: 2rem;
+  color: white;
+  font-size: 1.5rem;
 }
 
-main {
-  max-width: 50rem;
-  margin: 2rem auto;
-  padding: 0 1rem;
-}
-main img,
-main iframe {
-  width: 100%;
-  max-width: 25rem;
-  margin: 2rem auto;
+main img {
   display: block;
-  border-radius: 16px;
+  width: min(25rem, 100%);
+  margin: 1rem auto;
 }
 
 footer {
-  max-width: 50rem;
-  margin: 2rem auto;
-  padding: 0 1rem;
+  margin-top: 2rem;
 }
 footer pre {
   line-height: 1.3rem;
-  font-family: monospace;
-  white-space: pre;
-  background-color: #f6f8fa;
-  border-radius: 16px;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 8px;
+}
+footer #page-buttons {
+  position: fixed;
+  bottom: 1vh;
+  right: 1vh;
+  float: right;
 }
 
 a {
   position: relative;
   top: 0;
-  text-decoration: none;
-  transition: 0.15s ease-in-out;
   color: var(--primary-color);
+  text-decoration: none;
+  transition: all 0.15s ease-in-out;
 }
 a:hover {
   top: -3px;
@@ -81,12 +76,12 @@ a:hover {
 
 button {
   padding: 0.5rem 1rem;
-  font-size: 1rem;
-  font-family: "IBM Plex Sans", sans-serif;
-  color: white;
-  background-color: var(--primary-color);
   border: none;
-  border-radius: 8px;
+  border-radius: 4px;
+  background-color: var(--primary-color);
+  font-family: inherit;
+  font-size: 1rem;
+  color: white;
   cursor: pointer;
   box-shadow: 0 4px var(--shadow-color);
   transition: all 0.15s ease-in-out;
@@ -96,61 +91,31 @@ button:hover {
   box-shadow: 0 6px var(--shadow-color);
 }
 button:active {
-  transform: translateY(3px);
-  box-shadow: 0 1px var(--shadow-color);
-}
-
-input[type=number],
-input[type=text] {
-  width: 100%;
-  border: none;
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-  font-size: 1rem;
-  background-color: transparent;
-}
-input[type=number]:focus,
-input[type=text]:focus {
-  outline: none;
-}
-
-hr {
-  border: 0.5px solid;
-}
-
-canvas {
-  border: 1px solid black;
+  transform: translateY(2px);
+  box-shadow: 0 2px var(--shadow-color);
 }
 
 .card {
-  margin: 2rem auto;
-  padding: 0.5rem 1rem;
-  box-shadow: 0px 0px 18px var(--shadow-color);
-  border-radius: 16px;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  transition: all 0.15s ease-in-out;
+  box-shadow: 0 0 16px var(--shadow-color);
 }
 
-.image-grid {
-  margin: 2rem auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-  gap: 1rem;
-}
-.image-grid img {
-  margin: auto;
-  aspect-ratio: 3/2;
-  object-fit: cover;
+#iss-map {
+  aspect-ratio: 9/5;
+  display: none;
+  border-radius: 8px;
 }
 
-#page-buttons {
-  position: fixed;
-  bottom: 36px;
-  right: 36px;
-  float: right;
+#position-button {
+  display: none;
 }
 
 #iss-art {
-  padding: 5px;
-  border-radius: 16px;
+  padding: 4px;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.15s ease-in-out;
 }
@@ -166,95 +131,14 @@ canvas {
     transform: translateY(-10px);
   }
 }
-#iss-map {
-  aspect-ratio: 9/5;
-  border-radius: 16px;
-  display: none;
-}
-#iss-map img {
-  border-radius: 0px;
-}
-
-#position-button {
-  display: none;
-}
-
-#eca .color-1 {
-  background-color: #eb4768;
-}
-#eca .color-2 {
-  background-color: #eba147;
-}
-#eca .color-4 {
-  background-color: #baeb47;
-}
-#eca .color-8 {
-  background-color: #47eb50;
-}
-#eca .color-16 {
-  background-color: #47ebca;
-}
-#eca .color-32 {
-  background-color: #4791eb;
-}
-#eca .color-64 {
-  background-color: #7847eb;
-}
-#eca .color-128 {
-  background-color: #eb47e2;
-}
-
-.card-input {
-  max-width: 50rem;
+.image-grid {
   display: grid;
-  width: 100%;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   gap: 1rem;
 }
-.card-input div {
-  grid-area: 1/1/4/3;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  padding: 0.5px 1px;
-  text-align: center;
-  color: white;
+.image-grid img {
+  margin: auto;
+  aspect-ratio: 3/2;
+  object-fit: cover;
   border-radius: 8px;
-  background-color: var(--primary-color);
-  box-shadow: 0 4px var(--shadow-color);
 }
-.card-input div input {
-  padding: 1px 1rem;
-  color: white;
-  border: none;
-}
-
-.cells {
-  margin: 2rem auto;
-}
-.cells .alive {
-  background-color: #333333;
-}
-.cells .dead {
-  background-color: #e6e6e6;
-}
-.cells .cell-row {
-  margin: 1px auto;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  gap: 1px;
-}
-.cells .cell-row .cell {
-  flex-grow: 1;
-  border-radius: 2px;
-  display: block;
-  aspect-ratio: 1/1;
-  cursor: pointer;
-  transition: all 0.15s ease-in-out;
-}
-.cells .cell-row .select {
-  transform: scale(0.9);
-}
-
-/*# sourceMappingURL=style.css.map */
