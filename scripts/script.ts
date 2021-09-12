@@ -112,7 +112,7 @@ switch (page) {
 
         const ECA: ECA = {
             rule: 30,
-            rows: 10,
+            rows: 15,
             columns: 15,
             color: false,
             cells: [],
@@ -281,9 +281,16 @@ switch (page) {
             ECA.generate();
         };
 
-        $('#eca-boxy').onclick = () => {
-            $('#cell-style').setAttribute('href', "../styles/boxy.css");
-        };
+        let boxy = false;
+        $all('.boxy-button').forEach((button) => {
+            button.onclick = () => {
+                $('#cell-style').setAttribute('href', boxy ? '../styles/projects/cells.css' : '../styles/projects/boxy.css');
+                $all('.boxy-button').forEach((button) => {
+                    button.innerHTML = boxy ? 'boxy mode' : 'no boxy';
+                });
+                boxy = !boxy;
+            };
+        });
 
         $('#eca-reset').onclick = () => {
             window.location.reload();
@@ -307,7 +314,7 @@ switch (page) {
         }
 
         const GOL: GOL = {
-            rows: 10,
+            rows: 15,
             columns: 15,
             cells: [],
 
@@ -395,6 +402,9 @@ switch (page) {
         GOL.makeCells('#gol-cells');
 
         // gol user input
+        $('#gol-row').value = GOL.rows;
+        $('#gol-column').value = GOL.columns;
+
         $('#gol-generate').onclick = () => {
             GOL.generate();
         };
@@ -407,16 +417,14 @@ switch (page) {
             generate = !generate;
         };
 
-        $('#gol-boxy').onclick = () => {
-            $all('#gol .cell-row').forEach((element) => {
-                element.style.margin = '0px auto';
-            });
-            $all('#gol .cell-row').forEach((element) => {
-                element.style.gap = '0px';
-            });
-            $all('#gol .cell').forEach((element) => {
-                element.style.borderRadius = '0px';
-            });
+        $('#gol-row').onchange = () => {
+            GOL.rows = parseInt($('#gol-row').value);
+            GOL.makeCells();
+        };
+
+        $('#gol-column').onchange = () => {
+            GOL.columns = parseInt($('#gol-column').value);
+            GOL.makeCells();
         };
 
         // ISS MAP //
