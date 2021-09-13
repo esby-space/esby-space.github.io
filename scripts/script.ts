@@ -117,22 +117,6 @@ switch (page) {
             color: false,
             cells: [],
 
-            // me being lazy functions
-            alive: function (cell: Element) {
-                cell.classList.remove('dead');
-                cell.classList.add('alive');
-            },
-
-            kill: function (cell: Element) {
-                cell.classList.remove('alive');
-                cell.classList.add('dead');
-            },
-
-            toggle: function (cell: Element) {
-                cell.classList.toggle('alive');
-                cell.classList.toggle('dead');
-            },
-
             // turn rule into binary, then sums of power of 2
             get ruleArray(): number[] {
                 const binary = this.rule.toString(2);
@@ -395,7 +379,6 @@ switch (page) {
                     Cells.kill(cell);
                 });
             },
-
             // TODO: allow user to customize rule
         };
 
