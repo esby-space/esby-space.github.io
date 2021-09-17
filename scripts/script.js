@@ -24,6 +24,10 @@ $('#wide-button').onclick = () => {
     }
     widescreen = !widescreen;
 };
+let Paint = {};
+// janky solution >~<
+// the Paint object needs to be accessed in the HTML document,
+// so it needs ot be declared globally
 //////////////////////
 // PAGE SPECIFIC JS //
 //////////////////////
@@ -46,6 +50,16 @@ switch (page) {
         };
         break;
     case 'projects.html':
+        const Mouse = {
+            // me overcomplicating things again
+            pressed: false
+        };
+        document.body.onmousedown = () => {
+            Mouse.pressed = true;
+        };
+        document.body.onmouseup = () => {
+            Mouse.pressed = false;
+        };
         const Cells = {
             // me being lazy functions
             alive: function (cell) {
@@ -61,35 +75,12 @@ switch (page) {
                 cell.classList.toggle('dead');
             },
         };
-        const Mouse = {
-            // me overcomplicating things again
-            pressed: false
-        };
-        document.body.onmousedown = () => {
-            Mouse.pressed = true;
-        };
-        document.body.onmouseup = () => {
-            Mouse.pressed = false;
-        };
         const ECA = {
             rule: 30,
             rows: 15,
             columns: 15,
             color: false,
             cells: [],
-            // me being lazy functions
-            alive: function (cell) {
-                cell.classList.remove('dead');
-                cell.classList.add('alive');
-            },
-            kill: function (cell) {
-                cell.classList.remove('alive');
-                cell.classList.add('dead');
-            },
-            toggle: function (cell) {
-                cell.classList.toggle('alive');
-                cell.classList.toggle('dead');
-            },
             // turn rule into binary, then sums of power of 2
             get ruleArray() {
                 const binary = this.rule.toString(2);
@@ -204,14 +195,14 @@ switch (page) {
         $('#eca-random-first').onclick = () => {
             const length = ECA.cells[0].length;
             for (let i = length / 3; i < (2 * length) / 3; i++) {
-                ECA.kill(ECA.cells[0][i]);
-                Math.random() > 0.5 && ECA.toggle(ECA.cells[0][i]);
+                Cells.kill(ECA.cells[0][i]);
+                Math.random() > 0.5 && Cells.toggle(ECA.cells[0][i]);
             }
             ECA.generate();
         };
         $('#eca-clear-first').onclick = () => {
             ECA.cells[0].forEach((cell) => {
-                ECA.kill(cell);
+                Cells.kill(cell);
             });
             ECA.generate();
         };
@@ -419,8 +410,34 @@ switch (page) {
             getLaunches();
             // TODO: display specific times of rocket launches, add images, sort
         };
+        // PAINT //
+        Paint = {
+            color: 'hsl(0, 0%, 20%)',
+            makeCanvas: function (selector) {
+                selector && (this.canvas = $(selector));
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = this.canvas.clientWidth;
+                canvas.height = 2 * canvas.width / 3;
+                canvas.onmousedown = () => {
+                    ctx.beginPath();
+                };
+                canvas.onmousemove = (event) => {
+                    ctx.strokeStyle = this.color;
+                    if (Mouse.pressed) {
+                        const x = event.offsetX;
+                        const y = event.offsetY;
+                        ctx.lineTo(x, y);
+                        ctx.stroke();
+                    }
+                };
+                this.canvas.appendChild(canvas);
+            },
+        };
+        Paint.makeCanvas('#paint-canvas');
 }
 // /\__/\
 // (=o.o=)
 // |/--\|
 // (")-(")
+//# sourceMappingURL=script.js.map

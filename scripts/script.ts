@@ -27,6 +27,11 @@ $('#wide-button').onclick = () => {
     widescreen = !widescreen;
 };
 
+let Paint: any = {};
+// janky solution >~<
+// the Paint object needs to be accessed in the HTML document,
+// so it needs ot be declared globally
+
 //////////////////////
 // PAGE SPECIFIC JS //
 //////////////////////
@@ -53,30 +58,6 @@ switch (page) {
 
     case 'projects.html':
         // HELPER OBJECTS //
-        interface Cell {
-            alive(cell: Element): void;
-            kill(cell: Element): void;
-            toggle(cell: Element): void;
-        }
-
-        const Cells: Cell = {
-            // me being lazy functions
-            alive: function (cell: Element) {
-                cell.classList.remove('dead');
-                cell.classList.add('alive');
-            },
-
-            kill: function (cell: Element) {
-                cell.classList.remove('alive');
-                cell.classList.add('dead');
-            },
-
-            toggle: function (cell: Element) {
-                cell.classList.toggle('alive');
-                cell.classList.toggle('dead');
-            },
-        };
-
         interface Mouse {
             pressed: boolean;
         }
@@ -93,6 +74,30 @@ switch (page) {
         document.body.onmouseup = () => {
             Mouse.pressed = false;
         }
+
+        interface Cells {
+            alive(cell: Element): void;
+            kill(cell: Element): void;
+            toggle(cell: Element): void;
+        }
+
+        const Cells: Cells = {
+            // me being lazy functions
+            alive: function (cell: Element) {
+                cell.classList.remove('dead');
+                cell.classList.add('alive');
+            },
+
+            kill: function (cell: Element) {
+                cell.classList.remove('alive');
+                cell.classList.add('dead');
+            },
+
+            toggle: function (cell: Element) {
+                cell.classList.toggle('alive');
+                cell.classList.toggle('dead');
+            },
+        };
 
         // ECA //
         interface ECA {
@@ -246,15 +251,15 @@ switch (page) {
         $('#eca-random-first').onclick = () => {
             const length = ECA.cells[0].length;
             for (let i = length / 3; i < (2 * length) / 3; i++) {
-                ECA.kill(ECA.cells[0][i]);
-                Math.random() > 0.5 && ECA.toggle(ECA.cells[0][i]);
+                Cells.kill(ECA.cells[0][i]);
+                Math.random() > 0.5 && Cells.toggle(ECA.cells[0][i]);
             }
             ECA.generate();
         };
 
         $('#eca-clear-first').onclick = () => {
             ECA.cells[0].forEach((cell) => {
-                ECA.kill(cell);
+                Cells.kill(cell);
             });
             ECA.generate();
         };
@@ -514,6 +519,39 @@ switch (page) {
             getLaunches();
             // TODO: display specific times of rocket launches, add images, sort
         };
+
+        // PAINT //
+        Paint = {
+            color: 'hsl(0, 0%, 20%)',
+
+            makeCanvas: function (selector?: string): void {
+                selector && (this.canvas = $(selector));
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d')!;
+
+                canvas.width = this.canvas.clientWidth;
+                canvas.height = 2 * canvas.width / 3;
+
+                canvas.onmousedown = () => {
+                    ctx.beginPath();
+                }
+
+                canvas.onmousemove = (event) => {
+                    ctx.strokeStyle = this.color;
+                    if (Mouse.pressed) {
+                        const x = event.offsetX;
+                        const y = event.offsetY;
+                        ctx.lineTo(x, y);
+                        ctx.stroke();
+                    }
+                };
+
+                this.canvas.appendChild(canvas);
+            },
+        }
+
+        Paint.makeCanvas('#paint-canvas');
+
 }
 
 // /\__/\

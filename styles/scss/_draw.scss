@@ -1,0 +1,24 @@
+#paint {
+    canvas {
+        margin-block: 1rem;
+        width: 100%;
+        aspect-ratio: 3 / 2;
+        box-shadow: 0 0 16px var(--shadow-color);
+        border-radius: 8px;
+        cursor: crosshair;
+    }
+
+    #paint-colors {
+        margin-block: 1rem;
+        display: flex;
+        justify-content: space-evenly;
+
+        .paint-color {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--shadow-color);
+            cursor: pointer;
+        }
+    }
+}

@@ -20,41 +20,41 @@
 }
 
 .cells .cell-row .alive {
-    background-color: #333333;
+    background-color: hsl(0, 0%, 20%);
 }
 
 .cells .cell-row .dead {
-    background-color: #f2f2f2;
+    background-color: hsl(0, 0%, 95%);
 }
 
 #eca .color-1 {
-    background-color: #eb4768;
+    background-color: hsl(348, 80%, 60%);
 }
 
 #eca .color-2 {
-    background-color: #eba147;
+    background-color: hsl(33, 80%, 60%);
 }
 
 #eca .color-4 {
-    background-color: #baeb47;
+    background-color: hsl(78, 80%, 60%);
 }
 
 #eca .color-8 {
-    background-color: #47eb50;
+    background-color: hsl(123, 80%, 60%);
 }
 
 #eca .color-16 {
-    background-color: #47ebca;
+    background-color: hsl(168, 80%, 60%);
 }
 
 #eca .color-32 {
-    background-color: #4791eb;
+    background-color: hsl(213, 80%, 60%);
 }
 
 #eca .color-64 {
-    background-color: #7847eb;
+    background-color: hsl(258, 80%, 60%);
 }
 
 #eca .color-128 {
-    background-color: #eb47e2;
+    background-color: hsl(303, 80%, 60%);
 }

@@ -5,6 +5,7 @@
     line-height: 2rem;
     --primary-color: hsl(265, 100%, 50%);
     --shadow-color: hsl(0, 0%, 80%);
+    scroll-behavior: smooth;
 }
 
 *,
@@ -20,7 +21,7 @@ body {
 }
 
 header {
-    margin-block: 2rem;
+    margin-block: 1rem;
     padding: 5rem 0;
     background-color: var(--primary-color);
     text-align: center;
@@ -53,7 +54,7 @@ main {
 }
 
 footer {
-    margin-top: 2rem;
+    margin-block: 1rem;
 
     pre {
         line-height: 1.3rem;
@@ -107,9 +108,23 @@ button {
 }
 
 .card {
-    margin-bottom: 1rem;
+    margin-block: 1rem;
     padding: 1rem;
     border-radius: 8px;
     transition: all 0.15s ease-in-out;
     box-shadow: 0 0 16px var(--shadow-color);
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    gap: 1rem;
+    margin-block: 1rem;
+
+    img {
+        margin: auto;
+        aspect-ratio: 3 / 2;
+        object-fit: cover;
+        border-radius: 8px;
+    }
 }
