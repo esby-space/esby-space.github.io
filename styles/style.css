@@ -18,6 +18,7 @@ body {
   width: min(95vw, 50rem);
   margin: 0 auto;
   padding: 0;
+  transition: width 0.15s ease-in-out;
 }
 
 header {
@@ -153,6 +154,12 @@ button:active {
   border-radius: 8px;
   cursor: crosshair;
 }
+#paint #paint-buttons {
+  margin-block: 1rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
 #paint #paint-colors {
   margin-block: 1rem;
   display: flex;
@@ -163,6 +170,22 @@ button:active {
   height: 48px;
   border-radius: 50%;
   box-shadow: 0 0 8px var(--shadow-color);
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+#paint #paint-colors .paint-color:hover {
+  transform: scale(0.9);
+}
+#paint input[type=range] {
+  margin-inline: 25%;
+  width: 50%;
+  border: none;
+}
+#paint input[type=color] {
+  width: 48px;
+  height: 48px;
+  margin-inline: calc(50% - 24px);
+  border: none;
   cursor: pointer;
 }
 

@@ -171,6 +171,12 @@
         <section id="paint" class="card">
             <h3>michaelsoft paint</h3>
             <div id="paint-canvas"></div>
+            <div id="paint-buttons">
+                <button>fill</button>
+                <button id="paint-clear">clear</button>
+                <button id="paint-save">save</button>
+            </div>
+            <input type="range" min="1" max="50" id="paint-slider">
             <div id="paint-controls">
                 <div id="paint-colors">
                     <div class="paint-color" style="background-color: hsl(0, 0%, 20%);"
@@ -195,6 +201,7 @@
                         onclick="Paint.color = 'hsl(303, 80%, 60%)'"></div>
                 </div>
             </div>
+            <input type="color">
             <p>idea taken from <a
                     href="https://www.youtube.com/watch?v=mXssD1qCA5A&list=PLt1m5Xv06FppX3awLr1bAnm4A6DEuaJAC&index=1">nomad
                     coders</a>, and my friends in cs who did this when they were 2</p>

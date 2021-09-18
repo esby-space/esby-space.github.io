@@ -523,13 +523,15 @@ switch (page) {
         // PAINT //
         Paint = {
             color: 'hsl(0, 0%, 20%)',
+            strokeWidth: 1,
 
             makeCanvas: function (selector?: string): void {
-                selector && (this.canvas = $(selector));
+                selector && (this.container = $(selector));
+                this.container.innerHTML = '';
                 const canvas = document.createElement('canvas');
                 const ctx = canvas.getContext('2d')!;
 
-                canvas.width = this.canvas.clientWidth;
+                canvas.width = this.container.clientWidth;
                 canvas.height = 2 * canvas.width / 3;
 
                 canvas.onmousedown = () => {
@@ -538,6 +540,7 @@ switch (page) {
 
                 canvas.onmousemove = (event) => {
                     ctx.strokeStyle = this.color;
+                    ctx.lineWidth = this.strokeWidth;
                     if (Mouse.pressed) {
                         const x = event.offsetX;
                         const y = event.offsetY;
@@ -546,11 +549,33 @@ switch (page) {
                     }
                 };
 
-                this.canvas.appendChild(canvas);
+                this.container.appendChild(canvas);
             },
         }
 
         Paint.makeCanvas('#paint-canvas');
+        $('#paint-slider').value = Paint.strokeWidth;
+
+        $('input[type="color"]').onchange = (() => {
+            Paint.color = $('input[type="color"]').value;
+        });
+
+        $('#paint-slider').onchange = (() => {
+            Paint.strokeWidth = $('#paint-slider').value;
+        });
+
+        $('#paint-clear').onclick = (() => {
+            Paint.makeCanvas();
+        });
+
+        $('#paint-save').onclick = (async () => {
+            const canvas = $('#paint-canvas canvas');
+            let url = canvas.toDataURL();
+            const a = document.createElement('a');
+            a.setAttribute('href', url);
+            a.click();
+            // FIXME: not working in chrome
+        });
 
 }
 
