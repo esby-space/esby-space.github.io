@@ -8,9 +8,12 @@
     <meta content="width=device-width,initial-scale=1" name="viewport">
 
     <title>esby projects</title>
-    <script src="../scripts/script.js" defer></script>
-    <link href="../styles/style.css" rel="stylesheet">
-    <link id="cell-style" rel="stylesheet" href="">
+    <script defer src="../scripts/script.js"></script>
+    <script defer src="../scripts/cells.js"></script>
+    <script defer src="../scripts/space.js"></script>
+    <script defer src="../scripts/paint.js"></script>
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="" id="cell-style">
     <link href="../images/favicon.png" rel="shortcut icon" type="image/x-icon">
 
     <link href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" rel="stylesheet" crossorigin=""
@@ -38,17 +41,6 @@
 
     <main>
 
-        <section id="boids">
-            <iframe src="./boids.html" frameborder="0"></iframe>
-            <p><a href="./boids.html">boids!</a> far from perfect, but they look ok! i needed a lot of help from <a
-                    href="https://explorabl.es/">the explorable explanatons webstie</a>, <a
-                    href="https://www.youtube.com/watch?v=mhjuuHl6qHM">the coding train</a>, <a
-                    href="https://www.youtube.com/watch?v=bqtqltqcQhw">sebastian
-                    lague</a>, and <a href="https://www.red3d.com/cwr/papers/1987/SIGGRAPH87.pdf">the original paper by
-                    craig reynolds</a>
-            </p>
-        </section>
-
         <h2>projects im kinda working on!</h2>
 
         <p>a lot of these are either common programming projects for beginners, following along with tutorials, or me
@@ -56,10 +48,25 @@
         <p>(many of these won't work in safari or mobile because css is not my friend, sorry!)</p>
 
         <section class="image-grid">
+            <a href="#boids"><img src="../images/projects/boids.jpg" alt="Boids!"></a>
             <a href="#eca"><img src="../images/projects/ECA.jpg" alt="ECA"></a>
             <a href="#gol"><img src="../images/projects/GOL.jpg" alt="Game of Life"></a>
             <a href="#iss"><img src="../images/projects/ISS.jpg" alt="Where is the ISS?"></a>
-            <a href="#launch"><img src="../images/projects/spaceWalk.jpg" alt="Departures from Earth"></a>
+        </section>
+        <hr>
+
+        <h2>artifical life simulation</h2>
+        <section class="card" id="boids">
+            <h3>boids!</h3>
+            <iframe src="./boids.html" frameborder="0"></iframe>
+            <p><a href="./boids.html">boids!</a> far from perfect, but i think they look ok! i needed a lot of help from
+                <a href="https://explorabl.es/">the explorable explanatons webstie</a>, <a
+                    href="https://www.youtube.com/watch?v=mhjuuHl6qHM">the coding train</a>, <a
+                    href="https://www.youtube.com/watch?v=bqtqltqcQhw">sebastian
+                    lague</a>, and <a href="https://www.red3d.com/cwr/papers/1987/SIGGRAPH87.pdf">the original paper by
+                    craig reynolds.</a> check out <a href="https://www.youtube.com/watch?v=4LWmRuB-uNU">smarter
+                    everyday's video</a> on it too!
+            </p>
         </section>
         <hr>
 
@@ -154,7 +161,7 @@
         </section>
         <hr>
 
-        <h2>space related apis</h2>
+        <h2>space stuff</h2>
         <section class="card" id="iss">
             <h3>where is the ISS?</h3>
             <button id="iss-button" class="center">find the ISS!</button>
@@ -166,9 +173,7 @@
             <p>this idea was taken from <a href="https://www.youtube.com/watch?v=nZaZ2dB6pow">the coding
                     train</a><br>thanks to the people at <a href="https://wheretheiss.at">where is the iss at?</a> for
                 maintaining the api!</p>
-        </section>
 
-        <section class="card" id="launch">
             <h3>upcoming rocket launches:</h3>
             <button id="launch-list-button">plan your departure from earth!</button>
             <ul id="launch-list"></ul>

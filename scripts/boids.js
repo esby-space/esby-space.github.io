@@ -1,91 +1,47 @@
 "use strict";
-const Vector = {
-    angle: function (vector) {
-        return Math.atan2(vector[1], vector[0]);
-    },
-    toVector: function (angle) {
-        return [Math.cos(angle), Math.sin(angle)];
-    },
-    magnitude: function (vector) {
-        return Math.sqrt(vector[0] ** 2 + vector[1] ** 2);
-    },
-    add: function (vectors) {
-        return vectors.reduce((added, vector) => {
-            return [added[0] + vector[0], added[1] + vector[1]];
-        }, [0, 0]);
-    },
-    average: function (vectors) {
-        let averagedVector = Vector.add(vectors);
-        averagedVector[0] /= averagedVector.length;
-        averagedVector[1] /= averagedVector.length;
-        return averagedVector;
-    },
-    normalize: function (vector, magnitude = 1) {
-        return [
-            (vector[0] * magnitude) / Vector.magnitude(vector),
-            (vector[1] * magnitude) / Vector.magnitude(vector),
-        ];
-    },
-};
-const canvas = document.createElement('canvas');
-const width = document.body.clientWidth;
-const height = document.body.clientHeight;
-canvas.width = width;
-canvas.height = height;
-canvas.style.width = width + 'px';
-canvas.style.height = height + 'px';
-document.body.appendChild(canvas);
-const ctx = canvas.getContext('2d');
-ctx.lineWidth = 1;
-ctx.strokeStyle = 'hsl(0, 0%, 90%)';
-ctx.fillStyle = 'hsl(0, 0%, 10%)';
-ctx.fillRect(0, 0, canvas.width, canvas.height);
-const numBoids = 100;
-const boidRange = 100;
-const speed = 3;
-const boids = [];
-const showLines = false;
-const showCirlce = false;
+class Vector {
+    x;
+    y;
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+    magnitude() {
+        return Math.sqrt(this.x ** 2 + this.y ** 2);
+    }
+    add(vector) {
+        return new Vector(vector.x + this.x, vector.y + this.y);
+    }
+    subtract(vector) {
+        return new Vector(this.x - vector.x, this.y - vector.y);
+    }
+    mulitply(scalar) {
+        return new Vector(this.x * scalar, this.y * scalar);
+    }
+    divide(scalar) {
+        return new Vector(this.x / scalar, this.y / scalar);
+    }
+    normalize(magnitude = 1) {
+        return this.magnitude() == 0
+            ? new Vector(0, 0)
+            : this.mulitply(magnitude / this.magnitude());
+    }
+    limit(limit) {
+        return this.magnitude() > limit ? this.normalize(limit) : this;
+    }
+}
+function vector(x, y) {
+    return new Vector(x, y);
+}
 class Boid {
-    x = Math.random() * width;
-    y = Math.random() * height;
+    x = width * Math.random();
+    y = height * Math.random();
     angle = Math.random() * Math.PI * 2;
-    closestBoid = (boids, range) => {
-        let closestBoid = boids[0];
-        let shortestDistance = Infinity;
-        boids.forEach((boid) => {
-            if (boid == this) {
-                return;
-            }
-            const distance = Vector.magnitude([
-                boid.x - this.x,
-                boid.y - this.y,
-            ]);
-            if (distance < shortestDistance) {
-                shortestDistance = distance;
-                closestBoid = boid;
-            }
-        });
-        if (shortestDistance > range) {
-            return null;
-        }
-        ;
-        return closestBoid;
-    };
-    closeBoids = (boids, range) => {
-        const closeBoids = boids.filter((boid) => {
-            if (boid == this) {
-                return false;
-            }
-            return Vector.magnitude([boid.x - this.x, boid.y - this.y]) < range;
-        });
-        return closeBoids;
-    };
     draw = () => {
         ctx.save();
+        ctx.beginPath();
         ctx.translate(this.x, this.y);
         ctx.rotate(this.angle);
-        ctx.beginPath();
         ctx.moveTo(10, 0);
         ctx.lineTo(-5, 5);
         ctx.lineTo(-5, -5);
@@ -93,102 +49,130 @@ class Boid {
         ctx.stroke();
         ctx.restore();
     };
-    update = () => {
-        // teleport the boid if it goes off-screen
-        if (this.x > width) {
-            this.x = 0;
+    update = (boids) => {
+        // teleport if out of bounds
+        this.x < 0 && (this.x = width);
+        this.y < 0 && (this.y = height);
+        this.x > width && (this.x = 0);
+        this.y > height && (this.y = 0);
+        // velocity and position
+        let velocity = vector(Math.cos(this.angle), Math.sin(this.angle)).normalize(speed);
+        let position = vector(this.x, this.y);
+        let acceleration = vector(0, 0);
+        // find the closest boids (that is not self)
+        const closestBoids = [];
+        boids.forEach((boid) => {
+            const distance = vector(boid.x, boid.y)
+                .subtract(position)
+                .magnitude();
+            if (distance < viewRadius && distance != 0) {
+                closestBoids.push(boid);
+            }
+        });
+        // seperation
+        let seperation = vector(0, 0);
+        let count = 0;
+        closestBoids.forEach((boid) => {
+            let difference = position.subtract(vector(boid.x, boid.y));
+            const distance = difference.magnitude();
+            difference = difference.normalize();
+            difference = difference.divide(distance);
+            seperation = seperation.add(difference);
+            count++;
+        });
+        if (count > 0) {
+            seperation = seperation.divide(count);
+            seperation = seperation.normalize(speed);
+            seperation = seperation.subtract(velocity);
+            seperation = seperation.limit(turningForce);
         }
-        if (this.y > height) {
-            this.y = 0;
+        else {
+            seperation = vector(0, 0);
         }
-        if (this.x < 0) {
-            this.x = width;
+        // alignment
+        let alignment = vector(0, 0);
+        count = 0;
+        closestBoids.forEach((boid) => {
+            alignment = alignment.add(vector(Math.cos(boid.angle), Math.sin(boid.angle)).normalize(speed));
+            count++;
+        });
+        if (count > 0) {
+            alignment = alignment.divide(count);
+            alignment = alignment.normalize(speed);
+            alignment = alignment.subtract(velocity);
+            alignment = alignment.limit(turningForce);
         }
-        if (this.y < 0) {
-            this.y = height;
+        else {
+            alignment = vector(0, 0);
         }
-        // move the boid forward
-        this.x += Math.cos(this.angle) * speed;
-        this.y += Math.sin(this.angle) * speed;
-        // determining new direction
-        const closeBoids = this.closeBoids(boids, boidRange);
-        const closestBoid = this.closestBoid(boids, boidRange);
-        let turnVector = Vector.toVector(this.angle);
-        // Separation
-        if (closestBoid) {
-            let seperationVector = [
-                this.x - closestBoid.x,
-                this.y - closestBoid.y,
-            ];
-            turnVector = Vector.normalize(turnVector, 0.9);
-            seperationVector = Vector.normalize(seperationVector, 0.1);
-            turnVector = Vector.add([turnVector, seperationVector]);
+        // cohesion
+        let cohesion = vector(0, 0);
+        count = 0;
+        closestBoids.forEach((boid) => {
+            cohesion = cohesion.add(vector(boid.x, boid.y));
+            count++;
+        });
+        if (count > 0) {
+            cohesion = cohesion.divide(count);
+            cohesion = cohesion.subtract(position);
+            cohesion = cohesion.normalize(speed);
+            cohesion = cohesion.subtract(velocity);
+            cohesion = cohesion.limit(turningForce);
         }
-        // Alignment
-        if (closeBoids.length > 0) {
-            let alignmentVector = [0, 0];
-            closeBoids.forEach((boid) => {
-                if (boid == this) {
-                    return;
-                }
-                alignmentVector = Vector.add([
-                    alignmentVector,
-                    Vector.toVector(boid.angle),
-                ]);
-            });
-            turnVector = Vector.normalize(turnVector, 0.9);
-            alignmentVector = Vector.normalize(alignmentVector, 0.1);
-            turnVector = Vector.add([turnVector, alignmentVector]);
+        else {
+            cohesion = vector(0, 0);
         }
-        // Cohesion
-        if (closeBoids.length > 0) {
-            let boidVector = [];
-            closeBoids.forEach((boid) => {
-                boidVector.push([boid.x, boid.y]);
-            });
-            let cohesionVector = Vector.average(boidVector);
-            console.log(cohesionVector);
-            cohesionVector = [cohesionVector[0] - this.x, cohesionVector[1] - this.y];
-            turnVector = Vector.normalize(turnVector, 0.9);
-            cohesionVector = Vector.normalize(cohesionVector, 0.1);
-            turnVector = Vector.add([turnVector, cohesionVector]);
-        }
-        this.angle = Vector.angle(turnVector);
-        // line between close boids
-        if (showLines) {
-            closeBoids.forEach((boid) => {
-                ctx.save();
-                ctx.moveTo(this.x, this.y);
-                ctx.lineTo(boid.x, boid.y);
-                ctx.closePath();
-                ctx.stroke();
-                ctx.restore();
-            });
-        }
-        // circles of closeness
-        if (showCirlce) {
-            ctx.save();
-            ctx.moveTo(this.x + boidRange, this.y);
-            ctx.arc(this.x, this.y, boidRange, 0, 2 * Math.PI);
-            ctx.closePath();
-            ctx.stroke();
-            ctx.restore();
-        }
+        // add all the forces together
+        acceleration = acceleration.add(seperation.mulitply(seperationForce));
+        acceleration = acceleration.add(alignment.mulitply(alignmentForce));
+        acceleration = acceleration.add(cohesion.mulitply(cohesionForce));
+        // move and turn the boid
+        velocity = velocity.add(acceleration);
+        velocity = velocity.normalize(speed);
+        position = position.add(velocity);
+        this.x = position.x;
+        this.y = position.y;
+        this.angle = Math.atan2(velocity.y, velocity.x);
     };
 }
-const draw = (numBoids) => {
-    for (let i = 0; i < numBoids; i++) {
+const canvas = document.querySelector('#boids');
+let width = (canvas.width = document.body.clientWidth);
+let height = (canvas.height = document.body.clientHeight);
+const resize = () => {
+    width = canvas.width = document.body.clientWidth;
+    height = canvas.height = document.body.clientHeight;
+    ctx.strokeStyle = 'white';
+    ctx.lineWidth = 1;
+};
+window.onresize = resize;
+const ctx = canvas.getContext('2d');
+ctx.strokeStyle = 'white';
+ctx.lineWidth = 1;
+const density = 15000;
+const speed = 3;
+const viewRadius = 100;
+const turningForce = 0.4;
+const seperationForce = 1.3;
+const alignmentForce = 1;
+const cohesionForce = 1;
+let boids = [];
+const draw = (number) => {
+    for (let i = 0; i < number; i++) {
         const boid = new Boid();
         boids.push(boid);
         boid.draw();
     }
 };
 const update = () => {
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, width, height);
     boids.forEach((boid) => {
-        boid.update();
+        boid.update(boids);
         boid.draw();
     });
 };
-draw(numBoids);
+draw(Math.round(width * height / density));
 setInterval(update, 1000 / 60);
+// /\__/\
+// (=o.o=)
+// |/--\|
+// (")-(")

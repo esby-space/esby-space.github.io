@@ -40,6 +40,17 @@
 
         <div id="iss-art" class="card">
             <img src="images/home/issArt.png" alt="The Mir Space Station" />
+            <script>
+                const issArtDiv = document.getElementById('iss-art');
+                let issSpaceState = false;
+                issArtDiv.onclick = () => {
+                    issArtDiv.style.backgroundColor = issSpaceState ? 'white' : 'black';
+                    $('#iss-art img').src = issSpaceState
+                        ? './images/home/issArt.png'
+                        : './images/home/issArt.svg';
+                    issSpaceState = !issSpaceState;
+                };
+            </script>
         </div>
 
     </main>
