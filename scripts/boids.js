@@ -136,19 +136,21 @@ class Boid {
     };
 }
 const canvas = document.querySelector('#boids');
-let width = (canvas.width = document.body.clientWidth);
-let height = (canvas.height = document.body.clientHeight);
-const resize = () => {
-    width = canvas.width = document.body.clientWidth;
-    height = canvas.height = document.body.clientHeight;
+const scale = 1.5;
+let width = (canvas.width = document.body.clientWidth * scale);
+let height = (canvas.height = document.body.clientHeight * scale);
+canvas.style.width = (width / scale) + 'px';
+canvas.style.height = (height / scale) + 'px';
+window.onresize = () => {
+    width = canvas.width = document.body.clientWidth * scale;
+    height = canvas.height = document.body.clientHeight * scale;
     ctx.strokeStyle = 'white';
     ctx.lineWidth = 1;
 };
-window.onresize = resize;
 const ctx = canvas.getContext('2d');
 ctx.strokeStyle = 'white';
 ctx.lineWidth = 1;
-const density = 15000;
+const density = 20000;
 const speed = 3;
 const viewRadius = 100;
 const turningForce = 0.4;
