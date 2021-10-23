@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>esby boids!</title>
+    <script defer src="../scripts/boids.js"></script>
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/boids.css">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <nav>
+        <div id="icons">
+            <span class="material-icons" id="more">chevron_right</span>
+            <span class="material-icons" onclick="goHome()">home</span>
+            <span class="material-icons" onclick="goFullScreen()">open_in_full</span>
+            <span class="material-icons" id="credit">favorite</span>
+        </div>
+
+        <div id="sidebar">
+            <div id="sidebar-credit">
+                <h1>credits:</h1>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <canvas id="boids"></canvas>
+
+    <script>
+        const goHome = () => {
+            window.location.href = 'projects.html';
+        };
+
+        const goFullScreen = () => {
+            window.location.href = 'boids.html';
+        };
+    </script>
+
+</body>
+
+</html>
