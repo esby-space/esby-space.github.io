@@ -161,7 +161,7 @@ class Boid {
     };
 }
 
-const canvas: HTMLCanvasElement = document.querySelector('#boids')!;
+const canvas: HTMLCanvasElement = $('#boids')!;
 const scale = 1.5;
 let width = (canvas.width = document.body.clientWidth * scale);
 let height = (canvas.height = document.body.clientHeight * scale);
@@ -169,8 +169,8 @@ canvas.style.width = (width / scale) + 'px';
 canvas.style.height = (height / scale) + 'px';
 
 window.onresize = () => {
-    width = canvas.width = document.body.clientWidth * scale;
-    height = canvas.height = document.body.clientHeight * scale;
+    width = (canvas.width = document.body.clientWidth * scale);
+    height = (canvas.height = document.body.clientHeight * scale);
     ctx.strokeStyle = 'white';
     ctx.lineWidth = 1;
 };
@@ -179,13 +179,13 @@ const ctx = canvas.getContext('2d')!;
 ctx.strokeStyle = 'white';
 ctx.lineWidth = 1;
 
-const density = 20000;
-const speed = 3;
-const viewRadius = 100;
-const turningForce = 0.4;
-const seperationForce = 1.3;
-const alignmentForce = 1;
-const cohesionForce = 1;
+let density = $('#boid-density').value = 20000;
+let speed = $('#boid-speed').value = 3;
+let viewRadius = $('#boid-view').value = 100;
+let turningForce = 0.4;
+let seperationForce = $('#boid-seperation').value = 1.5;
+let alignmentForce = $('#boid-alignment').value = 1;
+let cohesionForce = $('#boid-cohesion').value = 1;
 
 let boids: Boid[] = [];
 const draw = (number: number): void => {
@@ -206,6 +206,33 @@ const update = (): void => {
 
 draw(Math.round(width * height / density));
 setInterval(update, 1000 / 60);
+
+// user input
+$('#boid-density').onchange = () => {
+    density = $('#boid-density').value;
+    boids = [];
+    draw(Math.round(width * height / density));
+}
+
+$('#boid-speed').oninput = () => {
+    speed = $('#boid-speed').value;
+}
+
+$('#boid-view').oninput = () => {
+    viewRadius = $('#boid-view').value;
+}
+
+$('#boid-seperation').oninput = () => {
+    seperationForce = $('#boid-seperation').value;
+}
+
+$('#boid-alignment').oninput = () => {
+    alignmentForce = $('#alignment-seperation').value;
+}
+
+$('#boid-cohesion').oninput = () => {
+    cohesionForce = $('#boid-cohesion').value;
+}
 
 // /\__/\
 // (=o.o=)

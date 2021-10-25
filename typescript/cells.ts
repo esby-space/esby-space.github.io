@@ -1,10 +1,4 @@
-interface Cells {
-    alive(cell: Element): void;
-    kill(cell: Element): void;
-    toggle(cell: Element): void;
-}
-
-const Cells: Cells = {
+const Cells: any = {
     // me being lazy functions
     alive: function (cell: Element) {
         cell.classList.remove('dead');
