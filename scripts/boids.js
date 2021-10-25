@@ -153,7 +153,7 @@ ctx.lineWidth = 1;
 let density = $('#boid-density').value = 20000;
 let speed = $('#boid-speed').value = 3;
 let viewRadius = $('#boid-view').value = 100;
-let turningForce = 0.4;
+let turningForce = 0.5;
 let seperationForce = $('#boid-seperation').value = 1.5;
 let alignmentForce = $('#boid-alignment').value = 1;
 let cohesionForce = $('#boid-cohesion').value = 1;
@@ -194,6 +194,13 @@ $('#boid-alignment').oninput = () => {
 };
 $('#boid-cohesion').oninput = () => {
     cohesionForce = $('#boid-cohesion').value;
+};
+$('#boid-reset').onclick = () => {
+    boids = [];
+    draw(Math.round(width * height / density));
+};
+$('#restart').onclick = () => {
+    window.location.reload();
 };
 // /\__/\
 // (=o.o=)

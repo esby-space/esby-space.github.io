@@ -94,18 +94,18 @@ button {
     font-size: 1rem;
     color: white;
     cursor: pointer;
-    box-shadow: 0 4px var(--shadow-color);
+    /* box-shadow: 0 4px var(--shadow-color); */
     transition: all 0.15s ease-in-out;
 }
 
 button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px var(--shadow-color);
+    /* box-shadow: 0 6px var(--shadow-color); */
 }
 
 button:active {
     transform: translateY(2px);
-    box-shadow: 0 2px var(--shadow-color);
+    /* box-shadow: 0 2px var(--shadow-color); */
 }
 
 /* SITE SPECIFIC */
