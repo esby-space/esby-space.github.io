@@ -1,0 +1,60 @@
+.cells {
+    margin-block: 1rem;
+}
+
+.cells .cell-row {
+    display: flex;
+}
+
+.cells .cell-row .cell {
+    flex-grow: 1;
+    margin: 0.5px;
+    aspect-ratio: 1/1;
+    border-radius: 4px;
+    transition: all 0.15s ease-in-out;
+    cursor: pointer;
+}
+
+.cells .cell-row .select {
+    transform: scale(0.9);
+}
+
+.cells .cell-row .alive {
+    background-color: hsl(0, 0%, 20%);
+}
+
+.cells .cell-row .dead {
+    background-color: hsl(0, 0%, 95%);
+}
+
+#eca .color-1 {
+    background-color: hsl(348, 80%, 60%);
+}
+
+#eca .color-2 {
+    background-color: hsl(33, 80%, 60%);
+}
+
+#eca .color-4 {
+    background-color: hsl(78, 80%, 60%);
+}
+
+#eca .color-8 {
+    background-color: hsl(123, 80%, 60%);
+}
+
+#eca .color-16 {
+    background-color: hsl(168, 80%, 60%);
+}
+
+#eca .color-32 {
+    background-color: hsl(213, 80%, 60%);
+}
+
+#eca .color-64 {
+    background-color: hsl(258, 80%, 60%);
+}
+
+#eca .color-128 {
+    background-color: hsl(303, 80%, 60%);
+}

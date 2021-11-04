@@ -14,86 +14,84 @@
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+
 </head>
 
 <body>
 
-    <div id="clicky-stuff">
-        <nav>
-            <span class="material-icons" id="more" onclick="openSidebar()">chevron_right</span>
-            <span class="material-icons" onclick="goHome()">home</span>
-            <span class="material-icons" onclick="goFullScreen()">open_in_full</span>
-        </nav>
+    <div id="boid-container">
+        <div id="clicky-stuff">
+            <nav>
+                <span class="material-icons" id="boid-more">chevron_right</span>
+                <span class="material-icons" id="boid-home">home</span>
+                <span class="material-icons" id="boid-full">open_in_full</span>
+            </nav>
 
-        <section>
-            <h1>boids!</h1>
+            <section id="boid-sidebar">
+                <h2>boids!</h2>
 
-            <h3>boid settings</h3>
-            <div id="boid-form">
-                <div id="boid-label">
-                    <label for="boid-density">density of boids</label><br>
-                    <label for="boid-speed">boids' speed</label><br>
-                    <label for="boid-view">boids' view range</label><br>
-                    <label for="boid-seperation">seperation factor</label><br>
-                    <label for="boid-alignment">alignment factor</label><br>
-                    <label for="boid-cohesion">cohesion factor</label><br>
+                <h3>boid settings</h3>
+                <div id="boid-form">
+                    <div id="boid-label">
+                        <label for="boid-scale">view scale</label><br>
+                        <label for="boid-density">density of boids</label><br>
+                        <label for="boid-speed">boids' speed</label><br>
+                        <label for="boid-view">boids' view range</label><br>
+                        <label for="boid-seperation">seperation factor</label><br>
+                        <label for="boid-alignment">alignment factor</label><br>
+                        <label for="boid-cohesion">cohesion factor</label><br>
+                    </div>
+                    <div id="boid-input">
+                        <input type="number" id="boid-scale"><br>
+                        <input type="number" id="boid-density"><br>
+                        <input type="number" id="boid-speed"><br>
+                        <input type="number" id="boid-view"><br>
+                        <input type="number" id="boid-seperation"><br>
+                        <input type="number" id="boid-alignment"><br>
+                        <input type="number" id="boid-cohesion"><br>
+                    </div>
                 </div>
-                <div id="boid-input">
-                    <input type="number" id="boid-density"><br>
-                    <input type="number" id="boid-speed"><br>
-                    <input type="number" id="boid-view"><br>
-                    <input type="number" id="boid-seperation"><br>
-                    <input type="number" id="boid-alignment"><br>
-                    <input type="number" id="boid-cohesion"><br>
-                </div>
-            </div>
-            <button id="boid-reset">reset boids</button>
-            <button id="restart">reset all</button>
+                <button id="boid-reset">reset boids</button>
+                <button id="restart">reset all</button>
 
-            <h3>credits &#x3c;3 </h3>
-            <ul>
-                <li><a href="https://www.red3d.com/cwr/papers/1987/SIGGRAPH87.pdf">the original paper</a> by
-                    Craig
-                    Reynolds</li>
-                <li><a href="https://www.youtube.com/watch?v=4LWmRuB-uNU">smarter everyday's video</a> on birds!
-                </li>
-                <li><a href="https://explorabl.es/"> explorable explanations</a> by Nicky Case</li>
-                <li><a href="https://www.youtube.com/watch?v=mhjuuHl6qHM">coding train tutorial</a> by Daniel
-                    Shiffman
-                </li>
-                <li><a href="https://www.youtube.com/watch?v=bqtqltqcQhw">sebastian lague's</a> implementation
-                </li>
-            </ul>
+                <h3>credits &#x3c;3 </h3>
+                <ul>
+                    <li><a href="https://www.red3d.com/cwr/papers/1987/SIGGRAPH87.pdf">the original paper</a> by
+                        Craig
+                        Reynolds</li>
+                    <li><a href="https://www.youtube.com/watch?v=4LWmRuB-uNU">smarter everyday's video</a> on
+                        birds!
+                    </li>
+                    <li><a href="https://explorabl.es/"> explorable explanations</a> by Nicky Case</li>
+                    <li><a href="https://www.youtube.com/watch?v=mhjuuHl6qHM">coding train tutorial</a> by
+                        Daniel
+                        Shiffman
+                    </li>
+                    <li><a href="https://www.youtube.com/watch?v=bqtqltqcQhw">sebastian lague's</a>
+                        implementation
+                    </li>
+                </ul>
 
-            <h3>they're not bugs, they're features!</h3>
-            <ul>
-                <li>so maybe don't resize the window, thanks?</li>
-                <li>please do not feed the boids <br> they can get angry</li>
-            </ul>
-        </section>
+                <h3>they're not bugs, they're features!</h3>
+                <ul>
+                    <li>so maybe don't resize the window, thanks?</li>
+                    <li>please do not feed the boids <br> they can get angry</li>
+                </ul>
+            </section>
+        </div>
+
+        <canvas id="boid-simulation"></canvas>
     </div>
 
-
-
-    <canvas id="boids"></canvas>
-
-    <script>
-        let isOpen = false;
-        const openSidebar = () => {
-            $('section').style.width = isOpen ? '0px' : '400px';
-            $('section').style['padding-inline'] = isOpen ? '0px' : '1rem';
-            $('#more').style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
-            isOpen = !isOpen;
-        }
-
-        const goHome = () => {
-            window.location.href = 'projects.html';
-        };
-
-        const goFullScreen = () => {
-            window.location.href = 'boid.html';
-        };
-    </script>
 
 </body>
 

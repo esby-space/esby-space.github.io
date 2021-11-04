@@ -39,7 +39,7 @@
         <hr>
 
         <div id="iss-art" class="card">
-            <img src="images/home/issArt.png" alt="The Mir Space Station" />
+            <img src="images/home/issArt.png" alt="A Young International Space Station" />
             <script>
                 const issArtDiv = document.getElementById('iss-art');
                 let issSpaceState = false;
@@ -51,6 +51,12 @@
                     issSpaceState = !issSpaceState;
                 };
             </script>
+            <style>
+                #iss-art img {
+                    animation: bounce 3s ease-in-out infinite;
+                    cursor: pointer;
+                }
+            </style>
         </div>
 
     </main>

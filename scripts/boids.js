@@ -135,21 +135,20 @@ class Boid {
         this.angle = Math.atan2(velocity.y, velocity.x);
     };
 }
-const canvas = $('#boids');
-const scale = 1.5;
-let width = (canvas.width = document.body.clientWidth * scale);
-let height = (canvas.height = document.body.clientHeight * scale);
-canvas.style.width = (width / scale) + 'px';
-canvas.style.height = (height / scale) + 'px';
-window.onresize = () => {
-    width = (canvas.width = document.body.clientWidth * scale);
-    height = (canvas.height = document.body.clientHeight * scale);
+const canvas = $('#boid-simulation');
+let scale = $('#boid-scale').value = 1.5;
+let width = 0;
+let height = 0;
+const ctx = canvas.getContext('2d');
+const sizeCanvas = () => {
+    width = (canvas.width = $('#boid-container').clientWidth * scale);
+    height = (canvas.height = $('#boid-container').clientHeight * scale);
+    canvas.style.width = (width / scale) + 'px';
+    canvas.style.height = (height / scale) + 'px';
     ctx.strokeStyle = 'white';
     ctx.lineWidth = 1;
 };
-const ctx = canvas.getContext('2d');
-ctx.strokeStyle = 'white';
-ctx.lineWidth = 1;
+sizeCanvas();
 let density = $('#boid-density').value = 20000;
 let speed = $('#boid-speed').value = 3;
 let viewRadius = $('#boid-view').value = 100;
@@ -175,6 +174,13 @@ const update = () => {
 draw(Math.round(width * height / density));
 setInterval(update, 1000 / 60);
 // user input
+window.onresize = sizeCanvas;
+$('#boid-scale').onchange = () => {
+    scale = $('#boid-scale').value;
+    sizeCanvas();
+    boids = [];
+    draw(Math.round(width * height / density));
+};
 $('#boid-density').onchange = () => {
     density = $('#boid-density').value;
     boids = [];
@@ -201,6 +207,20 @@ $('#boid-reset').onclick = () => {
 };
 $('#restart').onclick = () => {
     window.location.reload();
+};
+// user interface
+let isOpen = false;
+$('#boid-more').onclick = () => {
+    $('#boid-sidebar').style.width = isOpen ? '0px' : '400px';
+    $('#boid-sidebar').style['padding-inline'] = isOpen ? '0px' : '1rem';
+    $('#boid-more').style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+    isOpen = !isOpen;
+};
+$('#boid-home').onclick = () => {
+    window.location.href = 'projects.html#boids';
+};
+$('#boid-full').onclick = () => {
+    window.location.href = 'boids.html';
 };
 // /\__/\
 // (=o.o=)
