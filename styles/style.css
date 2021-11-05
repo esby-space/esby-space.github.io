@@ -24,7 +24,7 @@ body {
 }
 
 header {
-    margin-block: 1rem;
+    margin-block: 2rem;
     padding: 5rem 0;
     background-color: var(--primary-color);
     text-align: center;
@@ -55,7 +55,7 @@ main img {
 }
 
 footer {
-    margin-block: 1rem;
+    margin-block: 2rem;
 }
 
 footer pre {
@@ -108,10 +108,10 @@ button:active {
 }
 
 .card {
-    margin-block: 1rem;
+    margin-block: 2rem;
     padding: 1rem;
     border-radius: 8px;
-    box-shadow: 0 0 16px var(--shadow-color);
+    box-shadow: 0 0 4px var(--shadow-color);
     /* outline: 1px solid var(--shadow-color); */
 }
 
