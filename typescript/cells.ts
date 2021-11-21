@@ -34,8 +34,8 @@ interface ECA {
 
 const ECA: ECA = {
     rule: 30,
-    rows: 15,
-    columns: 15,
+    rows: 30,
+    columns: 30,
     color: false,
     cells: [],
 
@@ -186,12 +186,7 @@ $('#eca-color').onclick = () => {
 let boxy = false;
 $all('.boxy-button').forEach((button) => {
     button.onclick = () => {
-        $('#cell-style').setAttribute(
-            'href',
-            boxy
-                ? ''
-                : '../styles/boxy.css'
-        );
+        $('#cell-style').setAttribute('href', boxy ? '' : '../styles/boxy.css');
         $all('.boxy-button').forEach((button) => {
             button.innerHTML = boxy ? 'boxy mode' : 'no boxy';
         });
@@ -221,8 +216,8 @@ interface GOL {
 }
 
 const GOL: GOL = {
-    rows: 15,
-    columns: 15,
+    rows: 30,
+    columns: 30,
     cells: [],
 
     makeCells: function (selector?: string): void {
@@ -335,7 +330,6 @@ $('#gol-column').onchange = () => {
     GOL.columns = parseInt($('#gol-column').value);
     GOL.makeCells();
 };
-
 
 // /\__/\
 // (=o.o=)

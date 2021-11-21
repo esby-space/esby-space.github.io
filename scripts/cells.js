@@ -16,8 +16,8 @@ const Cells = {
 };
 const ECA = {
     rule: 30,
-    rows: 15,
-    columns: 15,
+    rows: 30,
+    columns: 30,
     color: false,
     cells: [],
     // turn rule into binary, then sums of power of 2
@@ -153,9 +153,7 @@ $('#eca-color').onclick = () => {
 let boxy = false;
 $all('.boxy-button').forEach((button) => {
     button.onclick = () => {
-        $('#cell-style').setAttribute('href', boxy
-            ? ''
-            : '../styles/boxy.css');
+        $('#cell-style').setAttribute('href', boxy ? '' : '../styles/boxy.css');
         $all('.boxy-button').forEach((button) => {
             button.innerHTML = boxy ? 'boxy mode' : 'no boxy';
         });
@@ -166,8 +164,8 @@ $('#eca-reset').onclick = () => {
     window.location.reload();
 };
 const GOL = {
-    rows: 15,
-    columns: 15,
+    rows: 30,
+    columns: 30,
     cells: [],
     makeCells: function (selector) {
         selector && (this.selector = selector);

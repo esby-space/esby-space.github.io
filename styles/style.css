@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500&display=swap');
+
 :root {
-    /* font-family: "Helvetica", "Arial", "Roboto", sans-serif; */
-    font-family: 'Inter', sans-serif;
-    font-size: 100%;
-    font-weight: 300;
+    font-family: 'Open Sans', 'Helvetica', 'Roboto', 'Arial', sans-serif;
+    font-size: 18px;
+    font-weight: 100;
     line-height: 2rem;
     --primary-color: hsl(268, 100%, 50%);
     --shadow-color: hsl(0, 0%, 80%);
@@ -16,19 +16,26 @@
     box-sizing: border-box;
 }
 
-body {
-    width: min(95vw, 50rem);
-    margin: 0 auto;
+body,
+html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    max-width: 50rem;
+    width: 95%;
+    margin: 4rem auto;
     padding: 0;
     transition: width 0.15s ease-in-out;
 }
 
 header {
-    margin-block: 2rem;
     padding: 5rem 0;
     background-color: var(--primary-color);
     text-align: center;
-    border-radius: 8px;
 }
 
 header nav {
@@ -48,6 +55,10 @@ header a {
     font-size: 1.5rem;
 }
 
+header hr {
+    margin-block: 1rem;
+}
+
 main img {
     display: block;
     width: min(25rem, 100%);
@@ -55,14 +66,13 @@ main img {
 }
 
 footer {
-    margin-block: 2rem;
+    text-align: center;
 }
 
 footer pre {
     line-height: 1.3rem;
     background-color: var(--primary-color);
     color: white;
-    border-radius: 8px;
 }
 
 footer #page-buttons {
@@ -70,6 +80,15 @@ footer #page-buttons {
     bottom: 1vh;
     right: 1vh;
     float: right;
+}
+
+h1,
+h2 {
+    letter-spacing: 2px;
+}
+
+hr {
+    margin-block: 2rem;
 }
 
 a {
@@ -108,29 +127,35 @@ button:active {
 }
 
 .card {
-    margin-block: 2rem;
+    margin-block: 4rem;
     padding: 1rem;
     border-radius: 8px;
     box-shadow: 0 0 4px var(--shadow-color);
-    /* outline: 1px solid var(--shadow-color); */
 }
 
-.image-grid {
+.card h3 {
+    text-align: center;
+}
+
+.image-thumbs {
+    margin: 4rem auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(324px, 1fr));
     gap: 1rem;
-    margin-block: 1rem;
 }
 
-.image-grid img {
-    margin: auto;
-    aspect-ratio: 3/2;
+.image-thumbs a {
+    color: black;
+}
+
+.image-thumbs img {
+    width: 100%;
+    margin: 0;
+    aspect-ratio: 2;
     object-fit: cover;
-    border-radius: 8px;
 }
 
 @keyframes bounce {
-
     0%,
     100% {
         transform: translateY(10px);
@@ -146,10 +171,11 @@ button:active {
     font-family: 'Material Icons';
     font-style: normal;
     font-weight: 400;
-    src: url(https://fonts.gstatic.com/s/materialicons/v114/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');
-  }
-  
-  .material-icons {
+    src: url(https://fonts.gstatic.com/s/materialicons/v114/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2)
+        format('woff2');
+}
+
+.material-icons {
     font-family: 'Material Icons';
     font-weight: normal;
     font-style: normal;
@@ -163,4 +189,4 @@ button:active {
     direction: ltr;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
-  }
+}
