@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,32 +10,44 @@
     <script defer src="./scripts/script.js"></script>
     <link rel="stylesheet" href="./styles/style.css" />
     <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon" />
-
 </head>
 
 <body>
-
     <header>
-
         <h1>esby explorations</h1>
         <nav>
-            <hr>
+            <hr />
             <a href="./index.html">home</a>
             <span>·</span>
             <a href="./pages/projects.html">projects</a>
             <span>·</span>
             <a href="./pages/random.html">random</a>
         </nav>
-
     </header>
 
     <main>
-
         <h2>hello there!</h2>
-        <p>this is my main test website! this is just to have a place where I can experiment, and hopefully one day have
-            something that looks nice. meanwhile, click some buttons! :D</p>
-        <p>also, web dev is hard and this site doesn't work very well with safari :(</p>
-        <hr>
+        <p>
+            this is my main test website! this is just to have a place where
+            I can experiment, and hopefully one day have something that
+            looks nice. meanwhile, click some buttons! :D
+        </p>
+        <p>
+            also, web dev is hard and this site doesn't work very well with
+            safari :(
+        </p>
+        <hr />
+
+        <div class="image-thumbs">
+            <a href="./pages/projects.html">
+                <img src="./images/projects/ECA.jpg">
+                <b>projects</b> - that i may or may not be working on
+            </a>
+            <a href="./pages/random.html">
+                <img src="./images/home/Mayari1.png">
+                <b>random</b> - things that didn't fit anywhere
+            </a>
+        </div>
 
         <div id="iss-art" class="card">
             <img src="images/home/issArt.png" alt="A Young International Space Station" />
@@ -44,7 +55,9 @@
                 const issArtDiv = document.getElementById('iss-art');
                 let issSpaceState = false;
                 issArtDiv.onclick = () => {
-                    issArtDiv.style.backgroundColor = issSpaceState ? 'white' : 'black';
+                    issArtDiv.style.backgroundColor = issSpaceState
+                        ? 'white'
+                        : 'black';
                     $('#iss-art img').src = issSpaceState
                         ? './images/home/issArt.png'
                         : './images/home/issArt.svg';
@@ -58,27 +71,23 @@
                 }
             </style>
         </div>
-
     </main>
 
     <footer>
-
         <a href="https://github.com/esby-space/norminal">source code (please help me)</a>, this site is still being
         built, thank you for visiting!
         <pre>
 
-    /\__/\
-    (=o.o=)
-    |/--\|
-    (")-(")
+/\__/\
+(=o.o=)
+|/--\|
+(")-(")
 
         </pre>
         <div id="page-buttons">
             <button id="scroll-button">↑ back to top</button>
         </div>
-
     </footer>
-
 </body>
 
 </html>

@@ -130,7 +130,7 @@ button:active {
     margin-block: 4rem;
     padding: 1rem;
     border-radius: 8px;
-    box-shadow: 0 0 4px var(--shadow-color);
+    box-shadow: 0 0 8px var(--shadow-color);
 }
 
 .card h3 {
@@ -146,6 +146,7 @@ button:active {
 
 .image-thumbs a {
     color: black;
+    overflow: hidden;
 }
 
 .image-thumbs img {

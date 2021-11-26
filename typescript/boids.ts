@@ -162,27 +162,27 @@ class Boid {
 }
 
 const canvas: HTMLCanvasElement = $('#boid-simulation')!;
-let scale = $('#boid-scale').value = 1.5;
+let scale = ($('#boid-scale').value = 1.5);
 let width = 0;
 let height = 0;
 const ctx = canvas.getContext('2d')!;
 const sizeCanvas = () => {
-    width = (canvas.width = $('#boid-container').clientWidth * scale);
-    height = (canvas.height = $('#boid-container').clientHeight * scale);
-    canvas.style.width = (width / scale) + 'px';
-    canvas.style.height = (height / scale) + 'px';
+    width = canvas.width = $('#boid-container').clientWidth * scale;
+    height = canvas.height = $('#boid-container').clientHeight * scale;
+    canvas.style.width = width / scale + 'px';
+    canvas.style.height = height / scale + 'px';
     ctx.strokeStyle = 'white';
     ctx.lineWidth = 1;
-}
+};
 sizeCanvas();
 
-let density = $('#boid-density').value = 20000;
-let speed = $('#boid-speed').value = 3;
-let viewRadius = $('#boid-view').value = 100;
+let density = ($('#boid-density').value = 20000);
+let speed = ($('#boid-speed').value = 3);
+let viewRadius = ($('#boid-view').value = 100);
 let turningForce = 0.5;
-let seperationForce = $('#boid-seperation').value = 1.5;
-let alignmentForce = $('#boid-alignment').value = 1;
-let cohesionForce = $('#boid-cohesion').value = 1;
+let seperationForce = ($('#boid-seperation').value = 1.5);
+let alignmentForce = ($('#boid-alignment').value = 1);
+let cohesionForce = ($('#boid-cohesion').value = 1);
 
 let boids: Boid[] = [];
 const draw = (number: number): void => {
@@ -201,7 +201,7 @@ const update = (): void => {
     });
 };
 
-draw(Math.round(width * height / density));
+draw(Math.round((width * height) / density));
 setInterval(update, 1000 / 60);
 
 // user input
@@ -211,60 +211,62 @@ $('#boid-scale').onchange = () => {
     scale = $('#boid-scale').value;
     sizeCanvas();
     boids = [];
-    draw(Math.round(width * height / density));
-}
+    draw(Math.round((width * height) / density));
+};
 
 $('#boid-density').onchange = () => {
     density = $('#boid-density').value;
     boids = [];
-    draw(Math.round(width * height / density));
-}
+    draw(Math.round((width * height) / density));
+};
 
 $('#boid-speed').oninput = () => {
     speed = $('#boid-speed').value;
-}
+};
 
 $('#boid-view').oninput = () => {
     viewRadius = $('#boid-view').value;
-}
+};
 
 $('#boid-seperation').oninput = () => {
     seperationForce = $('#boid-seperation').value;
-}
+};
 
 $('#boid-alignment').oninput = () => {
     alignmentForce = $('#alignment-seperation').value;
-}
+};
 
 $('#boid-cohesion').oninput = () => {
     cohesionForce = $('#boid-cohesion').value;
-}
+};
 
 $('#boid-reset').onclick = () => {
     boids = [];
-    draw(Math.round(width * height / density));
-}
+    draw(Math.round((width * height) / density));
+};
 
 $('#restart').onclick = () => {
     window.location.reload();
-}
+};
 
 // user interface
 let isOpen = false;
 $('#boid-more').onclick = () => {
     $('#boid-sidebar').style.width = isOpen ? '0px' : '400px';
     $('#boid-sidebar').style['padding-inline'] = isOpen ? '0px' : '1rem';
-    $('#boid-more').style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+    $('#boid-more').style.transform = isOpen
+        ? 'rotate(0deg)'
+        : 'rotate(180deg)';
     isOpen = !isOpen;
-}
+};
 
 $('#boid-home').onclick = () => {
     window.location.href = 'projects.html#boids';
-}
+};
 
 $('#boid-full').onclick = () => {
     window.location.href = 'boids.html';
-}
+};
 
 // /\__/\
 // (=o.o=)

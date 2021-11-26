@@ -52,7 +52,6 @@
     margin: 1rem auto;
     color: white;
     border-radius: 50%;
-    outline: 0px solid hsl(0, 0%, 20%);
     transition: all 0.15s ease-in-out;
     user-select: none;
 }
@@ -60,9 +59,4 @@
 .material-icons:hover {
     cursor: pointer;
     background-color: hsl(0, 0%, 20%);
-    outline: 5px solid hsl(0, 0%, 20%);
-}
-
-#more {
-    transition: all 0.15s ease-in-out;
 }
