@@ -1,3 +1,17 @@
+document.write(`
+    <link rel="stylesheet" href="../styles/convo.css">
+
+    <div id="convo-sidebar">
+        <h3 style="color: white;">failing high school, featuring a half true story from yours truly</h3>
+        <button id="convo-hs">high school</button>
+        <button id="convo-woods"> woods</button>
+    </div>
+    <div id="game-container">
+    <div id="game-text"></div>
+    <div id="game-choices"></div>
+    </div>
+`);
+
 interface Window {
     _: any;
 }

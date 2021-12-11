@@ -70,6 +70,7 @@ footer {
 }
 
 footer pre {
+    margin: 1rem 0 0 0;
     line-height: 1.3rem;
     background-color: var(--primary-color);
     color: white;

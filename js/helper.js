@@ -6,20 +6,6 @@ const $ = (query) => {
 const $all = (query) => {
     return Array.from(document.querySelectorAll(query));
 };
-// bottom page buttons
-$('#scroll-button').onclick = () => {
-    window.scrollTo(0, 0);
-};
-// used in other scripts
-const Mouse = {
-    pressed: false,
-};
-document.body.onmousedown = () => {
-    Mouse.pressed = true;
-};
-document.body.onmouseup = () => {
-    Mouse.pressed = false;
-};
 const appendDOM = (text, DOM, config) => {
     const element = document.createElement('div');
     element.innerHTML = text;

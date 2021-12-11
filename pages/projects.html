@@ -7,20 +7,11 @@
     <meta content="width=device-width,initial-scale=1" name="viewport" />
 
     <title>esby projects</title>
-    <script defer src="../scripts/script.js"></script>
-    <script defer src="../scripts/boids.js"></script>
-    <script defer src="../scripts/cells.js"></script>
-    <script defer src="../scripts/convo.js"></script>
-    <script defer src="../scripts/space.js"></script>
-    <script defer src="../scripts/paint.js"></script>
+    <script src="../js/helper.js"></script>
+    <script defer src="../js/space.js"></script>
 
     <link rel="stylesheet" href="../styles/style.css" />
-    <link rel="stylesheet" href="../styles/boids.css" />
-    <link rel="stylesheet" href="../styles/cells.css" />
-    <link rel="stylesheet" href="" id="cell-style" />
-    <link rel="stylesheet" href="../styles/convo.css">
     <link rel="stylesheet" href="../styles/iss.css" />
-    <link rel="stylesheet" href="../styles/paint.css" />
     <link href="../images/favicon.png" rel="shortcut icon" type="image/x-icon" />
 
     <link href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" rel="stylesheet" crossorigin=""
@@ -30,26 +21,15 @@
 </head>
 
 <body>
-    <header>
-        <h1>esby explorations</h1>
-        <nav>
-            <hr />
-            <a href="../index.html">home</a>
-            <span>·</span>
-            <a href="./projects.html">projects</a>
-            <span>·</span>
-            <a href="./random.html">random</a>
-        </nav>
-    </header>
+    <script src="../js/components/Header.js"></script>
 
     <main>
         <h2>projects im kinda working on!</h2>
 
         <p>
-            a lot of these are either common programming projects for
-            beginners, following along with tutorials, or me trying to
-            replicate another project, and i'll try to give full credit.
-            many of these are not completed!
+            different project i've been working on! a lot of them are
+            programming project for beginners, and i'll try to give full
+            credit when possible.
         </p>
         <p>
             (many of these won't work in safari or mobile because css is not
@@ -78,17 +58,18 @@
             </a>
             <a href="#convo">
                 <img src="../images/projects/convo.jpg" alt="text-bubbles" />
-                <b>a bare-bones game conversation engine</b> - for a start of a more complex game
+                <b>a bare-bones game conversation engine</b> - for a start
+                of a more complex game
             </a>
             <a href="https://esby-space.github.io/proteins/">
-                <img src="../images/projects/protein.gif" alt="spinning spike protein">
-                <b>protein modeling resources</b> - to help plesae the Haddock gods! (if you know you know)
+                <img src="../images/projects/protein.gif" alt="spinning spike protein" />
+                <b>protein modeling resources</b> - to help plesae the
+                Haddock gods! (if you know you know)
             </a>
         </section>
         <hr />
 
-        <h2>artifical life simulation</h2>
-        <h3>introduction to boids!</h3>
+        <h2>boid simulation</h2>
         <p>
             Created by Craig Reynolds, the boids simulation is meant to
             artificially describe the movement of flocks of birds. This
@@ -98,88 +79,7 @@
         </p>
         <section class="card" id="boids">
             <h3>boids!</h3>
-            <style>
-                #boid-container {
-                    width: 100%;
-                    height: auto;
-                    aspect-ratio: 3 / 2;
-                }
-            </style>
-            <div id="boid-container">
-                <div id="clicky-stuff">
-                    <nav>
-                        <span class="material-icons" id="boid-more">chevron_right</span>
-                        <span class="material-icons" id="boid-home">home</span>
-                        <span class="material-icons" id="boid-full">open_in_full</span>
-                    </nav>
-
-                    <section id="boid-sidebar">
-                        <h2>boids!</h2>
-
-                        <h3>boid settings</h3>
-                        <div id="boid-form">
-                            <div id="boid-label">
-                                <label for="boid-scale">view scale</label><br />
-                                <label for="boid-density">density of boids</label><br />
-                                <label for="boid-speed">boids' speed</label><br />
-                                <label for="boid-view">boids' view range</label><br />
-                                <label for="boid-seperation">seperation factor</label><br />
-                                <label for="boid-alignment">alignment factor</label><br />
-                                <label for="boid-cohesion">cohesion factor</label><br />
-                            </div>
-                            <div id="boid-input">
-                                <input type="number" id="boid-scale" /><br />
-                                <input type="number" id="boid-density" /><br />
-                                <input type="number" id="boid-speed" /><br />
-                                <input type="number" id="boid-view" /><br />
-                                <input type="number" id="boid-seperation" /><br />
-                                <input type="number" id="boid-alignment" /><br />
-                                <input type="number" id="boid-cohesion" /><br />
-                            </div>
-                        </div>
-                        <button id="boid-reset">reset boids</button>
-                        <button id="restart">reset all</button>
-
-                        <h3>credits &#x3c;3</h3>
-                        <ul>
-                            <li>
-                                <a href="https://www.red3d.com/cwr/papers/1987/SIGGRAPH87.pdf">the original paper</a>
-                                by Craig Reynolds
-                            </li>
-                            <li>
-                                <a href="https://www.youtube.com/watch?v=4LWmRuB-uNU">smarter everyday's video</a>
-                                on birds!
-                            </li>
-                            <li>
-                                <a href="https://explorabl.es/">
-                                    explorable explanations</a>
-                                by Nicky Case
-                            </li>
-                            <li>
-                                <a href="https://www.youtube.com/watch?v=mhjuuHl6qHM">coding train tutorial</a>
-                                by Daniel Shiffman
-                            </li>
-                            <li>
-                                <a href="https://www.youtube.com/watch?v=bqtqltqcQhw">sebastian lague's</a>
-                                implementation
-                            </li>
-                        </ul>
-
-                        <h3>they're not bugs, they're features!</h3>
-                        <ul>
-                            <li>
-                                so maybe don't resize the window, thanks?
-                            </li>
-                            <li>
-                                please do not feed the boids <br />
-                                they can get angry
-                            </li>
-                        </ul>
-                    </section>
-                </div>
-
-                <canvas id="boid-simulation"></canvas>
-            </div>
+            <script src="../js/boids.js"></script>
         </section>
         <h3>resources and further exploration</h3>
         <ul>
@@ -227,23 +127,7 @@
 
         <section class="card" id="eca">
             <h3>elementary cellular automaton</h3>
-            <div>
-                <label for="eca-rule"><b>rule number:</b></label>
-                <input autocomplete="off" id="eca-rule" type="number" /><br />
-                <label for="eca-row"><b>number of rows:</b></label>
-                <input autocomplete="off" id="eca-row" type="number" />
-                <label for="eca-column"><b>number of columns:</b></label>
-                <input autocomplete="off" id="eca-column" type="number" /><br />
-                <button id="eca-random-rule">random rule</button>
-                <button id="eca-random-first">randomize first layer</button>
-                <button id="eca-clear-first">clear cells</button>
-                <button id="eca-color">color mode!</button>
-                <button class="boxy-button">boxy mode</button>
-                <button id="eca-reset">reset all</button>
-                <!-- ughhh this is so ugly >~< -->
-            </div>
-
-            <div id="eca-cells" class="cells"></div>
+            <script src="../js/eca.js"></script>
         </section>
 
         <h3 id="more-eca">interesting rules for eca!</h3>
@@ -334,16 +218,7 @@
 
         <section class="card" id="gol">
             <h3>game of life</h3>
-            <div>
-                <label for="gol-row"><b>number of rows:</b></label>
-                <input autocomplete="off" id="gol-row" type="number" />
-                <label for="gol-column"><b>number of columns:</b></label>
-                <input autocomplete="off" id="gol-column" type="number" /><br />
-                <button id="gol-generate">generate next</button>
-                <button id="gol-auto">auto generate</button>
-                <button class="boxy-button">boxy mode</button>
-            </div>
-            <div id="gol-cells" class="cells"></div>
+            <script src="../js/gol.js"></script>
         </section>
         <h3>resources and further exploration!</h3>
         <ul>
@@ -404,15 +279,7 @@
         </p>
 
         <section class="card" id="convo">
-            <div id="convo-sidebar">
-                <h3 style="color: white;">failing high school, featuring a half true story from yours truly</h3>
-                <button id="convo-hs">high school</button>
-                <button id="convo-woods"> woods</button>
-            </div>
-            <div id="game-container">
-                <div id="game-text"></div>
-                <div id="game-choices"></div>
-            </div>
+            <script src="../js/convo.js"></script>
         </section>
         <hr />
 
@@ -420,38 +287,7 @@
 
         <section id="paint" class="card">
             <h3>michaelsoft paint</h3>
-            <div id="paint-canvas"></div>
-            <div id="paint-buttons">
-                <button>fill</button>
-                <button id="paint-clear">clear</button>
-                <button id="paint-save">save</button>
-            </div>
-            <input type="range" min="1" max="50" id="paint-slider" />
-            <div id="paint-controls">
-                <div id="paint-colors">
-                    <div class="paint-color" style="background-color: hsl(0, 0%, 20%)"
-                        onclick="Paint.color = 'hsl(0, 0%, 20%)'"></div>
-                    <div class="paint-color" style="background-color: hsl(0, 0%, 100%)"
-                        onclick="Paint.color = 'hsl(0, 0%, 100%)'"></div>
-                    <div class="paint-color" style="background-color: hsl(348, 80%, 60%)"
-                        onclick="Paint.color = 'hsl(348, 80%, 60%)'"></div>
-                    <div class="paint-color" style="background-color: hsl(33, 80%, 60%)"
-                        onclick="Paint.color = 'hsl(33, 80%, 60%)'"></div>
-                    <div class="paint-color" style="background-color: hsl(78, 80%, 60%)"
-                        onclick="Paint.color = 'hsl(78, 80%, 60%)'"></div>
-                    <div class="paint-color" style="background-color: hsl(123, 80%, 60%)"
-                        onclick="Paint.color = 'hsl(123, 80%, 60%)'"></div>
-                    <div class="paint-color" style="background-color: hsl(168, 80%, 60%)"
-                        onclick="Paint.color = 'hsl(168, 80%, 60%)'"></div>
-                    <div class="paint-color" style="background-color: hsl(213, 80%, 60%)"
-                        onclick="Paint.color = 'hsl(213, 80%, 60%)'"></div>
-                    <div class="paint-color" style="background-color: hsl(258, 80%, 60%)"
-                        onclick="Paint.color = 'hsl(258, 80%, 60%)'"></div>
-                    <div class="paint-color" style="background-color: hsl(303, 80%, 60%)"
-                        onclick="Paint.color = 'hsl(303, 80%, 60%)'"></div>
-                </div>
-            </div>
-            <input type="color" />
+            <script src="../js/paint.js"></script>
             <p>
                 idea taken from
                 <a href="https://www.youtube.com/watch?v=mXssD1qCA5A&list=PLt1m5Xv06FppX3awLr1bAnm4A6DEuaJAC&index=1">nomad
@@ -460,21 +296,7 @@
         </section>
     </main>
 
-    <footer>
-        <a href="https://github.com/esby-space/norminal">source code (please help me)</a>, this site is still being
-        built, thank you for visiting!
-        <pre>
-
-/\__/\
-(=o.o=)
-|/--\|
-(")-(")
-
-        </pre>
-        <div id="page-buttons">
-            <button id="scroll-button">↑ back to top</button>
-        </div>
-    </footer>
+    <script src="../js/components/Footer.js"></script>
 </body>
 
 </html>
