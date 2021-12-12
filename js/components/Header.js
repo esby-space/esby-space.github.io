@@ -12,4 +12,4 @@ const Header = () => `
     </nav>
     </header>
 `;
-document.write(`${Header()}`);
+document.write(Header());
