@@ -14,39 +14,27 @@ document.write(`
     </style>
     <canvas id="shapes-simulation"></canvas>
 `);
-const Shapes = () => {
-    // canvas!
-    const container = $('#shapes');
-    const canvas = $('#shapes-simulation');
-    const ctx = canvas.getContext('2d');
-    // sizing
-    const width = (canvas.width = container.clientWidth * 2);
-    const height = (canvas.height = container.clientHeight * 2);
-    canvas.style.width = width / 2 + 'px';
-    canvas.style.height = height / 2 + 'px';
-    // engine matter.js
-    const Engine = Matter.Engine, Bodies = Matter.Bodies, Composite = Matter.Composite, Composites = Matter.Composites, Mouse = Matter.Mouse, MouseConstraint = Matter.MouseConstraint;
-    const engine = Engine.create();
-    // walls
-    const top = Bodies.rectangle(width / 2, height, width, 5, { isStatic: true, restitution: 1 });
-    const bottom = Bodies.rectangle(width / 2, 0, width, 5, { isStatic: true, restitution: 1 });
-    const left = Bodies.rectangle(0, height / 2, 5, height, { isStatic: true, restitution: 1 });
-    const right = Bodies.rectangle(width, height / 2, 5, height, { isStatic: true, restitution: 1 });
-    Composite.add(engine.world, [top, bottom, left, right]);
-    // shapes!
-    const shapes = Composites.stack(80, 80, 10, 10, 80, 80, (x, y) => {
-        return Bodies.polygon(x, y, Math.round(Math.random() * 4 + 2), Math.random() * 40 + 60, { restitution: 0.8 });
-    });
-    Composite.add(engine.world, shapes);
-    // ze mouse
-    const mouseContraint = MouseConstraint.create(engine, {
-        mouse: Mouse.create(canvas),
-    });
-    Composite.add(engine.world, mouseContraint);
-    // render to canvas
-    const render = () => {
+;
+const Shapes = {
+    container: $('#shapes'),
+    canvas: $('#shapes-simulation'),
+    width: 0,
+    height: 0,
+    sizeCanvas: () => {
+        Shapes.width = Shapes.canvas.width = Shapes.container.clientWidth * 2;
+        Shapes.height = Shapes.canvas.height =
+            Shapes.container.clientHeight * 2;
+        Shapes.canvas.style.width = Shapes.width / 2 + 'px';
+        Shapes.canvas.style.height = Shapes.height / 2 + 'px';
+    },
+    render: (engine) => {
+        const Engine = Matter.Engine, Composite = Matter.Composite;
+        const ctx = Shapes.canvas.getContext('2d');
+        const render = () => {
+            Shapes.render(engine);
+        };
         window.requestAnimationFrame(render);
-        ctx.clearRect(0, 0, width, height);
+        ctx.clearRect(0, 0, Shapes.width, Shapes.height);
         ctx.strokeStyle = 'white';
         ctx.lineWidth = 1;
         const bodies = Composite.allBodies(engine.world);
@@ -59,7 +47,50 @@ const Shapes = () => {
             ctx.stroke();
         });
         Engine.update(engine, 1000 / 60);
-    };
-    render();
+    },
+    init: () => {
+        // sizing
+        Shapes.sizeCanvas();
+        window.addEventListener('resize', Shapes.sizeCanvas);
+        // engine matter.js
+        const Engine = Matter.Engine, Bodies = Matter.Bodies, Composite = Matter.Composite, Composites = Matter.Composites, Mouse = Matter.Mouse, MouseConstraint = Matter.MouseConstraint;
+        const engine = Engine.create();
+        // walls
+        const top = Bodies.rectangle(Shapes.width / 2, Shapes.height, Shapes.width, 5, {
+            isStatic: true,
+            restitution: 1,
+        });
+        const bottom = Bodies.rectangle(Shapes.width / 2, 0, Shapes.width, 5, {
+            isStatic: true,
+            restitution: 1,
+        });
+        const left = Bodies.rectangle(0, Shapes.height / 2, 5, Shapes.height, {
+            isStatic: true,
+            restitution: 1,
+        });
+        const right = Bodies.rectangle(Shapes.width, Shapes.height / 2, 5, Shapes.height, {
+            isStatic: true,
+            restitution: 1,
+        });
+        Composite.add(engine.world, [top, bottom, left, right]);
+        // shapes!
+        const shapes = Composites.stack(80, // start x
+        80, // start y
+        10, // columns
+        10, // rows
+        80, // space x
+        80, // space y
+        (x, y) => {
+            return Bodies.polygon(x, y, Math.round(Math.random() * 4 + 2), Math.random() * 40 + 60, { restitution: 0.7 });
+        });
+        Composite.add(engine.world, shapes);
+        // ze mouse
+        const mouseContraint = MouseConstraint.create(engine, {
+            mouse: Mouse.create(Shapes.canvas),
+        });
+        Composite.add(engine.world, mouseContraint);
+        // render to canvas
+        Shapes.render(engine);
+    },
 };
-window.addEventListener('load', Shapes);
+window.addEventListener('load', Shapes.init);
