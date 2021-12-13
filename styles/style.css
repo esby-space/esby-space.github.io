@@ -139,7 +139,7 @@ button:active {
 }
 
 .image-thumbs {
-    margin: 4rem auto;
+    margin: 1rem auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(324px, 1fr));
     gap: 1rem;

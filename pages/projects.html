@@ -24,23 +24,23 @@
     <script src="../js/components/Header.js"></script>
 
     <main>
-        <h2>projects im kinda working on!</h2>
-
+        <h2>projects im working on!</h2>
         <p>
             different project i've been working on! a lot of them are
             programming project for beginners, and i'll try to give full
             credit when possible.
         </p>
-        <p>
-            (many of these won't work in safari or mobile because css is not
-            my friend, sorry!)
-        </p>
 
+        <h3>math and physics</h3>
         <section class="image-thumbs">
             <a href="#boids">
                 <img src="../images/projects/boids.jpg" alt="Boids!" />
                 <b>the boids alogirthm</b> - Craig Reynolds' famous
                 alogirthm for simulating bird-like motion
+            </a>
+            <a href="#shapes">
+                <img src="../images/projects/shapes.jpg" alt="Shapes!" />
+                <b>shapes!</b> - throw some shapes around
             </a>
             <a href="#eca">
                 <img src="../images/projects/ECA.jpg" alt="ECA" />
@@ -51,15 +51,14 @@
                 <img src="../images/projects/GOL.jpg" alt="Game of Life" />
                 <b>the game of life</b> - and death?
             </a>
+        </section>
+
+        <h3>science and space</h3>
+        <section class="image-thumbs">
             <a href="#iss">
                 <img src="../images/projects/ISS.jpg" alt="Where is the ISS?" />
                 <b>iss tracker and rocket launch schedule</b> - because
                 sometimes you need a break from earth
-            </a>
-            <a href="#convo">
-                <img src="../images/projects/convo.jpg" alt="text-bubbles" />
-                <b>a bare-bones game conversation engine</b> - for a start
-                of a more complex game
             </a>
             <a href="https://esby-space.github.io/proteins/">
                 <img src="../images/projects/protein.gif" alt="spinning spike protein" />
@@ -67,7 +66,19 @@
                 Haddock gods! (if you know you know)
             </a>
         </section>
-        <hr />
+
+        <h3>for fun!</h3>
+        <section class="image-thumbs">
+            <a href="#convo">
+                <img src="../images/projects/convo.jpg" alt="text-bubbles" />
+                <b>a bare-bones game conversation thingy</b> - idk
+            </a>
+            <a href="#paint">
+                <img src="../images/projects/paint.jpg" alt="a badly written 你好" />
+                <b>michaelsoft paint</b> - making the next photoshop right here!
+            </a>
+        </section>
+        <hr>
 
         <h2>boid simulation</h2>
         <p>
@@ -117,6 +128,7 @@
             <script src="../js/lib/matter.min.js"></script>
             <script src="../js/shapes.js"></script>
         </section>
+        <hr>
 
         <h2>elementary cellular automaton simulation</h2>
         <p>
@@ -280,20 +292,11 @@
         </section>
         <hr />
 
-        <h2>game conversation thingy</h2>
-        <p>
-            this is kinda inspired (lightly stolen) from Nicky Case's
-            <a href="https://www.ncase.me/anxiety">Adventures with Anxiety</a>
-            <b>that you must play.</b> This is kinda a reverse engineering
-            of the basic conversation engine idk
-        </p>
+        <h2>other?</h2>
 
         <section class="card" id="convo">
             <script src="../js/convo.js"></script>
         </section>
-        <hr />
-
-        <h2>other?</h2>
 
         <section id="paint" class="card">
             <h3>michaelsoft paint</h3>

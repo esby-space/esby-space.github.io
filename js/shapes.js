@@ -28,7 +28,6 @@ const Shapes = {
         Shapes.canvas.style.height = Shapes.height / 2 + 'px';
     },
     render: (engine) => {
-        const Engine = Matter.Engine, Composite = Matter.Composite;
         const ctx = Shapes.canvas.getContext('2d');
         const render = () => {
             Shapes.render(engine);
@@ -37,7 +36,7 @@ const Shapes = {
         ctx.clearRect(0, 0, Shapes.width, Shapes.height);
         ctx.strokeStyle = 'white';
         ctx.lineWidth = 1;
-        const bodies = Composite.allBodies(engine.world);
+        const bodies = Matter.Composite.allBodies(engine.world);
         ctx.beginPath();
         bodies.forEach((body) => {
             const vertices = body.vertices;
@@ -46,9 +45,9 @@ const Shapes = {
             ctx.lineTo(vertices[0].x, vertices[0].y);
             ctx.stroke();
         });
-        Engine.update(engine, 1000 / 60);
+        Matter.Engine.update(engine, 1000 / 60);
     },
-    init: () => {
+    create: () => {
         // sizing
         Shapes.sizeCanvas();
         window.addEventListener('resize', Shapes.sizeCanvas);
@@ -93,4 +92,4 @@ const Shapes = {
         Shapes.render(engine);
     },
 };
-window.addEventListener('load', Shapes.init);
+window.addEventListener('load', Shapes.create);

@@ -22,7 +22,7 @@ interface Shapes {
     height: number;
     sizeCanvas: () => void;
     render: (engine: Matter.Engine) => void;
-    init: () => void;
+    create: () => void;
 };
 
 const Shapes: Shapes = {
@@ -40,8 +40,6 @@ const Shapes: Shapes = {
     },
 
     render: (engine: Matter.Engine) => {
-        const Engine = Matter.Engine,
-            Composite = Matter.Composite;
         const ctx = Shapes.canvas.getContext('2d')!;
         const render = () => {
             Shapes.render(engine);
@@ -51,7 +49,7 @@ const Shapes: Shapes = {
         ctx.strokeStyle = 'white';
         ctx.lineWidth = 1;
 
-        const bodies = Composite.allBodies(engine.world);
+        const bodies = Matter.Composite.allBodies(engine.world);
         ctx.beginPath();
         bodies.forEach((body) => {
             const vertices = body.vertices;
@@ -60,10 +58,10 @@ const Shapes: Shapes = {
             ctx.lineTo(vertices[0].x, vertices[0].y);
             ctx.stroke();
         });
-        Engine.update(engine, 1000 / 60);
+        Matter.Engine.update(engine, 1000 / 60);
     },
 
-    init: () => {
+    create: () => {
         // sizing
         Shapes.sizeCanvas();
         window.addEventListener('resize', Shapes.sizeCanvas);
@@ -79,16 +77,10 @@ const Shapes: Shapes = {
         const engine = Engine.create();
 
         // walls
-        const top = Bodies.rectangle(
-            Shapes.width / 2,
-            Shapes.height,
-            Shapes.width,
-            5,
-            {
-                isStatic: true,
-                restitution: 1,
-            }
-        );
+        const top = Bodies.rectangle(Shapes.width / 2, Shapes.height, Shapes.width, 5, {
+            isStatic: true,
+            restitution: 1,
+        });
         const bottom = Bodies.rectangle(Shapes.width / 2, 0, Shapes.width, 5, {
             isStatic: true,
             restitution: 1,
@@ -97,16 +89,10 @@ const Shapes: Shapes = {
             isStatic: true,
             restitution: 1,
         });
-        const right = Bodies.rectangle(
-            Shapes.width,
-            Shapes.height / 2,
-            5,
-            Shapes.height,
-            {
-                isStatic: true,
-                restitution: 1,
-            }
-        );
+        const right = Bodies.rectangle(Shapes.width, Shapes.height / 2, 5, Shapes.height, {
+            isStatic: true,
+            restitution: 1,
+        });
         Composite.add(engine.world, [top, bottom, left, right]);
 
         // shapes!
@@ -140,4 +126,4 @@ const Shapes: Shapes = {
     },
 };
 
-window.addEventListener('load', Shapes.init);
+window.addEventListener('load', Shapes.create);
