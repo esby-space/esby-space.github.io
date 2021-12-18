@@ -1,16 +1,8 @@
-#boid-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
+#boids {
     color: white;
 }
 
 #boid-simulation {
-    position: absolute;
-    top: 0;
-    left: 0;
     background-color: hsl(0, 0%, 5%);
 }
 
@@ -23,7 +15,7 @@
     height: 100%;
 }
 
-#boid-container nav {
+#boids nav {
     display: flex;
     flex-direction: column;
     width: 48px;
@@ -36,16 +28,14 @@
     height: 100%;
     padding-inline: 0rem;
     background-color: hsl(0, 0%, 10%);
-    overflow: auto;
+    overflow: hidden scroll;
     transition: all 0.15s ease-in-out;
-    white-space: nowrap;
+    /* white-space: nowrap; */
 }
 
 #boid-form {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
 .material-icons {

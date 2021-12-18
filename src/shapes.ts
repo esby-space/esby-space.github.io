@@ -1,14 +1,8 @@
 document.write(`
     <style>
-        #shapes { 
-            position: relative;
-            aspect-ratio: 3 / 2;
-        }
-
-        #shapes-simulation {
-            position: absolute;
-            top: 0;
-            left: 0;
+        #shapes {
+            background-color: hsl(263, 90%, 69%);
+            color: white;
         }
     </style>
     <canvas id="shapes-simulation"></canvas>

@@ -168,6 +168,25 @@ button:active {
     }
 }
 
+/* Simulations */
+.container {
+    position: relative;
+    aspect-ratio: 3 / 2;
+    margin: 0;
+    padding: 0;
+}
+
+.container canvas {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+}
+
+.container h3 {
+    margin: 0;
+    padding-top: 1rem;
+}
+
 /* Icons */
 @font-face {
     font-family: 'Material Icons';

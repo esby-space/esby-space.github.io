@@ -1,12 +1,5 @@
 document.write(`
     <link rel="stylesheet" href="../styles/boids.css" />
-    <style>
-    #boid-container {
-        width: 100%;
-        aspect-ratio: 3 / 2;
-    }
-    </style>
-    <div id="boid-container">
     <div id="clicky-stuff">
         <nav>
             <span class="material-icons" id="boid-more">chevron_right</span>
@@ -19,24 +12,20 @@ document.write(`
 
             <h3>boid settings</h3>
             <div id="boid-form">
-                <div id="boid-label">
-                    <label for="boid-scale">view scale</label><br />
-                    <label for="boid-density">density of boids</label><br />
-                    <label for="boid-speed">boids' speed</label><br />
-                    <label for="boid-view">boids' view range</label><br />
-                    <label for="boid-seperation">seperation factor</label><br />
-                    <label for="boid-alignment">alignment factor</label><br />
-                    <label for="boid-cohesion">cohesion factor</label><br />
-                </div>
-                <div id="boid-input">
-                    <input type="number" id="boid-scale" /><br />
-                    <input type="number" id="boid-density" /><br />
-                    <input type="number" id="boid-speed" /><br />
-                    <input type="number" id="boid-view" /><br />
-                    <input type="number" id="boid-seperation" /><br />
-                    <input type="number" id="boid-alignment" /><br />
-                    <input type="number" id="boid-cohesion" /><br />
-                </div>
+                <label for="boid-scale">view scale</label>
+                <input type="number" id="boid-scale" />
+                <label for="boid-density">density of boids</label>
+                <input type="number" id="boid-density" />
+                <label for="boid-speed">boids' speed</label>
+                <input type="number" id="boid-speed" />
+                <label for="boid-view">boids' view range</label>
+                <input type="number" id="boid-view" />
+                <label for="boid-seperation">seperation factor</label>
+                <input type="number" id="boid-seperation" />
+                <label for="boid-alignment">alignment factor</label>
+                <input type="number" id="boid-alignment" />
+                <label for="boid-cohesion">cohesion factor</label>
+                <input type="number" id="boid-cohesion" />
             </div>
             <button id="boid-reset">reset boids</button>
             <button id="restart">reset all</button>
@@ -66,21 +55,16 @@ document.write(`
                 </li>
             </ul>
 
-            <h3>they're not bugs, they're features!</h3>
+            <h3><span style="text-decoration: line-through;">bugs</span> features!</h3>
             <ul>
                 <li>
-                    so maybe don't resize the window, thanks?
-                </li>
-                <li>
-                    please do not feed the boids <br />
-                    they can get angry
+                    please do not feed the boidsthey can get angry
                 </li>
             </ul>
         </section>
     </div>
 
     <canvas id="boid-simulation"></canvas>
-    </div>
 `);
 
 class Vector {
@@ -274,7 +258,7 @@ interface Boids {
 }
 
 const Boids: Boids = {
-    container: $('#boid-container'),
+    container: $('#boids'),
     canvas: $('#boid-simulation'),
     ctx: $('#boid-simulation').getContext('2d'),
     scale: 1.5,
