@@ -1,69 +1,70 @@
 document.write(`
     <link rel="stylesheet" href="../styles/boids.css" />
-    <div id="clicky-stuff">
-        <nav>
-            <span class="material-icons" id="boid-more">chevron_right</span>
-            <span class="material-icons" id="boid-home">home</span>
-            <span class="material-icons" id="boid-full">open_in_full</span>
-        </nav>
+    <div id="boid-side-container">
+    <nav id="boid-navbar">
+        <span class="material-icons" id="boid-more">chevron_right</span>
+        <span class="material-icons" id="boid-home">home</span>
+        <span class="material-icons" id="boid-full">open_in_full</span>
+    </nav>
 
-        <section id="boid-sidebar">
-            <h2>boids!</h2>
+    <section>
+        <h2>boids!</h2>
+        <h3>boid settings</h3>
+        <div id="boid-form">
+            <label for="boid-scale">view scale</label>
+            <input type="number" id="boid-scale" />
+            <label for="boid-density">density of boids</label>
+            <input type="number" id="boid-density" />
+            <label for="boid-speed">boids' speed</label>
+            <input type="number" id="boid-speed" />
+            <label for="boid-view">boids' view range</label>
+            <input type="number" id="boid-view" />
+            <label for="boid-seperation">seperation factor</label>
+            <input type="number" id="boid-seperation" />
+            <label for="boid-alignment">alignment factor</label>
+            <input type="number" id="boid-alignment" />
+            <label for="boid-cohesion">cohesion factor</label>
+            <input type="number" id="boid-cohesion" />
+            <label for="boid-interactions">draw lines to neighbors:</label>
+            <input type="checkbox" id="boid-interactions"/>
+        </div>
 
-            <h3>boid settings</h3>
-            <div id="boid-form">
-                <label for="boid-scale">view scale</label>
-                <input type="number" id="boid-scale" />
-                <label for="boid-density">density of boids</label>
-                <input type="number" id="boid-density" />
-                <label for="boid-speed">boids' speed</label>
-                <input type="number" id="boid-speed" />
-                <label for="boid-view">boids' view range</label>
-                <input type="number" id="boid-view" />
-                <label for="boid-seperation">seperation factor</label>
-                <input type="number" id="boid-seperation" />
-                <label for="boid-alignment">alignment factor</label>
-                <input type="number" id="boid-alignment" />
-                <label for="boid-cohesion">cohesion factor</label>
-                <input type="number" id="boid-cohesion" />
-            </div>
-            <button id="boid-reset">reset boids</button>
-            <button id="restart">reset all</button>
+        <button id="boid-reset">reset boids</button>
+        <button id="restart">reset all</button>
 
-            <h3>credits &#x3c;3</h3>
-            <ul>
-                <li>
-                    <a href="https://www.red3d.com/cwr/papers/1987/SIGGRAPH87.pdf">the original paper</a>
-                    by Craig Reynolds
-                </li>
-                <li>
-                    <a href="https://www.youtube.com/watch?v=4LWmRuB-uNU">smarter everyday's video</a>
-                    on birds!
-                </li>
-                <li>
-                    <a href="https://explorabl.es/">
-                        explorable explanations</a>
-                    by Nicky Case
-                </li>
-                <li>
-                    <a href="https://www.youtube.com/watch?v=mhjuuHl6qHM">coding train tutorial</a>
-                    by Daniel Shiffman
-                </li>
-                <li>
-                    <a href="https://www.youtube.com/watch?v=bqtqltqcQhw">sebastian lague's</a>
-                    implementation
-                </li>
-            </ul>
+        <h3>credits &#x3c;3</h3>
+        <ul>
+            <li>
+                <a href="https://www.red3d.com/cwr/papers/1987/SIGGRAPH87.pdf">the original paper</a>
+                by Craig Reynolds
+            </li>
+            <li>
+                <a href="https://www.youtube.com/watch?v=4LWmRuB-uNU">smarter everyday's video</a>
+                on birds!
+            </li>
+            <li>
+                <a href="https://explorabl.es/">
+                    explorable explanations</a>
+                by Nicky Case
+            </li>
+            <li>
+                <a href="https://www.youtube.com/watch?v=mhjuuHl6qHM">coding train tutorial</a>
+                by Daniel Shiffman
+            </li>
+            <li>
+                <a href="https://www.youtube.com/watch?v=bqtqltqcQhw">sebastian lague's</a>
+                implementation
+            </li>
+        </ul>
 
-            <h3><span style="text-decoration: line-through;">bugs</span> features!</h3>
-            <ul>
-                <li>
-                    please do not feed the boidsthey can get angry
-                </li>
-            </ul>
-        </section>
+        <h3><span style="text-decoration: line-through;">bugs</span> features!</h3>
+        <ul>
+            <li>
+                please do not feed the boidsthey can get angry
+            </li>
+        </ul>
+    </section>
     </div>
-
     <canvas id="boid-simulation"></canvas>
 `);
 
@@ -107,10 +108,6 @@ class Vector {
     }
 }
 
-function vector(x: number, y: number): Vector {
-    return new Vector(x, y);
-}
-
 class Boid {
     x = Boids.width * Math.random();
     y = Boids.height * Math.random();
@@ -129,7 +126,7 @@ class Boid {
         Boids.ctx.restore();
     };
 
-    update = (boids: Boid[]): void => {
+    update = (): void => {
         // teleport if out of bounds
         this.x < 0 && (this.x = Boids.width);
         this.y < 0 && (this.y = Boids.height);
@@ -137,29 +134,35 @@ class Boid {
         this.y > Boids.height && (this.y = 0);
 
         // velocity and position
-        let velocity = vector(
+        let velocity = new Vector(
             Math.cos(this.angle),
             Math.sin(this.angle)
         ).normalize(Boids.speed);
-        let position = vector(this.x, this.y);
-        let acceleration = vector(0, 0);
+        let position = new Vector(this.x, this.y);
+        let acceleration = new Vector(0, 0);
 
         // find the closest boids (that is not self)
         const closestBoids: Boid[] = [];
-        boids.forEach((boid) => {
-            const distance = vector(boid.x, boid.y)
+        Boids.boids.forEach((boid) => {
+            const distance = new Vector(boid.x, boid.y)
                 .subtract(position)
                 .magnitude();
             if (distance < Boids.viewRadius && distance != 0) {
                 closestBoids.push(boid);
+                if (Boids.drawInteractions) {
+                    Boids.ctx.moveTo(this.x, this.y);
+                    Boids.ctx.lineTo(boid.x, boid.y);
+                    Boids.ctx.strokeStyle = 'white';
+                    Boids.ctx.stroke();
+                }
             }
         });
 
         // seperation
-        let seperation = vector(0, 0);
+        let seperation = new Vector(0, 0);
         let count = 0;
         closestBoids.forEach((boid) => {
-            let difference = position.subtract(vector(boid.x, boid.y));
+            let difference = position.subtract(new Vector(boid.x, boid.y));
             const distance = difference.magnitude();
             difference = difference.normalize();
             difference = difference.divide(distance);
@@ -173,15 +176,15 @@ class Boid {
             seperation = seperation.subtract(velocity);
             seperation = seperation.limit(Boids.turningForce);
         } else {
-            seperation = vector(0, 0);
+            seperation = new Vector(0, 0);
         }
 
         // alignment
-        let alignment = vector(0, 0);
+        let alignment = new Vector(0, 0);
         count = 0;
         closestBoids.forEach((boid) => {
             alignment = alignment.add(
-                vector(Math.cos(boid.angle), Math.sin(boid.angle)).normalize(
+                new Vector(Math.cos(boid.angle), Math.sin(boid.angle)).normalize(
                     Boids.speed
                 )
             );
@@ -194,14 +197,14 @@ class Boid {
             alignment = alignment.subtract(velocity);
             alignment = alignment.limit(Boids.turningForce);
         } else {
-            alignment = vector(0, 0);
+            alignment = new Vector(0, 0);
         }
 
         // cohesion
-        let cohesion = vector(0, 0);
+        let cohesion = new Vector(0, 0);
         count = 0;
         closestBoids.forEach((boid) => {
-            cohesion = cohesion.add(vector(boid.x, boid.y));
+            cohesion = cohesion.add(new Vector(boid.x, boid.y));
             count++;
         });
 
@@ -212,7 +215,7 @@ class Boid {
             cohesion = cohesion.subtract(velocity);
             cohesion = cohesion.limit(Boids.turningForce);
         } else {
-            cohesion = vector(0, 0);
+            cohesion = new Vector(0, 0);
         }
 
         // add all the forces together
@@ -251,6 +254,7 @@ interface Boids {
     seperationForce: number;
     alignmentForce: number;
     cohesionForce: number;
+    drawInteractions: boolean;
 
     boids: Boid[];
     draw: (number: number) => void;
@@ -258,7 +262,7 @@ interface Boids {
 }
 
 const Boids: Boids = {
-    container: $('#boids'),
+    container: $('#boid'),
     canvas: $('#boid-simulation'),
     ctx: $('#boid-simulation').getContext('2d'),
     scale: 1.5,
@@ -282,6 +286,7 @@ const Boids: Boids = {
     seperationForce: 1.5,
     alignmentForce: 1,
     cohesionForce: 1,
+    drawInteractions: false,
 
     boids: [],
 
@@ -296,7 +301,7 @@ const Boids: Boids = {
     update: (): void => {
         Boids.ctx.clearRect(0, 0, Boids.width, Boids.height);
         Boids.boids.forEach((boid) => {
-            boid.update(Boids.boids);
+            boid.update();
             boid.draw();
         });
     },
@@ -310,7 +315,17 @@ const Boids: Boids = {
         Boids.draw(Math.round((Boids.width * Boids.height) / Boids.density));
         setInterval(Boids.update, 1000 / 60);
 
-        // sidebar functionality
+        // fill in buttons
+        $('#boid-scale').value = Boids.scale;
+        $('#boid-density').value = Boids.density;
+        $('#boid-speed').value = Boids.speed;
+        $('#boid-view').value = Boids.viewRadius;
+        $('#boid-seperation').value = Boids.seperationForce;
+        $('#boid-alignment').value = Boids.alignmentForce;
+        $('#boid-cohesion').value = Boids.cohesionForce;
+        $('#boid-interactions').checked = Boids.drawInteractions;
+
+        // // sidebar functionality
         $('#boid-scale').onchange = () => {
             Boids.scale = $('#boid-scale').value;
             Boids.sizeCanvas();
@@ -355,16 +370,19 @@ const Boids: Boids = {
             );
         };
 
+        $('#boid-interactions').onchange = () => {
+            Boids.drawInteractions = $('#boid-interactions').checked;
+        }
+
         $('#restart').onclick = () => {
             window.location.reload();
         };
 
         let isOpen = false;
         $('#boid-more').onclick = () => {
-            $('#boid-sidebar').style.width = isOpen ? '0px' : '400px';
-            $('#boid-sidebar').style['padding-inline'] = isOpen
-                ? '0px'
-                : '1rem';
+            $('#boid section').style.transform = isOpen
+                ? 'translateX(-100%)'
+                : 'translateX(0%)';
             $('#boid-more').style.transform = isOpen
                 ? 'rotate(0deg)'
                 : 'rotate(180deg)';
@@ -372,7 +390,7 @@ const Boids: Boids = {
         };
 
         $('#boid-home').onclick = () => {
-            window.location.href = 'projects.html#boids';
+            window.location.href = 'projects.html#boid';
         };
 
         $('#boid-full').onclick = () => {
