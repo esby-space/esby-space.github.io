@@ -36,16 +36,6 @@ document.write(`
     <input type="color" />
 `);
 // PAINT //
-// used in other scripts
-const Mouse = {
-    pressed: false,
-};
-document.body.onmousedown = () => {
-    Mouse.pressed = true;
-};
-document.body.onmouseup = () => {
-    Mouse.pressed = false;
-};
 let Paint = {
     color: 'hsl(0, 0%, 20%)',
     strokeWidth: 1,

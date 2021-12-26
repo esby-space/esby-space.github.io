@@ -37,19 +37,6 @@ document.write(`
 
 // PAINT //
 
-// used in other scripts
-const Mouse: any = {
-    pressed: false,
-};
-
-document.body.onmousedown = () => {
-    Mouse.pressed = true;
-};
-
-document.body.onmouseup = () => {
-    Mouse.pressed = false;
-};
-
 let Paint: any = {
     color: 'hsl(0, 0%, 20%)',
     strokeWidth: 1,

@@ -68,46 +68,6 @@ document.write(`
     <canvas id="boid-simulation"></canvas>
 `);
 
-class Vector {
-    x: number;
-    y: number;
-
-    constructor(x: number, y: number) {
-        this.x = x;
-        this.y = y;
-    }
-
-    magnitude(): number {
-        return Math.sqrt(this.x ** 2 + this.y ** 2);
-    }
-
-    add(vector: Vector): Vector {
-        return new Vector(vector.x + this.x, vector.y + this.y);
-    }
-
-    subtract(vector: Vector): Vector {
-        return new Vector(this.x - vector.x, this.y - vector.y);
-    }
-
-    mulitply(scalar: number): Vector {
-        return new Vector(this.x * scalar, this.y * scalar);
-    }
-
-    divide(scalar: number): Vector {
-        return new Vector(this.x / scalar, this.y / scalar);
-    }
-
-    normalize(magnitude = 1): Vector {
-        return this.magnitude() == 0
-            ? new Vector(0, 0)
-            : this.mulitply(magnitude / this.magnitude());
-    }
-
-    limit(limit: number): Vector {
-        return this.magnitude() > limit ? this.normalize(limit) : this;
-    }
-}
-
 class Boid {
     x = Boids.width * Math.random();
     y = Boids.height * Math.random();
@@ -146,7 +106,7 @@ class Boid {
         Boids.boids.forEach((boid) => {
             const distance = new Vector(boid.x, boid.y)
                 .subtract(position)
-                .magnitude();
+                .magnitude;
             if (distance < Boids.viewRadius && distance != 0) {
                 closestBoids.push(boid);
                 if (Boids.drawInteractions) {
@@ -163,7 +123,7 @@ class Boid {
         let count = 0;
         closestBoids.forEach((boid) => {
             let difference = position.subtract(new Vector(boid.x, boid.y));
-            const distance = difference.magnitude();
+            const distance = difference.magnitude;
             difference = difference.normalize();
             difference = difference.divide(distance);
             seperation = seperation.add(difference);
@@ -174,7 +134,7 @@ class Boid {
             seperation = seperation.divide(count);
             seperation = seperation.normalize(Boids.speed);
             seperation = seperation.subtract(velocity);
-            seperation = seperation.limit(Boids.turningForce);
+            seperation = seperation.max(Boids.turningForce);
         } else {
             seperation = new Vector(0, 0);
         }
@@ -195,7 +155,7 @@ class Boid {
             alignment = alignment.divide(count);
             alignment = alignment.normalize(Boids.speed);
             alignment = alignment.subtract(velocity);
-            alignment = alignment.limit(Boids.turningForce);
+            alignment = alignment.max(Boids.turningForce);
         } else {
             alignment = new Vector(0, 0);
         }
@@ -213,19 +173,19 @@ class Boid {
             cohesion = cohesion.subtract(position);
             cohesion = cohesion.normalize(Boids.speed);
             cohesion = cohesion.subtract(velocity);
-            cohesion = cohesion.limit(Boids.turningForce);
+            cohesion = cohesion.max(Boids.turningForce);
         } else {
             cohesion = new Vector(0, 0);
         }
 
         // add all the forces together
         acceleration = acceleration.add(
-            seperation.mulitply(Boids.seperationForce)
+            seperation.multiply(Boids.seperationForce)
         );
         acceleration = acceleration.add(
-            alignment.mulitply(Boids.alignmentForce)
+            alignment.multiply(Boids.alignmentForce)
         );
-        acceleration = acceleration.add(cohesion.mulitply(Boids.cohesionForce));
+        acceleration = acceleration.add(cohesion.multiply(Boids.cohesionForce));
 
         // move and turn the boid
         velocity = velocity.add(acceleration);

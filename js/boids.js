@@ -7,9 +7,9 @@ document.write(`
         <span class="material-icons" id="boid-home">home</span>
         <span class="material-icons" id="boid-full">open_in_full</span>
     </nav>
+
     <section>
         <h2>boids!</h2>
-
         <h3>boid settings</h3>
         <div id="boid-form">
             <label for="boid-scale">view scale</label>
@@ -29,6 +29,7 @@ document.write(`
             <label for="boid-interactions">draw lines to neighbors:</label>
             <input type="checkbox" id="boid-interactions"/>
         </div>
+
         <button id="boid-reset">reset boids</button>
         <button id="restart">reset all</button>
 
@@ -67,40 +68,6 @@ document.write(`
     </div>
     <canvas id="boid-simulation"></canvas>
 `);
-class Vector {
-    x;
-    y;
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
-    }
-    magnitude() {
-        return Math.sqrt(this.x ** 2 + this.y ** 2);
-    }
-    add(vector) {
-        return new Vector(vector.x + this.x, vector.y + this.y);
-    }
-    subtract(vector) {
-        return new Vector(this.x - vector.x, this.y - vector.y);
-    }
-    mulitply(scalar) {
-        return new Vector(this.x * scalar, this.y * scalar);
-    }
-    divide(scalar) {
-        return new Vector(this.x / scalar, this.y / scalar);
-    }
-    normalize(magnitude = 1) {
-        return this.magnitude() == 0
-            ? new Vector(0, 0)
-            : this.mulitply(magnitude / this.magnitude());
-    }
-    limit(limit) {
-        return this.magnitude() > limit ? this.normalize(limit) : this;
-    }
-}
-function vector(x, y) {
-    return new Vector(x, y);
-}
 class Boid {
     x = Boids.width * Math.random();
     y = Boids.height * Math.random();
@@ -124,15 +91,15 @@ class Boid {
         this.x > Boids.width && (this.x = 0);
         this.y > Boids.height && (this.y = 0);
         // velocity and position
-        let velocity = vector(Math.cos(this.angle), Math.sin(this.angle)).normalize(Boids.speed);
-        let position = vector(this.x, this.y);
-        let acceleration = vector(0, 0);
+        let velocity = new Vector(Math.cos(this.angle), Math.sin(this.angle)).normalize(Boids.speed);
+        let position = new Vector(this.x, this.y);
+        let acceleration = new Vector(0, 0);
         // find the closest boids (that is not self)
         const closestBoids = [];
         Boids.boids.forEach((boid) => {
-            const distance = vector(boid.x, boid.y)
+            const distance = new Vector(boid.x, boid.y)
                 .subtract(position)
-                .magnitude();
+                .magnitude;
             if (distance < Boids.viewRadius && distance != 0) {
                 closestBoids.push(boid);
                 if (Boids.drawInteractions) {
@@ -144,11 +111,11 @@ class Boid {
             }
         });
         // seperation
-        let seperation = vector(0, 0);
+        let seperation = new Vector(0, 0);
         let count = 0;
         closestBoids.forEach((boid) => {
-            let difference = position.subtract(vector(boid.x, boid.y));
-            const distance = difference.magnitude();
+            let difference = position.subtract(new Vector(boid.x, boid.y));
+            const distance = difference.magnitude;
             difference = difference.normalize();
             difference = difference.divide(distance);
             seperation = seperation.add(difference);
@@ -158,32 +125,32 @@ class Boid {
             seperation = seperation.divide(count);
             seperation = seperation.normalize(Boids.speed);
             seperation = seperation.subtract(velocity);
-            seperation = seperation.limit(Boids.turningForce);
+            seperation = seperation.max(Boids.turningForce);
         }
         else {
-            seperation = vector(0, 0);
+            seperation = new Vector(0, 0);
         }
         // alignment
-        let alignment = vector(0, 0);
+        let alignment = new Vector(0, 0);
         count = 0;
         closestBoids.forEach((boid) => {
-            alignment = alignment.add(vector(Math.cos(boid.angle), Math.sin(boid.angle)).normalize(Boids.speed));
+            alignment = alignment.add(new Vector(Math.cos(boid.angle), Math.sin(boid.angle)).normalize(Boids.speed));
             count++;
         });
         if (count > 0) {
             alignment = alignment.divide(count);
             alignment = alignment.normalize(Boids.speed);
             alignment = alignment.subtract(velocity);
-            alignment = alignment.limit(Boids.turningForce);
+            alignment = alignment.max(Boids.turningForce);
         }
         else {
-            alignment = vector(0, 0);
+            alignment = new Vector(0, 0);
         }
         // cohesion
-        let cohesion = vector(0, 0);
+        let cohesion = new Vector(0, 0);
         count = 0;
         closestBoids.forEach((boid) => {
-            cohesion = cohesion.add(vector(boid.x, boid.y));
+            cohesion = cohesion.add(new Vector(boid.x, boid.y));
             count++;
         });
         if (count > 0) {
@@ -191,15 +158,15 @@ class Boid {
             cohesion = cohesion.subtract(position);
             cohesion = cohesion.normalize(Boids.speed);
             cohesion = cohesion.subtract(velocity);
-            cohesion = cohesion.limit(Boids.turningForce);
+            cohesion = cohesion.max(Boids.turningForce);
         }
         else {
-            cohesion = vector(0, 0);
+            cohesion = new Vector(0, 0);
         }
         // add all the forces together
-        acceleration = acceleration.add(seperation.mulitply(Boids.seperationForce));
-        acceleration = acceleration.add(alignment.mulitply(Boids.alignmentForce));
-        acceleration = acceleration.add(cohesion.mulitply(Boids.cohesionForce));
+        acceleration = acceleration.add(seperation.multiply(Boids.seperationForce));
+        acceleration = acceleration.add(alignment.multiply(Boids.alignmentForce));
+        acceleration = acceleration.add(cohesion.multiply(Boids.cohesionForce));
         // move and turn the boid
         velocity = velocity.add(acceleration);
         velocity = velocity.normalize(Boids.speed);

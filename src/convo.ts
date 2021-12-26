@@ -86,8 +86,7 @@ let Game: Game = {
                 case 'text':
                     // display on screen
                     appendDOM(line, Game.textDOM, {
-                        className: 'message',
-                        fadeIn: true,
+                        className: 'message'
                     });
                     break;
 
@@ -114,8 +113,7 @@ let Game: Game = {
                     );
                     choiceElement.onclick = () => {
                         appendDOM(choiceText, Game.textDOM, {
-                            className: 'response',
-                            fadeIn: true,
+                            className: 'response'
                         });
                         Game.showSection(choiceID);
                     };
