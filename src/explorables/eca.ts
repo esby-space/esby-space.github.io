@@ -1,4 +1,3 @@
-"use strict";
 document.write(`
     <link rel="stylesheet" href="../styles/cells.css" />
     <link rel="stylesheet" href="" id="cell-style" />
@@ -14,47 +13,69 @@ document.write(`
         <button id="eca-random-first">randomize first layer</button>
         <button id="eca-clear-first">clear cells</button>
         <button id="eca-color">color mode!</button>
-        <button class="boxy-button">boxy mode</button>
+        <button id="boxy-button">boxy mode</button>
         <button id="eca-reset">reset all</button>
         <!-- ughhh this is so ugly >~< -->
     </div>
 
     <div id="eca-cells" class="cells"></div>
 `);
-const Cells = {
+
+const Cells: any = {
     // me being lazy functions
-    alive: function (cell) {
+    alive: function (cell: Element) {
         cell.classList.remove('dead');
         cell.classList.add('alive');
     },
-    kill: function (cell) {
+
+    kill: function (cell: Element) {
         cell.classList.remove('alive');
         cell.classList.add('dead');
     },
-    toggle: function (cell) {
+
+    toggle: function (cell: Element) {
         cell.classList.toggle('alive');
         cell.classList.toggle('dead');
     },
 };
-const ECA = {
+
+// ECA //
+interface ECA {
+    rule: number;
+    rows: number;
+    columns: number;
+    color: Boolean;
+    cells: Element[][];
+    ruleArray: number[];
+
+    makeCells(selector?: string): void;
+    cellState(row: number, column: number): number;
+    generate(): void;
+
+    [key: string]: any;
+}
+
+const ECA: ECA = {
     rule: 30,
     rows: 30,
     columns: 30,
     color: false,
     cells: [],
+
     // turn rule into binary, then sums of power of 2
-    get ruleArray() {
+    get ruleArray(): number[] {
         const binary = this.rule.toString(2);
         const binaryArray = Array.from(binary).reverse();
-        const ruleList = [];
+        const ruleList: number[] = [];
         binaryArray.forEach((x, i) => {
             let digit = parseInt(x);
             digit == 1 && ruleList.push(2 ** i);
         });
         return ruleList;
     },
+
     // fill 2D array with cells, rows * (3 * columns)
-    makeCells: function (selector) {
+    makeCells: function (selector?: string): void {
         selector && (this.selector = selector);
         this.cells = [];
         for (let i = 0; i < this.rows; i++) {
@@ -64,27 +85,30 @@ const ECA = {
                 const cell = document.createElement('div');
                 cell.classList.add('cell', 'dead');
                 this.cells[i][j] = cell;
+
                 cell.onmouseenter = cell.onmouseleave = () => {
                     cell.classList.toggle('select');
                 };
+
                 cell.onclick =
                     i == 0
                         ? () => {
-                            Cells.toggle(cell);
-                            this.generate();
-                        }
+                              Cells.toggle(cell);
+                              this.generate();
+                          }
                         : () => {
-                            Cells.toggle(cell);
-                            const ruleChange = this.cellState(i, j);
-                            this.ruleArray.includes(ruleChange)
-                                ? (this.rule -= ruleChange)
-                                : (this.rule += ruleChange);
-                            this.generate();
-                            $('#eca-rule').value = this.rule;
-                            // bad form, i know
-                        };
+                              Cells.toggle(cell);
+                              const ruleChange = this.cellState(i, j);
+                              this.ruleArray.includes(ruleChange)
+                                  ? (this.rule -= ruleChange)
+                                  : (this.rule += ruleChange);
+                              this.generate();
+                              $('#eca-rule').value = this.rule;
+                              // bad form, i know
+                          };
             }
         }
+
         // plot cells to the website
         $(this.selector).innerHTML = '';
         this.cells.forEach((layer) => {
@@ -96,22 +120,23 @@ const ECA = {
             $(this.selector).appendChild(row);
         });
     },
+
     // determine the cells above a cell
-    cellState: function (row, column) {
+    cellState: function (row: number, column: number): number {
         let state = '';
         for (let i = -1; i <= 1; i++) {
             this.cells[row - 1][column + i] &&
-                this.cells[row - 1][column + i].classList.contains('alive')
+            this.cells[row - 1][column + i].classList.contains('alive')
                 ? (state += '1')
                 : (state += '0');
         }
         return 2 ** parseInt(state, 2);
     },
+
     // make cells alive or dead, color them
-    generate: function () {
+    generate: function (): void {
         this.cells.forEach((layer, i) => {
-            if (i == 0)
-                return;
+            if (i == 0) return;
             layer.forEach((cell, j) => {
                 const state = this.cellState(i, j);
                 let classes = Array.from(cell.classList);
@@ -123,36 +148,42 @@ const ECA = {
                 if (this.ruleArray.includes(state)) {
                     Cells.alive(cell);
                     this.color && cell.classList.add(`color-${state}`);
-                }
-                else {
+                } else {
                     Cells.kill(cell);
                 }
             });
         });
     },
 };
+
 ECA.makeCells('#eca-cells');
+
 // eca user input
 $('#eca-rule').value = ECA.rule;
 $('#eca-row').value = ECA.rows;
 $('#eca-column').value = ECA.columns;
+
 $('#eca-rule').onchange = () => {
     ECA.rule = parseInt($('#eca-rule').value);
     ECA.generate();
 };
+
 $('#eca-random-rule').onclick = () => {
     ECA.rule = Math.floor(Math.random() * 256);
     $('#eca-rule').value = ECA.rule;
     ECA.generate();
 };
+
 $('#eca-row').onchange = () => {
     ECA.rows = parseInt($('#eca-row').value);
     ECA.makeCells();
 };
+
 $('#eca-column').onchange = () => {
     ECA.columns = parseInt($('#eca-column').value);
     ECA.makeCells();
 };
+
 $('#eca-random-first').onclick = () => {
     const length = ECA.cells[0].length;
     for (let i = length / 3; i < (2 * length) / 3; i++) {
@@ -161,23 +192,34 @@ $('#eca-random-first').onclick = () => {
     }
     ECA.generate();
 };
+
 $('#eca-clear-first').onclick = () => {
     ECA.cells[0].forEach((cell) => {
         Cells.kill(cell);
     });
     ECA.generate();
 };
+
 $('#eca-color').onclick = () => {
     ECA.color = !ECA.color;
     $('#eca-color').innerHTML = ECA.color ? 'no color' : 'color mode!';
     ECA.generate();
 };
+
 $('#eca-reset').onclick = () => {
     window.location.reload();
 };
+
+let isBoxy = false;
+$('#boxy-button').onclick = () => {
+    $('#cell-style').href = isBoxy ? '' : '../styles/boxy.css';
+    isBoxy = !isBoxy;
+};
+
 // i just realized that dave shiffman did a tutorial on this
 // and did it way better than me
 // oh well!
+
 // /\__/\
 // (=o.o=)
 // |/--\|
