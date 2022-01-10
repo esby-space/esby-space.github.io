@@ -3,313 +3,70 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
-    <meta content="width=device-width,initial-scale=1" name="viewport" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>esby projects</title>
-
-    <link rel="stylesheet" href="../styles/style.css" />
-    <link rel="stylesheet" href="../styles/iss.css" />
-    <link href="../images/favicon.png" rel="shortcut icon" type="image/x-icon" />
-
-    <link href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" rel="stylesheet" crossorigin=""
-        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" />
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" crossorigin=""
-        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="></script>
+    <title>esby explorations</title>
+    <link rel="stylesheet" href="../css/style.css" />
 </head>
 
 <body>
-    <script src="../js/lib/helper.js"></script>
-    <script defer src="../js/explorables/space.js"></script>
-
-    <script src="../js/components/Header.js"></script>
+    <header>
+        <h1>esby explorations</h1>
+        <nav>
+            <a href="../index.html">home</a>
+            <a href="./projects.html">projects</a>
+            <a href="./ksp.html">ksp</a>
+            <a href="./me.html">me</a>
+        </nav>
+    </header>
 
     <main>
-        <h2>projects im working on!</h2>
-        <p>
-            different project i've been working on! a lot of them are
-            programming project for beginners, and i'll try to give full
-            credit when possible.
-        </p>
+        <section>
+            <h2>programming projects!</h2>
+            <h3>math and physics</h3>
+            <div class="image-grid">
+                <a href="./projects/boids.html"><img src="./images/projects/boids.jpg" alt="boids" /><b>boids!</b>
+                    - simulating boid like motion</a>
+                <a href=""><img src="./images/projects/shapes.jpg" alt="shapes" /><b>shapes!</b> - throw some shapes
+                    around</a>
+                <a href=""><img src="./images/projects/eca.jpg" alt="elementary cellular automata" /><b>elementary
+                        cellular automata!</b> - simple rules,
+                    complex patterns</a>
+                <a href="./projects/conway.html"><img src="./images/projects/gol.jpg" alt="game of life" /><b>conway's
+                        game of life!</b> - and
+                    death?</a>
+            </div>
 
-        <h3>math and physics</h3>
-        <section class="image-thumbs">
-            <a href="#boid">
-                <img src="../images/projects/boids.jpg" alt="Boids!" />
-                <b>the boids alogirthm</b> - Craig Reynolds' famous
-                alogirthm for simulating bird-like motion
-            </a>
-            <a href="#shapes">
-                <img src="../images/projects/shapes.jpg" alt="Shapes!" />
-                <b>shapes!</b> - throw some shapes around
-            </a>
-            <a href="#eca">
-                <img src="../images/projects/ECA.jpg" alt="ECA" />
-                <b>elementary cellular automata</b> - a simple process with
-                not-so simple results
-            </a>
-            <a href="#gol">
-                <img src="../images/projects/GOL.jpg" alt="Game of Life" />
-                <b>the game of life</b> - and death?
-            </a>
-        </section>
+            <h3>space and science</h3>
+            <div class="image-grid">
+                <a href=""><img src="./images/projects/iss.jpg" alt="international space station on a map" /><b>iss
+                        tracker and rocket launch schedule</b> -
+                    because sometimes you need a break from earth</a>
+                <a href=""><img src="./images/projects/protein.gif" alt="spinning sars-cov2 spike protein" /><b>protein
+                        modeling resources</b> - to help please the
+                    Haddock gods! (if you know you know)</a>
+            </div>
 
-        <h3>science and space</h3>
-        <section class="image-thumbs">
-            <a href="#iss">
-                <img src="../images/projects/ISS.jpg" alt="Where is the ISS?" />
-                <b>iss tracker and rocket launch schedule</b> - because
-                sometimes you need a break from earth
-            </a>
-            <a href="https://esby-space.github.io/proteins/">
-                <img src="../images/projects/protein.gif" alt="spinning spike protein" />
-                <b>protein modeling resources</b> - to help plesae the
-                Haddock gods! (if you know you know)
-            </a>
-        </section>
-
-        <h3>for fun!</h3>
-        <section class="image-thumbs">
-            <a href="#convo">
-                <img src="../images/projects/convo.jpg" alt="text-bubbles" />
-                <b>a bare-bones game conversation thingy</b> - idk
-            </a>
-            <a href="#paint">
-                <img src="../images/projects/paint.jpg" alt="a badly written 你好" />
-                <b>michaelsoft paint</b> - making the next photoshop right here!
-            </a>
-        </section>
-        <hr>
-
-        <h2>boid simulation</h2>
-        <p>
-            Created by Craig Reynolds, the boids simulation is meant to
-            artificially describe the movement of flocks of birds. This
-            implementation is far from perfect, but I just think they're
-            pretty to look at! Click <a href="./boids.html">here</a> for a
-            full screen version.
-        </p>
-
-        <section class="card container" id="boid">
-            <script src="../js/explorables/boids.js"></script>
-        </section>
-
-        <h3>resources and further exploration</h3>
-        <ul>
-            <li>
-                <a href="https://www.red3d.com/cwr/papers/1987/SIGGRAPH87.pdf">the original paper</a>
-                by Craig Reynolds
-            </li>
-            <li>
-                check out
-                <a href="https://www.youtube.com/watch?v=4LWmRuB-uNU">smarter everyday's video</a>
-                on it too!
-            </li>
-            <li>
-                <a href="https://explorabl.es/">the explorable explanations website</a>
-                by Nicky Case
-            </li>
-            <li>
-                <a href="https://www.youtube.com/watch?v=mhjuuHl6qHM">the coding train tutorial</a>
-                by Daniel Shiffman
-            </li>
-            <li>
-                <a href="https://www.youtube.com/watch?v=bqtqltqcQhw">sebastian lague's</a>
-                implementation
-            </li>
-        </ul>
-        <hr />
-
-        <h2>physics shapes!</h2>
-        <p>shapes and shapes and shapes (click and drag them around!)</p>
-
-        <section class="card container" id="shapes">
-            <h3>S H A P E S</h3>
-            <script src="../js/lib/matter.min.js"></script>
-            <script src="../js/explorables/shapes.js"></script>
-        </section>
-        <hr>
-
-        <h2>elementary cellular automaton simulation</h2>
-        <p>
-            This is a reverse engineering of Spaciecat's
-            <a href="https://spaciecat.github.io/cells">From Cell's To Systems</a>, play that for an amazing
-            exploration! In short, cells can
-            either be alive or dead based on a rule you give. The first row
-            can be whatever you like, but the rest will be determined by
-            that rule.
-        </p>
-        <p>
-            To start, enter in the rule (a number from 0 to 255), and click
-            the cells in the first row and watch them come alive! ECA is
-            famous for its simple conditions and starting points and its
-            many complicated results, so play around a little!
-            <a href="#more-eca">Here is a list of interesting rules!</a>
-        </p>
-
-        <section class="card" id="eca">
-            <h3>elementary cellular automaton</h3>
-            <script src="../js/explorables/eca.js"></script>
-        </section>
-
-        <h3 id="more-eca">interesting rules for eca!</h3>
-        <ul>
-            <li>
-                <b>rule 18, 22, 26, 60...</b> - are all sierpiński's
-                triangle
-            </li>
-            <li>
-                <b>rule 30</b> - entually leads to randomness, so it's used
-                to make psuedo-random numbers (they're not totally random
-                because you could recreate them if you had the starting
-                conditions). it also has a similar appearance to the shell
-                of the <i>Conus textile</i> snail!
-            </li>
-            <li>
-                <b>rule 90</b> - is sometimes called the "simplest,
-                non-trivial cellular automaton" as it is just the XOR
-                function
-            </li>
-            <li>
-                <b>rule 110</b> - is turing complete, meaning it can
-                simulate the logic of any computer alogirthm! it lies on the
-                boundry of order and chaos (just like me, when programming
-                this)
-            </li>
-            <li>
-                <b>rule 184</b> - is used as a model of traffic flow in a
-                single lane, surface deposition, and ballistic annihilation
-            </li>
-        </ul>
-
-        <h3>sources and further reading if you're interested!</h3>
-        <ul>
-            <li>
-                <a href="https://spaciecat.github.io/cells">From Cells to Systems</a>
-                by SpacieCat
-            </li>
-            <li>
-                <a href="https://en.wikipedia.org/wiki/Elementary_cellular_automaton">Elementary cellular automaton</a>
-                by Wikipedia
-            </li>
-
-            <li>
-                <a
-                    href="https://www.math.clemson.edu/~macaule/classes/f16_math4500/slides/f16_math4500_cellular-automata_handout.pdf">Cellular
-                    automata and agent-based models</a>
-                by Matthew Macauley
-            </li>
-
-            <li>
-                <a href="https://wpmedia.wolfram.com/uploads/sites/13/2018/02/15-1-1.pdf">Universality in Elementary
-                    Cellular Automata</a>
-                by Matthew Cook
-            </li>
-        </ul>
-        <hr />
-
-        <h2>conway's game of life</h2>
-        <p>
-            John Conway's Game of Life is one of the most famous cellular
-            automata! A cell can either be alive or dead based on its
-            neighbors, and a cell's neighbors is defined as any cell
-            adjacent to the edges or corners of the cell (8 in total).
-            Determining whether a cell can live for the next generation is
-            determined by the following:
-        </p>
-        <ol>
-            <li>
-                If a cell is alive and has less than 2 neighbors, it will
-                die as if by underpopulation.
-            </li>
-            <li>
-                If a cell is alive and has more than 3 neighbors, it will
-                die as if by overpopulation.
-            </li>
-            <li>
-                If a cell is dead and has exactly 3 neighbors, it will come
-                alive as if by development.
-            </li>
-        </ol>
-        <p>
-            why these numbers? because we're mathematicians and we make our
-            own rules! i know conway didn't really like how popular this
-            got, but i had fun coding it in! Rest in Peace John Conway.
-        </p>
-
-        <section class="card container" id="gol">
-            <h3>game of life</h3>
-            <script src="../js/explorables/gol.js"></script>
-        </section>
-        <p>(click and drag to randomize the cells!)</p>
-        <h3>resources and further exploration!</h3>
-        <ul>
-            <li>
-                <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Conway's Game of Life</a>
-                by Wikipedia
-            </li>
-            <li>
-                <a href="https://www.youtube.com/watch?v=E8kUJL04ELA">Does Conway hate his Game of Life?</a>
-                by Numberphile FEATURING JOHN CONWAY HIMSELF!!
-            </li>
-            <li>
-                <a href="https://www.youtube.com/watch?v=R9Plq-D1gEk">Inventing Game of Life</a>
-                by Numberphile AND ALSO FEATURING JOHN CONWAY!!!!
-            </li>
-            <li>
-                <a href="https://www.youtube.com/watch?v=HeQX2HjkcNo">Math's Fatal Flaw</a>
-                by Veritasium if you would like a mind bender
-            </li>
-        </ul>
-        <hr />
-
-        <h2>space stuff</h2>
-        <section class="card" id="iss">
-            <h3>where is the ISS?</h3>
-            <button id="iss-button" class="center">find the ISS!</button>
-            <button id="position-button">get your location!</button>
-            <p id="iss-coordinates"></p>
-
-            <div id="iss-map"></div>
-
-            <p>
-                this idea was taken from
-                <a href="https://www.youtube.com/watch?v=nZaZ2dB6pow">the coding train</a><br />thanks to the people at
-                <a href="https://wheretheiss.at">where is the iss at?</a>
-                for maintaining the api!
-            </p>
-
-            <h3>upcoming rocket launches:</h3>
-            <button id="launch-list-button">
-                plan your departure from earth!
-            </button>
-            <ul id="launch-list"></ul>
-            <p>
-                please do not spam this button, the rate limit is low<br />thanks
-                to <a href="https://thespacedevs.com">the space devs</a> for
-                making everything free!
-            </p>
-        </section>
-        <hr />
-
-        <h2>other?</h2>
-
-        <section class="card" id="convo">
-            <script src="../js/explorables/convo.js"></script>
-        </section>
-
-        <section id="paint" class="card">
-            <h3>michaelsoft paint</h3>
-            <script src="../js/explorables/paint.js"></script>
-            <p>
-                idea taken from
-                <a href="https://www.youtube.com/watch?v=mXssD1qCA5A&list=PLt1m5Xv06FppX3awLr1bAnm4A6DEuaJAC&index=1">nomad
-                    coders</a>, and my friends in cs who did this when they were 2
-            </p>
+            <h3>for fun!</h3>
+            <div class="image-grid">
+                <a href=""><img src="./images/projects/convo.jpg" alt="text messages" /><b>a game conversation
+                        engine</b> - idk</a>
+                <a href=""><img src="./images/projects/paint.jpg" alt="你好!" /><b>michaelsoft paing</b>
+                    - come at me photoshop</a>
+            </div>
         </section>
     </main>
 
-    <script src="../js/components/Footer.js"></script>
+    <footer>
+        <button id="scroll-top">↑ moonshot</button>
+        <pre>
+
+/\__/\
+(=o.o=)
+|/--\|
+(")-(")
+        </pre>
+    </footer>
 </body>
 
 </html>

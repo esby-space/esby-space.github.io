@@ -3,79 +3,53 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>esby explorations</title>
-    <link rel="stylesheet" href="./styles/style.css" />
-    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon" />
-
-    <script src="./js/lib/helper.js"></script>
+    <link rel="stylesheet" href="./css/style.css" />
 </head>
 
 <body>
     <header>
         <h1>esby explorations</h1>
         <nav>
-            <hr />
-            <a href="./index.html">home</a>
-            <span>·</span>
+            <a href=".">home</a>
             <a href="./pages/projects.html">projects</a>
-            <span>·</span>
-            <a href="./pages/random.html">random</a>
+            <a href="./pages/ksp.html">ksp</a>
+            <a href="">me</a>
         </nav>
     </header>
 
     <main>
         <h2>hello there!</h2>
         <p>
-            this is my main test website! this is just to have a place where
-            I can experiment, and hopefully one day have something that
-            looks nice. meanwhile, click some buttons! :D
+            i'm esby, a high schooler who likes to dream and make things! i
+            love space exploration, math, science, and learning new things
+            in genreal! i'll upload some of the things that i make here to
+            play around with :D
         </p>
-        <p>
-            also, web dev is hard and this site doesn't work very well with
-            safari :(
-        </p>
-        <hr />
 
-        <div class="image-thumbs">
-            <a href="./pages/projects.html">
-                <img src="./images/projects/ECA.jpg">
-                <b>projects</b> - that i may or may not be working on
-            </a>
-            <a href="./pages/random.html">
-                <img src="./images/home/Mayari1.png">
-                <b>random</b> - things that didn't fit anywhere
-            </a>
-        </div>
+        <section class="image-grid">
+            <a href="./pages/projects.html"><img src="./pages/images/projects/boids.jpg" alt="boids"><b>programming
+                    projects</b> - project
+                i'm working on or made while learning code</a>
+            <a href="./pages/ksp.html"><img src="./pages/images/ksp/collins launch.jpeg" alt="ksp laumch"><b>ksp
+                    photos</b> - me playing
+                kerbal space program!</a>
 
-        <div id="iss-art" class="card">
-            <img src="images/home/issArt.png" alt="A Young International Space Station" />
-            <script>
-                const issArtDiv = document.getElementById('iss-art');
-                let issSpaceState = false;
-                issArtDiv.onclick = () => {
-                    issArtDiv.style.backgroundColor = issSpaceState
-                        ? 'white'
-                        : 'black';
-                    $('#iss-art img').src = issSpaceState
-                        ? './images/home/issArt.png'
-                        : './images/home/issArt.svg';
-                    issSpaceState = !issSpaceState;
-                };
-            </script>
-            <style>
-                #iss-art img {
-                    animation: bounce 3s ease-in-out infinite;
-                    cursor: pointer;
-                }
-            </style>
-        </div>
+        </section>
     </main>
 
-    <script src="/js/components/Footer.js"></script>
+    <footer>
+        <button id="scroll-top">↑ moonshot</button>
+        <pre>
 
+/\__/\
+(=o.o=)
+|/--\|
+(")-(")
+        </pre>
+    </footer>
 </body>
 
 </html>
