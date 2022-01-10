@@ -15,9 +15,11 @@ interface Shapes {
     width: number;
     height: number;
     sizeCanvas: () => void;
-    render: (engine: Matter.Engine) => void;
+    render: (engine: any) => void;
     create: () => void;
 };
+
+const Matter = (window as any).Matter;
 
 const Shapes: Shapes = {
     container: $('#shapes'),
@@ -33,7 +35,7 @@ const Shapes: Shapes = {
         Shapes.canvas.style.height = Shapes.height / 2 + 'px';
     },
 
-    render: (engine: Matter.Engine) => {
+    render: (engine: any) => {
         const ctx = Shapes.canvas.getContext('2d')!;
         const render = () => {
             Shapes.render(engine);
@@ -45,10 +47,10 @@ const Shapes: Shapes = {
 
         const bodies = Matter.Composite.allBodies(engine.world);
         ctx.beginPath();
-        bodies.forEach((body) => {
+        bodies.forEach((body: any) => {
             const vertices = body.vertices;
             ctx.moveTo(vertices[0].x, vertices[0].y);
-            vertices.forEach((vertex) => ctx.lineTo(vertex.x, vertex.y));
+            vertices.forEach((vertex: any) => ctx.lineTo(vertex.x, vertex.y));
             ctx.lineTo(vertices[0].x, vertices[0].y);
             ctx.stroke();
         });
