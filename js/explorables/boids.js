@@ -108,7 +108,7 @@ const Boids = () => {
     // main loop
     const boids = createBoids();
     setInterval(() => {
-        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.clear(canvas);
         for (let i = 0; i < boids.length; i++) {
             boids[i].draw();
             boids[i].update();

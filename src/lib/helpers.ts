@@ -16,6 +16,20 @@ const createSimulation = (container: HTMLElement) => {
     return canvas;
 };
 
+CanvasRenderingContext2D.prototype.clear = function (
+    canvas: HTMLCanvasElement
+) {
+    this.clearRect(0, 0, canvas.width, canvas.height);
+};
+
+CanvasRenderingContext2D.prototype.fillSquare = function (
+    x: number,
+    y: number,
+    tileSize: number
+) {
+    this.fillRect(x * tileSize, y * tileSize, tileSize, tileSize);
+};
+
 // mathy stuff
 Math.TAU = Math.PI * 2;
 
@@ -25,6 +39,10 @@ Math.randomInt = (min: number, max: number) => {
 
 Math.pythag = (x, y) => {
     return Math.sqrt(x ** 2 + y ** 2);
+};
+
+Math.distance = (x1: number, y1: number, x2: number, y2: number) => {
+    return Math.pythag(x1 - x2, y1 - y2);
 };
 
 class Vector {
@@ -91,6 +109,35 @@ class Vector {
 Number.prototype.toVector = function (): Vector {
     return new Vector(Math.cos(<number>this), Math.sin(<number>this));
 };
+
+// keyboard
+
+const Keyboard = {
+    pressed: false,
+    key: '',
+    action: '',
+    mapping: {
+        up: ['ArrowUp', 'w'],
+        down: ['ArrowDown', 's'],
+        left: ['ArrowLeft', 'a'],
+        right: ['ArrowRight', 'd'],
+    },
+};
+
+window.addEventListener('keydown', (event: KeyboardEvent) => {
+    Keyboard.pressed = true;
+    Keyboard.key = event.key;
+    let action: keyof typeof Keyboard.mapping;
+    for (action in Keyboard.mapping) {
+        if (Keyboard.mapping[action].includes(event.key)) {
+            Keyboard.action = action;
+        }
+    }
+});
+
+window.addEventListener('keyup', () => {
+    Keyboard.pressed = false;
+});
 
 // /\__/\
 // (=o.o=)

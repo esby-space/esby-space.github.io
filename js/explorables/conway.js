@@ -37,7 +37,7 @@ const GOL = () => {
     // main loop
     setInterval(() => {
         // draw
-        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.clear(canvas);
         for (let y = 0; y < grid.length; y++) {
             for (let x = 0; x < grid[y].length; x++) {
                 if (grid[y][x]) {
