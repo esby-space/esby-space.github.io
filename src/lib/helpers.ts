@@ -41,10 +41,6 @@ Math.pythag = (x, y) => {
     return Math.sqrt(x ** 2 + y ** 2);
 };
 
-Math.distance = (x1: number, y1: number, x2: number, y2: number) => {
-    return Math.pythag(x1 - x2, y1 - y2);
-};
-
 class Vector {
     x: number;
     y: number;

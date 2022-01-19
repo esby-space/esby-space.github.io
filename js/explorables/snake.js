@@ -1,7 +1,10 @@
 "use strict";
 const SNAKE = () => {
     const tileSize = 40;
-    const maxSpeed = 40;
+    // smaller numbers = higher speeds!
+    const startSpeed = 100;
+    const maxSpeed = 30;
+    const speedIncrement = 10;
     const canvas = createSimulation(document.body);
     const context = canvas.getContext('2d');
     const rows = Math.floor(canvas.height / tileSize);
@@ -10,25 +13,28 @@ const SNAKE = () => {
         x: Math.round(columns / 2),
         y: Math.round(rows / 2),
         direction: 'right',
-        speed: 100,
+        speed: startSpeed,
         cells: [],
         total: 0,
+        dead: false,
         draw() {
             context.fillStyle = 'white';
             context.fillSquare(this.x, this.y, tileSize);
             for (let i = 0; i < this.cells.length; i++) {
                 const cell = this.cells[i];
-                context.fillSquare(cell[0], cell[1], tileSize);
+                context.fillSquare(cell.x, cell.y, tileSize);
             }
         },
         update() {
+            // update the tail of the snake
             if (this.total == this.cells.length) {
                 // when no food has been eaten
                 for (let i = 0; i < this.cells.length - 1; i++) {
                     this.cells[i] = this.cells[i + 1];
                 }
             }
-            this.cells[this.total - 1] = [this.x, this.y];
+            this.cells[this.total - 1] = new Vector(this.x, this.y);
+            // detect if a button has been pressed
             if (['up', 'down'].includes(this.direction)) {
                 if (['left', 'right'].includes(Keyboard.action)) {
                     this.direction = Keyboard.action;
@@ -39,6 +45,7 @@ const SNAKE = () => {
                     this.direction = Keyboard.action;
                 }
             }
+            // move the snake forward
             switch (this.direction) {
                 case 'up':
                     this.y--;
@@ -52,10 +59,22 @@ const SNAKE = () => {
                 case 'right':
                     this.x++;
             }
-            if (Math.distance(this.x, this.y, Food.x, Food.y) < 1) {
+            // if an apple has been eaten
+            if (Math.pythag(this.x - Food.x, this.y - Food.y) < 1) {
                 this.total++;
                 Food.reset();
-                this.speed -= this.speed > maxSpeed ? 5 : 0;
+                this.speed -= this.speed > maxSpeed ? speedIncrement : 0;
+            }
+            // if the snake runs into itself
+            for (let i = 0; i < this.cells.length - 1; i++) {
+                const cell = this.cells[i];
+                if (Math.pythag(this.x - cell.x, this.y - cell.y) < 1) {
+                    this.dead = true;
+                }
+            }
+            // if the snake runs into a wall
+            if (this.x > columns || this.x < 0 || this.y > rows || this.y < 0) {
+                Snake.dead = true;
             }
         },
     };
@@ -76,9 +95,14 @@ const SNAKE = () => {
         Food.draw();
         Snake.draw();
         Snake.update();
-        setTimeout(update, Snake.speed);
+        Snake.dead ? kill() : setTimeout(update, Snake.speed);
     };
-    setTimeout(update, Snake.speed);
-    Snake.draw();
+    update();
+    const kill = () => {
+        const div = document.createElement('div');
+        div.innerHTML = `<h3>you died!</h3>your score: ${Snake.total}`;
+        div.id = 'dead';
+        document.body.append(div);
+    };
 };
 window.addEventListener('load', SNAKE);

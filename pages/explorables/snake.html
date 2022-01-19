@@ -14,7 +14,22 @@
     <script src="../../js/explorables/snake.js"></script>
     <style>
         canvas {
+            z-index: 0;
             background-color: hsl(0, 0%, 10%);
+        }
+
+        #dead {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            color: white;
         }
     </style>
 </body>

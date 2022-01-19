@@ -29,9 +29,6 @@ Math.randomInt = (min, max) => {
 Math.pythag = (x, y) => {
     return Math.sqrt(x ** 2 + y ** 2);
 };
-Math.distance = (x1, y1, x2, y2) => {
-    return Math.pythag(x1 - x2, y1 - y2);
-};
 class Vector {
     x;
     y;
