@@ -12,11 +12,7 @@ const ECA = () => {
         paintGrid(grid, container);
 
         container.onclick = () => {
-            for (let y = 0; y < rows; y++) {
-                for (let x = 0; x < columns; x++) {
-                    grid[y][x].update(grid, rule);
-                }
-            }
+            updateGrid(grid, rule);
         };
     };
 
@@ -107,6 +103,14 @@ const ECA = () => {
             container.append(row);
             for (let x = 0; x < grid[y].length; x++) {
                 row.append(grid[y][x].element);
+            }
+        }
+    };
+
+    const updateGrid = (grid: Cell[][], rule: number) => {
+        for (let y = 0; y < rows; y++) {
+            for (let x = 0; x < columns; x++) {
+                grid[y][x].update(grid, rule);
             }
         }
     };
