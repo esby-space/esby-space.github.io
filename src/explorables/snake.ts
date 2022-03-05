@@ -2,8 +2,8 @@ const SNAKE = () => {
     const tileSize = 40;
 
     // smaller numbers = higher speeds!
-    const startSpeed = 100;
-    const maxSpeed = 30;
+    const startSpeed = 50;
+    const maxSpeed = 50;
     const speedIncrement = 10;
 
     const canvas = createSimulation(document.body);
@@ -98,8 +98,8 @@ const SNAKE = () => {
         },
 
         reset() {
-            this.x = Math.randomInt(0, columns);
-            this.y = Math.randomInt(0, rows);
+            this.x = Math.randomInt(2, columns - 2);
+            this.y = Math.randomInt(2, rows - 2);
         },
     };
 
