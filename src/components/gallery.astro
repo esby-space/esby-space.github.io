@@ -1,6 +1,8 @@
 ---
+import { Image } from "astro:assets";
+
 type Post = {
-    src: string,
+    image: ImageMetadata,
     alt?: string,
     href?: string,
     name?: string,
@@ -14,9 +16,9 @@ const { data } = Astro.props;
 
 <div class="grid gap-4 grid-cols-1 sm:grid-cols-2">
     {
-        data.map(({ src, alt, href, name, descpriton }) => (
+        data.map(({ image, alt, href, name, descpriton }) => (
             <a href={href} class="text-lg hover:translate-y-[-0.5rem] transition">
-                <img src={src} alt={alt} class="object-cover aspect-[3/2] w-full">
+                <Image src={image} alt={alt ?? null} class="object-cover aspect-[3/2] w-full" />
                 <p><span class="font-bold">{name}</span> - {descpriton}</p>
             </a> 
         ))

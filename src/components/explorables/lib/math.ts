@@ -30,6 +30,7 @@ export class Vector {
     }
 
     divide(scaler: number): Vector {
+        if (scaler == 0) return new Vector(0, 0);
         const x = this.x / scaler;
         const y = this.y / scaler;
         return new Vector(x, y);
@@ -37,11 +38,7 @@ export class Vector {
 
     normalize(): Vector {
         let length = this.length();
-        if (length == 0) return new Vector(0, 0);
-
-        const x = this.x / length;
-        const y = this.y / length;
-        return new Vector(x, y);
+        return this.divide(length);
     }
 }
 

@@ -1,9 +1,10 @@
 ---
-import Layout from "../components/layout.astro";
+import Layout from "../layouts/layout.astro";
 import Gallery from "../components/gallery.astro";
 
 import ECA from "../components/explorables/eca.svelte";
 import GOL from "../components/explorables/gol.svelte";
+import Verlet from "../components/explorables/verlet.svelte";
 
 import spirograph from "../images/spirograph.png";
 import spectrometer from "../images/spectrometger.png";
@@ -15,28 +16,28 @@ import covid from "../images/covid.png";
     <h2 class="text-2xl font-bold">projects</h2>
     <Gallery data={[
         {
-            src: spirograph,
+            image: spirograph,
             alt: "An image of 2 elliptical spirogrpahs",
             href: "https://esby.space/spirographs/",
             name: "Spirographs",
             descpriton: "An exploration into the world and mathematics of spirographs!"
         },
         {
-            src: spectrometer,
+            image: spectrometer,
             alt: "A poster",
             href: "https://www.nhacadsci.org/student-posters-2022/wlobi2ulxsyigs43zbgrhvh329obij",
             name: "Low-Cost Spectroscopy",
             descpriton: "My research with the NHAS to create a low cost spectrometer."
         },
         {
-            src: protein,
+            image: protein,
             alt: "A spinning protein!",
             href: "https://esby.space/proteins/",
             name: "Protein Modelling",
             descpriton: "A collection of resources to help with protein modelling in Haddock."
         },
         {
-            src: covid,
+            image: covid,
             alt: "Another poster with some cool proteins on it",
             href: "https://projectboard.world/ajas/project/in-silico-comparison-of-human-ace2-interactions-with-sars-cov-2-variants-of-concern",
             name: "COVID-19 research",
@@ -45,7 +46,9 @@ import covid from "../images/covid.png";
     ]}></Gallery>
 
     <h2 class="text-2xl font-bold">more math things :D</h2>
-    <ECA client:visible style="my-8 p-8 rounded-lg shadow-xl space-y-4" />
-    <GOL client:visible style="my-8 p-8 space-y-4 rounded-md shadow-lg" />
+
+    <ECA client:idle style="my-8 p-8 space-y rounded-md shadow-lg" />
+    <GOL client:idle style="my-8 p-8 space-y-4 rounded-md shadow-lg" />
+    <Verlet client:idle style="my-8 p-8 space-y-4 rounded-md shadow-lg" />
 </Layout>
 

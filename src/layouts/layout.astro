@@ -1,7 +1,9 @@
 ---
-import Nav from "./nav.astro";
-import Header from "./header.astro";
-import Footer from "./footer.astro";
+import { ViewTransitions } from "astro:transitions";
+
+import Nav from "../components/nav.astro";
+import Header from "../components/header.astro";
+import Footer from "../components/footer.astro";
 
 const { title = "esby explorations" } = Astro.props;
 ---
@@ -18,6 +20,7 @@ const { title = "esby explorations" } = Astro.props;
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;700&display=swap" rel="stylesheet">
 
         <title>{title}</title>
+        <ViewTransitions />
     </head>
 
     <body class="flex flex-col gap-16">

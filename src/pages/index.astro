@@ -1,11 +1,11 @@
 ---
-import Layout from "../components/layout.astro";
-
-import mayari from "../images/mayari.png";
+import { Image } from "astro:assets";
+import Layout from "../layouts/layout.astro";
+import Mayari from "../images/mayari.png";
 ---
 
 <Layout>
-    <img src={mayari} alt="The Mayari IPV preparing to depart Kerbin.">
+    <Image src={Mayari} alt="The Mayari IPV preparing to depart Kerbin.">
     <h2 class="text-2xl font-bold">hello there!</h2>
     <p>I'm Seabass and this is my website! Learn more about me, the things I make, or what I'm interested in.</p>
 </Layout>

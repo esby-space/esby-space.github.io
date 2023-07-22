@@ -2,7 +2,7 @@
     export let style: string;
 
     import { onMount } from "svelte";
-    import { ECA } from "./eca";
+    import { ECA } from "./lib/eca";
 
     let canvas: HTMLCanvasElement;
     let context: CanvasRenderingContext2D;
@@ -14,7 +14,7 @@
     let cellSize: number;
 
     onMount(() => {
-        ECA.init(width * 3, height, rule);
+        ECA.init(width * 3, height, rule); // we simulate 3 * width to reduce side interference
         ECA.grid.get(Math.floor(ECA.grid.width / 2), 0).alive = true;
         ECA.update();
 

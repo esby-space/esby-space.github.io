@@ -1,7 +1,7 @@
 <script lang="ts">
     export let style: string;
     import { onMount } from "svelte";
-    import { GOL } from "./gol";
+    import { GOL } from "./lib/gol";
 
     let canvas: HTMLCanvasElement;
     let context: CanvasRenderingContext2D;
