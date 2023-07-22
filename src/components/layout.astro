@@ -1,0 +1,37 @@
+---
+import Nav from "./nav.astro";
+import Header from "./header.astro";
+import Footer from "./footer.astro";
+
+const { title = "esby explorations" } = Astro.props;
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/robot.svg" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+
+        <title>{title}</title>
+    </head>
+
+    <body class="flex flex-col gap-16">
+        <Header />
+
+        <div class="flex flex-col md:flex-row gap-16 mx-auto px-4 w-full max-w-5xl">
+            <Nav />
+
+            <main class="flex-grow text-xl font-light space-y-4 leading-relaxed">
+                <slot />
+            </main>
+        </div>
+
+        <Footer />
+    </body>
+</html>
+

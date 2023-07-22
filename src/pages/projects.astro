@@ -1,0 +1,51 @@
+---
+import Layout from "../components/layout.astro";
+import Gallery from "../components/gallery.astro";
+
+import ECA from "../components/explorables/eca.svelte";
+import GOL from "../components/explorables/gol.svelte";
+
+import spirograph from "../images/spirograph.png";
+import spectrometer from "../images/spectrometger.png";
+import protein from "../images/protein.gif";
+import covid from "../images/covid.png";
+---
+
+<Layout>
+    <h2 class="text-2xl font-bold">projects</h2>
+    <Gallery data={[
+        {
+            src: spirograph,
+            alt: "An image of 2 elliptical spirogrpahs",
+            href: "https://esby.space/spirographs/",
+            name: "Spirographs",
+            descpriton: "An exploration into the world and mathematics of spirographs!"
+        },
+        {
+            src: spectrometer,
+            alt: "A poster",
+            href: "https://www.nhacadsci.org/student-posters-2022/wlobi2ulxsyigs43zbgrhvh329obij",
+            name: "Low-Cost Spectroscopy",
+            descpriton: "My research with the NHAS to create a low cost spectrometer."
+        },
+        {
+            src: protein,
+            alt: "A spinning protein!",
+            href: "https://esby.space/proteins/",
+            name: "Protein Modelling",
+            descpriton: "A collection of resources to help with protein modelling in Haddock."
+        },
+        {
+            src: covid,
+            alt: "Another poster with some cool proteins on it",
+            href: "https://projectboard.world/ajas/project/in-silico-comparison-of-human-ace2-interactions-with-sars-cov-2-variants-of-concern",
+            name: "COVID-19 research",
+            descpriton: "My research with the NHAS to study the spike proteins from different variants of COVID-19."
+        }
+    ]}></Gallery>
+
+    <h2 class="text-2xl font-bold">more math things :D</h2>
+    <ECA client:visible style="my-8 p-8 rounded-lg shadow-xl space-y-4" />
+    <GOL client:visible style="my-8 p-8 space-y-4 rounded-md shadow-lg" />
+</Layout>
+

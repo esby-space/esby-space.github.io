@@ -1,0 +1,24 @@
+---
+type Post = {
+    src: string,
+    alt?: string,
+    href?: string,
+    name?: string,
+    descpriton?: string,
+}
+
+type Gallery = Post[];
+type Props = { data: Gallery };
+const { data } = Astro.props;
+---
+
+<div class="grid gap-4 grid-cols-1 sm:grid-cols-2">
+    {
+        data.map(({ src, alt, href, name, descpriton }) => (
+            <a href={href} class="text-lg hover:translate-y-[-0.5rem] transition">
+                <img src={src} alt={alt} class="object-cover aspect-[3/2] w-full">
+                <p><span class="font-bold">{name}</span> - {descpriton}</p>
+            </a> 
+        ))
+    }
+</div>
