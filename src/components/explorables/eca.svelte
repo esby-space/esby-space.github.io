@@ -18,8 +18,8 @@
         ECA.grid.get(Math.floor(ECA.grid.width / 2), 0).alive = true;
         ECA.update();
 
-        resize();
-        window.addEventListener("resize", resize);
+        resizeCanvas();
+        window.addEventListener("resize", resizeCanvas);
 
         context = canvas.getContext("2d")!;
         if (!context) canvas.outerHTML = "<p>error creating rendering context x_x</p>";
@@ -41,7 +41,7 @@
     };
 
     // TODO: better way to do this?
-    function resize() {
+    function resizeCanvas() {
         if (!canvas) return;
         canvas.width = canvas.clientWidth * window.devicePixelRatio;
         canvas.height = canvas.width * height / width;
@@ -53,7 +53,7 @@
         ECA.grid.init(width * 3, height);
         ECA.grid.get(Math.floor(ECA.grid.width / 2), 0).alive = true;
         ECA.update();
-        resize();
+        resizeCanvas();
     }
 
     $: {

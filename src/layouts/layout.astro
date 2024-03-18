@@ -23,13 +23,13 @@ const { title = "esby explorations" } = Astro.props;
         <ViewTransitions />
     </head>
 
-    <body class="flex flex-col gap-16">
+    <body class="flex flex-col gap-16 min-h-screen">
         <Header />
 
-        <div class="flex flex-col md:flex-row gap-16 mx-auto px-4 w-full max-w-5xl">
+        <div class="grow flex flex-col md:flex-row gap-16 mx-auto px-4 w-full max-w-5xl">
             <Nav />
 
-            <main class="flex-grow text-xl font-light space-y-4 leading-relaxed">
+            <main class="grow text-xl space-y-4 leading-loose">
                 <slot />
             </main>
         </div>

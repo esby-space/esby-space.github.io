@@ -4,10 +4,11 @@ const thoughts = defineCollection({
     type: "content",
     schema: z.object({
         title: z.string(),
-        date: z.string()
-            .or(z.date())
-            .transform((value) => new Date(value)),
-        image: z.string()
+        date: z.date(),
+        image: z.optional(z.object({
+            url: z.string(),
+            alt: z.string(),
+        })),
     })
 });
 

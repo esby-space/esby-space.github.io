@@ -1,0 +1,57 @@
+---
+import Layout from "../../layouts/layout.astro";
+import Gallery from "../../components/gallery.astro";
+
+import spirograph from "../../images/spirograph.png";
+import spectrometer from "../../images/spectrometger.png";
+import protein from "../../images/protein.gif";
+import covid from "../../images/covid.png";
+import eca from "../../images/eca.png";
+---
+
+<Layout>
+    <h1 class="text-4xl font-bold">projects</h1>
+    <Gallery data={[
+        {
+            image: spirograph,
+            alt: "2 elliptical spirographs",
+            href: "https://esby.space/spirographs/",
+            name: "Spirographs",
+            descpriton: "An exploration into the world and mathematics of spirographs!",
+            loading: "eager"
+        },
+        {
+            image: eca,
+            alt: "Many many colorful squares",
+            href: "projects/explorables",
+            name: "Explorables",
+            descpriton: "interactive explorables to learn interesting things!",
+            loading: "eager"
+        },
+        {
+            image: spectrometer,
+            alt: "A post titled, 'Using Low-Cost Electronic Color Sensors for Spectroscopy'",
+            href: "https://www.nhacadsci.org/student-posters-2022/wlobi2ulxsyigs43zbgrhvh329obij",
+            name: "Low-Cost Spectroscopy",
+            descpriton: "My research with the NHAS to create a low cost spectrometer.",
+            loading: "eager"
+        },
+        {
+            image: protein,
+            alt: "A spinning, colorful protein!",
+            href: "https://esby.space/proteins/",
+            name: "Protein Modelling",
+            descpriton: "A collection of resources to help with protein modelling in Haddock.",
+            loading: "eager"
+        },
+        {
+            image: covid,
+            alt: "Another poster with some cool proteins on it",
+            href: "https://projectboard.world/ajas/project/in-silico-comparison-of-human-ace2-interactions-with-sars-cov-2-variants-of-concern",
+            name: "COVID-19 research",
+            descpriton: "My research with the NHAS to study the spike proteins from different variants of COVID-19.",
+            loading: "eager"
+        }
+    ]}></Gallery>
+</Layout>
+

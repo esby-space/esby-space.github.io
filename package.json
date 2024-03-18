@@ -15,5 +15,8 @@
         "astro": "*",
         "svelte": "*",
         "tailwindcss": "*"
+    },
+    "devDependencies": {
+        "@tailwindcss/typography": "*"
     }
 }
