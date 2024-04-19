@@ -1,9 +1,9 @@
 ---
 import Layout from "../../layouts/layout.astro";
 
-import ECA from "../../components/explorables/eca.svelte";
-import GOL from "../../components/explorables/gol.svelte";
-import Verlet from "../../components/explorables/verlet.svelte";
+import ECA from "../../components/explorables/eca.tsx";
+import GOL from "../../components/explorables/gol.tsx";
+import Verlet from "../../components/explorables/verlet.tsx";
 
 ---
 
@@ -15,7 +15,7 @@ import Verlet from "../../components/explorables/verlet.svelte";
     <p>This is a reverse engineering of Spaciecat's <a href="https://spaciecat.github.io/cells" class="text-primary">From Cell's To Systems</a>, play that for an amazing exploration! In short, cells can either be alive or dead based on a rule you give. The first row can be whatever you like, but the rest will be determined by that rule.</p>
     <p>To start, enter in the rule (a number from 0 to 255), and click the cells in the first row and watch them come alive! ECA is famous for its simple conditions and starting points and its many complicated results, so play around a little! Here is a list of interesting rules!</p>
 
-    <ECA client:idle style="my-8 p-8 space-y rounded-md shadow-lg" />
+    <ECA client:visible />
 
     <h3 class="text-2xl font-bold">interesting rules for eca!</h3>
     <ul class="list-disc">
@@ -45,7 +45,7 @@ import Verlet from "../../components/explorables/verlet.svelte";
 
     <p>why these numbers? because we're mathematicians and we make our own rules! i know conway didn't really like how popular this got, but i had fun coding it in! Rest in Peace John Conway.</p>
 
-    <GOL client:idle style="my-8 p-8 space-y-4 rounded-md shadow-lg" />
+    <GOL client:visible />
 
     <h3 class="text-2xl font-bold">resources and further exploration!</h3>
     <ul class="list-disc">
@@ -56,5 +56,5 @@ import Verlet from "../../components/explorables/verlet.svelte";
     </ul>
 
     <h2 class="text-3xl font-bold">verlet integration</h2>
-    <Verlet client:idle style="my-8 p-8 space-y-4 rounded-md shadow-lg" />
+    <Verlet client:visible />
 </Layout>

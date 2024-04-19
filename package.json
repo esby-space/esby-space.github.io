@@ -10,10 +10,10 @@
         "astro": "astro"
     },
     "dependencies": {
-        "@astrojs/svelte": "*",
+        "@astrojs/solid-js": "^4.1.0",
         "@astrojs/tailwind": "*",
         "astro": "*",
-        "svelte": "*",
+        "solid-js": "^1.8.16",
         "tailwindcss": "*"
     },
     "devDependencies": {
