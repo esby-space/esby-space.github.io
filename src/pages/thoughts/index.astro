@@ -12,7 +12,7 @@ const posts = await getCollection("thoughts");
             posts
                 .sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf())
                 .map((post) => (
-                    <div class="border p-4 rounded">
+                    <div class="border p-4 rounded-md">
                         <a href={`/thoughts/${post.slug}`} class="flex justify-between md:gap-16 min-w-full">
                             <span class="text-xl font-bold">{post.data.title}</span>
                             <span class="text-right">{
