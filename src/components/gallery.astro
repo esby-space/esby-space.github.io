@@ -15,7 +15,7 @@ type Props = { data: Gallery };
 const { data } = Astro.props;
 ---
 
-<div class="grid gap-4 grid-cols-1 sm:grid-cols-2">
+<div class="grid gap-4 grid-cols-1 sm:grid-cols-2 not-prose">
     {
         data.map(({ image, alt, href, name, descpriton, loading }) => (
             <a href={href} class="text-lg hover:translate-y-[-0.5rem] transition">

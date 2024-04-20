@@ -1,5 +1,6 @@
-import { onMount, createSignal, createEffect, createRenderEffect } from "solid-js";
+import { onMount, createSignal, createEffect } from "solid-js";
 import { ECA } from "./lib/eca";
+import { model } from "./lib/utils";
 
 export default function() {
     let canvas: HTMLCanvasElement;
@@ -101,21 +102,21 @@ export default function() {
         }
     };
 
-    return <div class="my-8 p-8 space-y rounded-md shadow-lg">
-        <h3 class="text-xl font-black text-center">elementary cellular automata</h3>
+    return <div class="my-8 p-8 space-y rounded-md shadow-lg not-prose dark:shadow-black">
+        <h3 class="text-xl font-bold text-center">elementary cellular automata</h3>
 
         <div class="flex gap-4">
             <label>
                 <span class="block">rule</span>
-                <input type="number" use:bind={[rule, setRule]} class="w-full border p-2 rounded-md" />
+                <input type="number" use:model={[rule, setRule]} class="w-full border p-2 rounded-md" />
             </label>
             <label>
                 <span class="block">width</span>
-                <input type="number" use:bind={[width, setWidth]} class="w-full border p-2 rounded-md" />
+                <input type="number" use:model={[width, setWidth]} class="w-full border p-2 rounded-md" />
             </label>
             <label>
                 <span class="block">height</span>
-                <input type="number" use:bind={[height, setHeight]} class="w-full border p-2 rounded-md" />
+                <input type="number" use:model={[height, setHeight]} class="w-full border p-2 rounded-md" />
             </label>
         </div>
 
@@ -127,11 +128,5 @@ export default function() {
 
         <canvas ref={canvas!} onClick={click} class="w-full cursor-pointer"></canvas>
     </div>
-}
-
-function bind(element: HTMLInputElement, value: () => any) {
-    const [accessor, setter] = value();
-    createRenderEffect(() => (element.value = accessor()));
-    element.addEventListener("input", (event) => setter(parseInt((event.target as HTMLInputElement).value)));
 }
 

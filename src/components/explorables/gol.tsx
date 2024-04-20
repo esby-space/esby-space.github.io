@@ -1,5 +1,6 @@
-import { onMount, createSignal, createEffect, createRenderEffect } from "solid-js";
+import { onMount, createSignal, createEffect } from "solid-js";
 import { GOL } from "./lib/gol";
+import { model } from "./lib/utils";
 
 export default function() {
     let canvas: HTMLCanvasElement;
@@ -7,10 +8,10 @@ export default function() {
 
     let [width, setWidth] = createSignal(100);
     let [height, setHeight] = createSignal(100);
-    let [fps, setFPS] = createSignal(10);
+    let [fps, setFPS] = createSignal(20);
 
     let cellSize: number;
-    let intervalID: number;
+    let rafID: number;
 
     onMount(() => {
         GOL.init(width(), height());
@@ -25,12 +26,17 @@ export default function() {
         draw();
 
 
-        intervalID = setInterval(loop, 1000 / fps());
+        rafID = window.requestAnimationFrame(loop);
     });
 
     const loop = () => {
         GOL.update();
         draw();
+
+        setTimeout(
+            () => (rafID = window.requestAnimationFrame(loop)),
+            1000 / fps()
+        );
     };
 
     const draw = () => {
@@ -51,8 +57,8 @@ export default function() {
     };
 
     createEffect(() => {
-        clearInterval(intervalID);
-        intervalID = setInterval(loop, 1000 / fps());
+        window.cancelAnimationFrame(rafID);
+        rafID = window.requestAnimationFrame(loop);
     });
 
     createEffect(() => resizeGrid(width(), height()));
@@ -74,7 +80,7 @@ export default function() {
     const reset = () => {
         setWidth(100);
         setHeight(100);
-        setFPS(10);
+        setFPS(20);
         GOL.randomize();
     }
 
@@ -92,21 +98,21 @@ export default function() {
         }
     }
 
-    return <div class="my-8 p-8 space-y-4 rounded-md shadow-lg">
+    return <div class="my-8 p-8 space-y-4 rounded-md shadow-lg not-prose dark:shadow-black">
         <h3 class="font-bold text-center">game of life</h3>
 
         <div class="flex gap-4">
             <label>
                 <span class="block">width</span>
-                <input type="number" use:bind={[width, setWidth]} class="w-full border p-2 rounded-md" />
+                <input type="number" use:model={[width, setWidth]} class="w-full border p-2 rounded-md" />
             </label>
             <label>
                 <span class="block">height</span>
-                <input type="number" use:bind={[height, setHeight]} class="w-full border p-2 rounded-md" />
+                <input type="number" use:model={[height, setHeight]} class="w-full border p-2 rounded-md" />
             </label>
             <label>
                 <span class="block">fps</span>
-                <input type="number" use:bind={[fps, setFPS]} class="w-full border p-2 rounded-md" />
+                <input type="number" use:model={[fps, setFPS]} class="w-full border p-2 rounded-md" />
             </label>
         </div>
 
@@ -117,10 +123,4 @@ export default function() {
 
         <canvas ref={canvas!} onMouseMove={mouse} class="w-full" />
     </div>;
-}
-
-function bind(element: HTMLInputElement, value: () => any) {
-    const [accessor, setter] = value();
-    createRenderEffect(() => (element.value = accessor()));
-    element.addEventListener("input", (event) => setter(parseInt((event.target as HTMLInputElement).value)));
 }

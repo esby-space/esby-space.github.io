@@ -1,9 +1,8 @@
 ---
-import { ViewTransitions } from "astro:transitions";
-
 import Nav from "../components/nav.astro";
 import Header from "../components/header.astro";
 import Footer from "../components/footer.astro";
+import Dark from "../components/dark.astro";
 
 const { title = "esby explorations" } = Astro.props;
 ---
@@ -20,16 +19,17 @@ const { title = "esby explorations" } = Astro.props;
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;700&display=swap" rel="stylesheet">
 
         <title>{title}</title>
-        <ViewTransitions />
     </head>
 
-    <body class="flex flex-col gap-16 min-h-screen">
+    <body class="flex flex-col gap-16 min-h-screen dark:bg-zinc-900 dark:text-white">
+        <Dark />
+
         <Header />
 
-        <div class="grow flex flex-col md:flex-row gap-16 mx-auto px-4 w-full max-w-5xl">
+        <div class="max-w-5xl mx-auto px-8 flex flex-col md:flex-row gap-16">
             <Nav />
 
-            <main class="grow text-xl space-y-4 leading-loose">
+            <main class="max-w-none prose prose-xl prose-a:no-underline dark:prose-invert">
                 <slot />
             </main>
         </div>
