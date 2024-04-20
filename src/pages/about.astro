@@ -1,5 +1,7 @@
 ---
 import Layout from "../layouts/layout.astro";
+import { Image } from "astro:assets";
+import me from "../images/silly/water.jpg";
 ---
 
 <Layout>
@@ -10,6 +12,8 @@ import Layout from "../layouts/layout.astro";
         this world. I'm most known for my passion of space and my dream of becoming an astronaut,
         but I hold a curiosity for everything that comes!
     </p>
+
+    <Image src={me} alt="me underwater like the fish i am" />
 
     <h2>q&a</h2>
     <ul class="list-disc">

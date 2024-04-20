@@ -1,7 +1,10 @@
 ---
-import { Image } from "astro:assets";
 import Layout from "../layouts/layout.astro";
-import Mayari from "../images/ksp/mayari.png";
+import Gallery from "../components/gallery.astro";
+
+import mayari from "../images/ksp/mayari.png";
+import me from "../images/silly/water.jpg";
+import spirograph from "../images/projects/spirograph.png";
 ---
 
 <Layout>
@@ -10,5 +13,31 @@ import Mayari from "../images/ksp/mayari.png";
         i'm seabass and this is my website! learn more about me, the things i make, or what i'm
         interested in!
     </p>
-    <Image src={Mayari} alt="The Mayari IPV preparing to depart Kerbin." loading="eager" />
+
+    <Gallery data={[
+        {
+            image: me,
+            alt: "me underwater like the fish i am",
+            href: "/about",
+            name: "about",
+            descpriton: "who is this person",
+            loading: "eager",
+        },
+        {
+            image: spirograph,
+            alt: "2 elliptical spirographs",
+            href: "/projects",
+            name: "projects",
+            descpriton: "that i may or may not be finish",
+            loading: "eager",
+        },
+        {
+            image: mayari,
+            alt: "a spacecraft parked in Low Kebrin Orbit",
+            href: "/photos",
+            name: "photos",
+            descpriton: "that i've taken with a camera or from my addiction to ksp",
+            loading: "eager",
+        },
+    ]} />
 </Layout>

@@ -2,6 +2,7 @@
 import Layout from "../../layouts/layout.astro";
 import Gallery from "../../components/gallery.astro";
 
+import gentler from "../../images/projects/gentler.jpg";
 import spirograph from "../../images/projects/spirograph.png";
 import spectrometer from "../../images/projects/spectrometger.png";
 import protein from "../../images/projects/protein.gif";
@@ -12,6 +13,14 @@ import eca from "../../images/projects/eca.png";
 <Layout>
     <h1>projects</h1>
     <Gallery data={[
+        {
+            image: gentler,
+            alt: "A (Gentler) Introduction to Mechanics",
+            href: "https://esby.space/gentler",
+            name: "A (Gentler) Introduction",
+            descpriton: "a side reader to an infamous physics textbook",
+            loading: "eager",
+        },
         {
             image: spirograph,
             alt: "2 elliptical spirographs",
@@ -52,6 +61,6 @@ import eca from "../../images/projects/eca.png";
             descpriton: "My research with the NHAS to study the spike proteins from different variants of COVID-19.",
             loading: "eager"
         }
-    ]}></Gallery>
+    ]} />
 </Layout>
 

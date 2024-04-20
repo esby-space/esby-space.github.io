@@ -3,7 +3,7 @@ import { Image } from "astro:assets";
 
 type Post = {
     image: ImageMetadata,
-    alt?: string,
+    alt: string,
     href?: string,
     name?: string,
     descpriton?: string,
@@ -19,7 +19,7 @@ const { data } = Astro.props;
     {
         data.map(({ image, alt, href, name, descpriton, loading }) => (
             <a href={href} class="text-lg hover:translate-y-[-0.5rem] transition">
-                <Image src={image} alt={alt ?? null} class="object-cover aspect-[3/2] w-full" loading={loading ?? "lazy" } />
+                <Image src={image} alt={alt} class="object-cover aspect-[3/2] w-full rounded-md" loading={loading ?? "lazy" } />
                 <p><span class="font-bold">{name}</span> - {descpriton}</p>
             </a> 
         ))
