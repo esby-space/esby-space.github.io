@@ -1,6 +1,6 @@
 ---
-import Layout from "../../layouts/layout.astro";
-import Gallery from "../../components/gallery.astro";
+import Layout from "../../layouts/Layout.astro";
+import ImageLinks from "../../components/ImageLinks.astro";
 
 import gentler from "../../images/projects/gentler.jpg";
 import spirograph from "../../images/projects/spirograph.png";
@@ -12,11 +12,11 @@ import eca from "../../images/projects/eca.png";
 
 <Layout>
     <h1>projects</h1>
-    <Gallery data={[
+    <ImageLinks data={[
         {
             image: gentler,
             alt: "A (Gentler) Introduction to Mechanics",
-            href: "https://esby.space/gentler",
+            href: "https://gentler.esby.space",
             name: "A (Gentler) Introduction",
             descpriton: "a side reader to an infamous physics textbook",
             loading: "eager",
@@ -24,7 +24,7 @@ import eca from "../../images/projects/eca.png";
         {
             image: spirograph,
             alt: "2 elliptical spirographs",
-            href: "https://esby.space/spirographs/",
+            href: "https://spirographs.esby.space",
             name: "Spirographs",
             descpriton: "An exploration into the world and mathematics of spirographs!",
             loading: "eager"

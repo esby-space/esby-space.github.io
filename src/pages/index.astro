@@ -1,8 +1,8 @@
 ---
-import Layout from "../layouts/layout.astro";
-import Gallery from "../components/gallery.astro";
+import Layout from "../layouts/Layout.astro";
+import ImageLinks from "../components/ImageLinks.astro";
 
-import mayari from "../images/ksp/mayari.png";
+import mayari from "../images/ksp/mayari.jpg";
 import me from "../images/silly/water.jpg";
 import spirograph from "../images/projects/spirograph.png";
 ---
@@ -14,7 +14,7 @@ import spirograph from "../images/projects/spirograph.png";
         interested in!
     </p>
 
-    <Gallery data={[
+    <ImageLinks data={[
         {
             image: me,
             alt: "me underwater like the fish i am",
@@ -33,7 +33,7 @@ import spirograph from "../images/projects/spirograph.png";
         },
         {
             image: mayari,
-            alt: "a spacecraft parked in Low Kebrin Orbit",
+            alt: "a interplanetary transfer vehicle parked in low kebrin orbit",
             href: "/photos",
             name: "photos",
             descpriton: "that i've taken with a camera or from my addiction to ksp",
