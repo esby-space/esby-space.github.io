@@ -12,7 +12,7 @@
     "dependencies": {
         "@astrojs/solid-js": "^4.1.0",
         "@astrojs/tailwind": "*",
-        "astro": "^4.6.3",
+        "astro": "^4.7.0",
         "solid-js": "^1.8.16",
         "tailwindcss": "^3.4.3"
     },
