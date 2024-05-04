@@ -10,30 +10,36 @@ import lion from "../../images/silly/sea-lion.jpg";
 
 <Layout>
     <h1>photos</h1>
-    <ImageLinks data={[
-        {
-            image: biker,
-            alt: "a man stand next to his bicycle",
-            href: "/photos/bay-area",
-            name: "bay area photos",
-        },
-        {
-            image: mayari,
-            alt: "a interplanetary transfer vehicle parked in low kebrin orbit",
-            href: "/photos/ksp",
-            name: "kerbal space program"
-        },
-        {
-            image: fish,
-            alt: "a koi fish pops its head above water",
-            href: "/photos/high-school",
-            name: "high school portfolio"
-        },
-        {
-            image: lion,
-            alt: "a very happy sea lion!!",
-            href: "/photos/silly",
-            name: "silly photos bc why not!",
-        }
-    ]} />
+    <ImageLinks
+        data={[
+            {
+                image: biker,
+                alt: "a man stand next to his bicycle",
+                href: "/photos/bay-area",
+                name: "bay area photos",
+                loading: "eager",
+            },
+            {
+                image: mayari,
+                alt: "a interplanetary transfer vehicle parked in low kebrin orbit",
+                href: "/photos/ksp",
+                name: "kerbal space program",
+                loading: "eager",
+            },
+            {
+                image: fish,
+                alt: "a koi fish pops its head above water",
+                href: "/photos/high-school",
+                name: "high school portfolio",
+                loading: "eager",
+            },
+            {
+                image: lion,
+                alt: "a very happy sea lion!!",
+                href: "/photos/silly",
+                name: "silly photos bc why not!",
+                loading: "eager",
+            },
+        ]}
+    />
 </Layout>

@@ -14,9 +14,12 @@ const { title = "esby explorations" } = Astro.props;
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
 
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;700&display=swap"
+            rel="stylesheet"
+        />
 
         <title>{title}</title>
     </head>
@@ -29,12 +32,17 @@ const { title = "esby explorations" } = Astro.props;
         <div class="max-w-5xl mx-auto px-8 flex flex-col md:flex-row gap-16">
             <Nav />
 
-            <main class="max-w-none prose prose-xl prose-a:no-underline prose-h1:text-5xl prose-h2:text-4xl prose-h3:text-3xl prose-img:rounded-md dark:prose-invert">
+            <main
+                class="max-w-none prose prose-xl prose-a:no-underline prose-h1:text-5xl prose-h2:text-4xl prose-h3:text-3xl prose-img:rounded-md dark:prose-invert"
+            >
                 <slot />
             </main>
         </div>
 
         <Footer />
     </body>
-</html>
 
+    <script is:inline>
+        console.log("oh hello there!");
+    </script>
+</html>

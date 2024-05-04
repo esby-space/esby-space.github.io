@@ -7,8 +7,8 @@ module.exports = {
         extend: {
             colors: { primary: "#7700FF" },
             fontFamily: {
-                sans: ["Noto Sans", "system-ui", "sans-serif"]
+                sans: ["Noto Sans", "system-ui", "sans-serif"],
             },
         },
     },
-}
+};

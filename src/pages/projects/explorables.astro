@@ -3,54 +3,138 @@ import Layout from "../../layouts/Layout.astro";
 
 import ECA from "../../components/explorables/ECA.tsx";
 import GOL from "../../components/explorables/GOL.tsx";
-
 ---
 
 <Layout>
     <h1>explorables :D</h1>
-    <p><strong>Explorable Explanations</strong> was created by <a href="http://ncase.me" class="text-primary">Nicky Case</a> to describe learning through play! check out the website <a href="https://explorabl.es/" class="text-primary">here</a>. here are some that I've created, some more creative than others >_> </p>
+    <p>
+        <strong>Explorable Explanations</strong> was created by <a
+            href="http://ncase.me"
+            class="text-primary">Nicky Case</a
+        > to describe learning through play! check out the website <a
+            href="https://explorabl.es/"
+            class="text-primary">here</a
+        >. here are some that I've created, some more creative than others >_>
+    </p>
 
     <h2>elementary cellular automata</h2>
-    <p>This is a reverse engineering of Spaciecat's <a href="https://spaciecat.github.io/cells" class="text-primary">From Cell's To Systems</a>, play that for an amazing exploration! In short, cells can either be alive or dead based on a rule you give. The first row can be whatever you like, but the rest will be determined by that rule.</p>
-    <p>To start, enter in the rule (a number from 0 to 255), and click the cells in the first row and watch them come alive! ECA is famous for its simple conditions and starting points and its many complicated results, so play around a little! Here is a list of interesting rules!</p>
+    <p>
+        This is a reverse engineering of Spaciecat's <a
+            href="https://spaciecat.github.io/cells"
+            class="text-primary">From Cell's To Systems</a
+        >, play that for an amazing exploration! In short, cells can either be alive or dead based
+        on a rule you give. The first row can be whatever you like, but the rest will be determined
+        by that rule.
+    </p>
+    <p>
+        To start, enter in the rule (a number from 0 to 255), and click the cells in the first row
+        and watch them come alive! ECA is famous for its simple conditions and starting points and
+        its many complicated results, so play around a little! Here is a list of interesting rules!
+    </p>
 
     <ECA client:visible />
 
     <h3>interesting rules for eca!</h3>
     <ul class="list-disc">
-        <li><b>rule 18, 22, 26, 60, ...</b> - are all sierpiński's triangle</li> 
-        <li><b>rule 30</b> - eventually leads to randomness, so it's used to make psuedo-random numbers (they're not totally random because you could recreate them if you had the starting conditions). it also has a similar appearance to the shell of the <a href="https://en.wikipedia.org/wiki/Conus_textile" class="text-primary">Conus textile snail!</a></li>
-        <li><b>rule 90</b> - sometimes called the "simplest, non-trivial cellular automaton" as it's the XOR function</li>
-        <li><b>rule 110</b> - is turing complete, meaning it can simulate the logic of any computer alogirthm! it lies on the boundry of order and chaos</li>
-        <li><b>rule 184</b> - is used as a model of traffic flow in a single lane, surface deposition, and ballistic annihilation</li>
+        <li><b>rule 18, 22, 26, 60, ...</b> - are all sierpiński's triangle</li>
+        <li>
+            <b>rule 30</b> - eventually leads to randomness, so it's used to make psuedo-random numbers
+            (they're not totally random because you could recreate them if you had the starting conditions).
+            it also has a similar appearance to the shell of the <a
+                href="https://en.wikipedia.org/wiki/Conus_textile"
+                class="text-primary">Conus textile snail!</a
+            >
+        </li>
+        <li>
+            <b>rule 90</b> - sometimes called the "simplest, non-trivial cellular automaton" as it's
+            the XOR function
+        </li>
+        <li>
+            <b>rule 110</b> - is turing complete, meaning it can simulate the logic of any computer alogirthm!
+            it lies on the boundry of order and chaos
+        </li>
+        <li>
+            <b>rule 184</b> - is used as a model of traffic flow in a single lane, surface deposition,
+            and ballistic annihilation
+        </li>
     </ul>
 
     <h3>sources and further reading if you're interested!</h3>
     <ul class="list-disc">
-        <li><a href="https://spaciecat.github.io/cells" class="text-primary">From Cells to Systems</a> by SpacieCat</li>
-        <li><a href="https://en.wikipedia.org/wiki/Elementary_cellular_automaton" class="text-primary">Elementary cellular automaton</a> by Wikipedia</li>
-        <li><a href="https://www.math.clemson.edu/~macaule/classes/f16_math4500/slides/f16_math4500_cellular-automata_handout.pdf" class="text-primary">Cellular automata and agent-based models</a> by Matthew Macauley</li>
-        <li><a href="https://wpmedia.wolfram.com/uploads/sites/13/2018/02/15-1-1.pdf" class="text-primary">Universality in Elementary Cellular Automata</a> by Matthew Cook</li>
+        <li>
+            <a href="https://spaciecat.github.io/cells" class="text-primary"
+                >From Cells to Systems</a
+            > by SpacieCat
+        </li>
+        <li>
+            <a
+                href="https://en.wikipedia.org/wiki/Elementary_cellular_automaton"
+                class="text-primary">Elementary cellular automaton</a
+            > by Wikipedia
+        </li>
+        <li>
+            <a
+                href="https://www.math.clemson.edu/~macaule/classes/f16_math4500/slides/f16_math4500_cellular-automata_handout.pdf"
+                class="text-primary">Cellular automata and agent-based models</a
+            > by Matthew Macauley
+        </li>
+        <li>
+            <a
+                href="https://wpmedia.wolfram.com/uploads/sites/13/2018/02/15-1-1.pdf"
+                class="text-primary">Universality in Elementary Cellular Automata</a
+            > by Matthew Cook
+        </li>
     </ul>
 
     <h2>conway's game of life</h2>
-    <p> John Conway's Game of Life is one of the most famous cellular automata! A cell can either be alive or dead based on its neighbors, and a cell's neighbors is defined as any cell adjacent to the edges or corners of the cell (8 in total). Determining whether a cell can live for the next generation is determined by the following:</p>
+    <p>
+        John Conway's Game of Life is one of the most famous cellular automata! A cell can either be
+        alive or dead based on its neighbors, and a cell's neighbors is defined as any cell adjacent
+        to the edges or corners of the cell (8 in total). Determining whether a cell can live for
+        the next generation is determined by the following:
+    </p>
 
     <ol class="list-decimal">
-        <li> If a cell is alive and has less than 2 neighbors, it will die as if by underpopulation.</li>
-        <li> If a cell is alive and has more than 3 neighbors, it will die as if by overpopulation.</li>
-        <li> If a cell is dead and has exactly 3 neighbors, it will come alive as if by development.</li>
+        <li>
+            If a cell is alive and has less than 2 neighbors, it will die as if by underpopulation.
+        </li>
+        <li>
+            If a cell is alive and has more than 3 neighbors, it will die as if by overpopulation.
+        </li>
+        <li>
+            If a cell is dead and has exactly 3 neighbors, it will come alive as if by development.
+        </li>
     </ol>
 
-    <p>why these numbers? because we're mathematicians and we make our own rules! i know conway didn't really like how popular this got, but i had fun coding it in! Rest in Peace John Conway.</p>
+    <p>
+        why these numbers? because we're mathematicians and we make our own rules! i know conway
+        didn't really like how popular this got, but i had fun coding it in! Rest in Peace John
+        Conway.
+    </p>
 
     <GOL client:visible />
 
     <h3>resources and further exploration!</h3>
     <ul class="list-disc">
-        <li><a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" class="text-primary">Conway's Game of Life</a> by Wikipedia</li>
-        <li><a href="https://www.youtube.com/watch?v=E8kUJL04ELA" class="text-primary">Does Conway hate his Game of Life?</a> by Numberphile FEATURING JOHN CONWAY HIMSELF!</li>
-        <li><a href="https://www.youtube.com/watch?v=R9Plq-D1gEk" class="text-primary">Inventing Game of Life</a> by Numberphile AND ALSO FEATURING JOHN CONWAY!!</li>
-        <li><a href="https://www.youtube.com/watch?v=HeQX2HjkcNo" class="text-primary">Math's Fatal Flaw</a> by Veritasium if you would like a mind bender</li>
+        <li>
+            <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" class="text-primary"
+                >Conway's Game of Life</a
+            > by Wikipedia
+        </li>
+        <li>
+            <a href="https://www.youtube.com/watch?v=E8kUJL04ELA" class="text-primary"
+                >Does Conway hate his Game of Life?</a
+            > by Numberphile FEATURING JOHN CONWAY HIMSELF!
+        </li>
+        <li>
+            <a href="https://www.youtube.com/watch?v=R9Plq-D1gEk" class="text-primary"
+                >Inventing Game of Life</a
+            > by Numberphile AND ALSO FEATURING JOHN CONWAY!!
+        </li>
+        <li>
+            <a href="https://www.youtube.com/watch?v=HeQX2HjkcNo" class="text-primary"
+                >Math's Fatal Flaw</a
+            > by Veritasium if you would like a mind bender
+        </li>
     </ul>
 </Layout>

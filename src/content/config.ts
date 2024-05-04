@@ -5,12 +5,13 @@ const thoughts = defineCollection({
     schema: z.object({
         title: z.string(),
         date: z.date(),
-        image: z.optional(z.object({
-            url: z.string(),
-            alt: z.string(),
-        })),
-    })
+        image: z.optional(
+            z.object({
+                url: z.string(),
+                alt: z.string(),
+            }),
+        ),
+    }),
 });
 
 export const collections = { thoughts };
-

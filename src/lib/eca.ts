@@ -1,6 +1,6 @@
 type Cell = {
-    alive: boolean,
-    state: number
+    alive: boolean;
+    state: number;
 };
 
 const Grid = {
@@ -21,7 +21,8 @@ const Grid = {
     },
 
     get(x: number, y: number): Cell {
-        if (x < 0 || x > this.width - 1 || y < 0 || y > this.height - 1) return { alive: false, state: 0 };
+        if (x < 0 || x > this.width - 1 || y < 0 || y > this.height - 1)
+            return { alive: false, state: 0 };
         return this.cells[y][x];
     },
 
@@ -36,7 +37,7 @@ const Grid = {
 
         this.get(x, y).state = state;
         return state;
-    }
+    },
 };
 
 const Rule = {
@@ -53,8 +54,8 @@ const Rule = {
     check(state: number): boolean {
         if (state < 0 || state > 7) return false;
         return this.states[state];
-    }
-}
+    },
+};
 
 export const ECA = {
     grid: Grid,
@@ -89,6 +90,5 @@ export const ECA = {
         }
 
         ECA.update();
-    }
+    },
 };
-

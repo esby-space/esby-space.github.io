@@ -2,26 +2,36 @@
 import { Image } from "astro:assets";
 
 type Link = {
-    image: ImageMetadata,
-    alt: string,
-    href?: string,
-    name: string,
-    descpriton?: string,
-    loading?: "lazy" | "eager",
-}
+    image: ImageMetadata | Promise<{ default: ImageMetadata }>;
+    alt: string;
+    href?: string;
+    name?: string;
+    descpriton?: string;
+    loading?: "lazy" | "eager";
+};
 
-type Links = Link[];
-type Props = { data: Links };
+type Props = { data: Link[] };
 const { data } = Astro.props;
 ---
 
 <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 not-prose">
     {
         data.map(({ image, alt, href, name, descpriton, loading }) => (
-            <a href={href} class="text-lg hover:translate-y-[-0.5rem] transition">
-                <Image src={image} alt={alt} class="object-cover aspect-[3/2] w-full rounded-md" loading={loading ?? "lazy" } />
-                <p><span class="font-bold">{name}</span>{descpriton ? " - " + descpriton : ""}</p>
-            </a> 
+            <a
+                href={href}
+                class="text-lg hover:translate-y-[-0.5rem] odd:last:col-span-2 odd:last:w-1/2 odd:last:mx-auto transition"
+            >
+                <Image
+                    src={image}
+                    alt={alt}
+                    class="object-cover aspect-[3/2] w-full rounded-md"
+                    loading={loading ?? "lazy"}
+                />
+                <p>
+                    {name && <span class="font-bold">{name}</span>}
+                    {descpriton && " - " + descpriton}
+                </p>
+            </a>
         ))
     }
 </div>

@@ -1,8 +1,8 @@
 import { onMount, createSignal, createEffect } from "solid-js";
-import { ECA } from "./lib/eca";
-import { model } from "./lib/utils";
+import { ECA } from "../../lib/eca";
+import { model } from "../../lib/utils";
 
-export default function() {
+export default function () {
     let canvas: HTMLCanvasElement;
     let context: CanvasRenderingContext2D;
     let cellSize: number;
@@ -49,7 +49,7 @@ export default function() {
     const resizeCanvas = () => {
         if (!canvas) return;
         canvas.width = canvas.clientWidth * window.devicePixelRatio;
-        canvas.height = canvas.width * height() / width();
+        canvas.height = (canvas.width * height()) / width();
         cellSize = canvas.width / width();
         draw();
     };
@@ -81,9 +81,8 @@ export default function() {
     };
 
     const click = (event: MouseEvent) => {
-        let x = Math.floor(event.offsetX * window.devicePixelRatio / cellSize) + width();
-        let y = Math.floor(event.offsetY * window.devicePixelRatio / cellSize);
-
+        let x = Math.floor((event.offsetX * window.devicePixelRatio) / cellSize) + width();
+        let y = Math.floor((event.offsetY * window.devicePixelRatio) / cellSize);
 
         if (y > 0) {
             let state = ECA.grid.state(x, y);
@@ -102,31 +101,50 @@ export default function() {
         }
     };
 
-    return <div class="my-8 p-8 space-y rounded-md shadow-lg not-prose dark:shadow-black">
-        <h3 class="text-xl font-bold text-center">elementary cellular automata</h3>
+    return (
+        <div class="not-prose my-8 space-y-4 rounded-md p-8 shadow-lg dark:shadow-black">
+            <h3 class="text-center text-xl font-bold">elementary cellular automata</h3>
 
-        <div class="flex gap-4">
-            <label>
-                <span class="block">rule</span>
-                <input type="number" use:model={[rule, setRule]} class="w-full border p-2 rounded-md" />
-            </label>
-            <label>
-                <span class="block">width</span>
-                <input type="number" use:model={[width, setWidth]} class="w-full border p-2 rounded-md" />
-            </label>
-            <label>
-                <span class="block">height</span>
-                <input type="number" use:model={[height, setHeight]} class="w-full border p-2 rounded-md" />
-            </label>
+            <div class="flex gap-4">
+                <label>
+                    <span class="block">rule</span>
+                    <input
+                        type="number"
+                        use:model={[rule, setRule]}
+                        class="w-full rounded-md border p-2"
+                    />
+                </label>
+                <label>
+                    <span class="block">width</span>
+                    <input
+                        type="number"
+                        use:model={[width, setWidth]}
+                        class="w-full rounded-md border p-2"
+                    />
+                </label>
+                <label>
+                    <span class="block">height</span>
+                    <input
+                        type="number"
+                        use:model={[height, setHeight]}
+                        class="w-full rounded-md border p-2"
+                    />
+                </label>
+            </div>
+
+            <div class="flex justify-center gap-4">
+                <button onClick={randomize} class="rounded-md border p-2">
+                    randomize
+                </button>
+                <button onClick={clear} class="rounded-md border p-2">
+                    clear
+                </button>
+                <button onClick={reset} class="rounded-md border p-2">
+                    reset
+                </button>
+            </div>
+
+            <canvas ref={canvas!} onClick={click} class="w-full cursor-pointer"></canvas>
         </div>
-
-        <div class="flex gap-4 justify-center">
-            <button onClick={randomize} class="border p-2 rounded-md">randomize</button>
-            <button onClick={clear} class="border p-2 rounded-md">clear</button>
-            <button onClick={reset} class="border p-2 rounded-md">reset</button>
-        </div>
-
-        <canvas ref={canvas!} onClick={click} class="w-full cursor-pointer"></canvas>
-    </div>
+    );
 }
-

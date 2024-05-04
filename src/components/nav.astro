@@ -1,4 +1,4 @@
-<nav class="flex justify-evenly md:flex-col md:justify-normal flex-wrap gap-8 md:gap-4">
+<nav class="flex justify-evenly md:flex-col md:justify-normal flex-wrap gap-12 md:gap-4">
     {
         [
             ["home", "/"],
@@ -7,10 +7,9 @@
             ["photos", "/photos"],
             ["thoughts", "/thoughts"],
         ].map(([name, path]) => (
-            <a href={path} class="text-2xl hover:translate-x-2 transition">
+            <a href={path} class="text-3xl hover:translate-x-2 transition">
                 {name}
             </a>
         ))
     }
 </nav>
-

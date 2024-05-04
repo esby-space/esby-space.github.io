@@ -6,7 +6,7 @@ export async function getStaticPaths() {
     let posts = await getCollection("thoughts");
     return posts.map((post) => ({
         params: { slug: post.slug },
-        props: { post }
+        props: { post },
     }));
 }
 
@@ -17,4 +17,3 @@ const { Content } = await post.render();
 <Layout>
     <Content />
 </Layout>
-

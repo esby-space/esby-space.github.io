@@ -13,15 +13,18 @@ const posts = await getCollection("thoughts");
                 .sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf())
                 .map((post) => (
                     <div class="border p-4 rounded-md">
-                        <a href={`/thoughts/${post.slug}`} class="flex justify-between md:gap-16 min-w-full">
+                        <a
+                            href={`/thoughts/${post.slug}`}
+                            class="flex justify-between md:gap-16 min-w-full"
+                        >
                             <span class="text-xl font-bold">{post.data.title}</span>
-                            <span class="text-right">{
-                                post.data.date.toLocaleString("en-us", {
+                            <span class="text-right">
+                                {post.data.date.toLocaleString("en-us", {
                                     month: "long",
                                     day: "numeric",
-                                    year: "numeric"
-                                })
-                            }</span>
+                                    year: "numeric",
+                                })}
+                            </span>
                         </a>
                     </div>
                 ))

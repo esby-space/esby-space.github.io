@@ -54,7 +54,9 @@ export class Vector {
     }
 
     normalize(magnitude = 1): Vector {
-        if (this.magnitude == 0) { return new Vector(0, 0, 0) }
+        if (this.magnitude == 0) {
+            return new Vector(0, 0, 0);
+        }
         return this.scale(magnitude / this.magnitude);
     }
 
@@ -72,14 +74,14 @@ export class Vector {
         return this;
     }
 
-    project(camera: Camera): { x: number, y: number, size: number } {
+    project(camera: Camera): { x: number; y: number; size: number } {
         // orthographic when camera.fov = 0 => size = 1
         const perspective = camera.fov * camera.width;
         const size = perspective ? perspective / (perspective + (this.z - camera.position.z)) : 1;
 
         return {
-            x: (this.x * size) + camera.position.x,
-            y: (this.y * size) + camera.position.y,
+            x: this.x * size + camera.position.x,
+            y: this.y * size + camera.position.y,
             size,
         };
     }
@@ -90,7 +92,7 @@ export class Vector {
         const angle = rotation.magnitude;
         if (!angle) return this;
 
-        const scale = this.scale(Math.cos(angle)).add((axis.cross(this)).scale(Math.sin(angle)))
+        const scale = this.scale(Math.cos(angle)).add(axis.cross(this).scale(Math.sin(angle)));
         const skew = axis.scale(axis.dot(this) * (1 - Math.cos(angle)));
         return scale.add(skew);
     }
@@ -125,7 +127,7 @@ export class Matrix {
 
         for (let i = 0; i < 3; i++) {
             this.rows.push(new Vector(data[i][0], data[i][1], data[i][2]));
-            this.columns.push(new Vector(data[0][i], data[1][i], data[2][i]))
+            this.columns.push(new Vector(data[0][i], data[1][i], data[2][i]));
         }
     }
 
@@ -141,15 +143,15 @@ export class Matrix {
         return new Matrix([
             [1, 0, 0],
             [0, Math.cos(angle), -Math.sin(angle)],
-            [0, Math.sin(angle), Math.cos(angle)]
+            [0, Math.sin(angle), Math.cos(angle)],
         ]);
     }
-    
+
     static rotateY(angle: number): Matrix {
         return new Matrix([
             [Math.cos(angle), 0, Math.sin(angle)],
             [0, 1, 0],
-            [-Math.sin(angle), 0, Math.cos(angle)]
+            [-Math.sin(angle), 0, Math.cos(angle)],
         ]);
     }
 
@@ -173,4 +175,3 @@ export class Camera {
         this.width = width;
     }
 }
-

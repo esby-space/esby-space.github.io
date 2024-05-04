@@ -31,14 +31,14 @@ const Grid = {
         }
 
         return neighbors;
-    }
+    },
 };
 
 export const GOL = {
     grid: Grid,
 
     init(width: number, height: number) {
-        this.grid.init(width, height)
+        this.grid.init(width, height);
     },
 
     update() {
@@ -65,6 +65,5 @@ export const GOL = {
                 this.grid.cells[y][x] = Math.random() > 0.5;
             }
         }
-    }
+    },
 };
-

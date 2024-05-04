@@ -1,0 +1,36 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../../../layouts/Layout.astro";
+import { getPhotos } from "../../../lib/photos";
+
+export const collections = ["bay-area", "ksp", "high-school", "silly"];
+export function getStaticPaths() {
+    return collections
+        .map((collection) => {
+            let photos = getPhotos(collection);
+            return photos.map((photo, i) => {
+                let next = photos[i + 1]?.name;
+                let prev = photos[i - 1]?.name;
+                return {
+                    params: { collection, photo: photo.name },
+                    props: { photo, next, prev },
+                };
+            });
+        })
+        .flat();
+}
+
+const { collection } = Astro.params;
+const { photo, next, prev } = Astro.props;
+---
+
+<Layout>
+    <h1>{photo.name}</h1>
+    <Image src={photo.image} alt={photo.name} loading="eager" />
+
+    <div class="w-full flex justify-evenly text-2xl">
+        {prev && <a href={prev}>previous</a>}
+        <a href=".">back to {collection}</a>
+        {next && <a href={next}>next</a>}
+    </div>
+</Layout>
