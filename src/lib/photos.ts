@@ -10,3 +10,4 @@ export function getPhotos(collection: string): Photo[] {
         name: path.split(".").slice(-2)[0].split("/").slice(-1)[0],
     }));
 }
+
