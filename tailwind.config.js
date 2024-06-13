@@ -1,11 +1,11 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
     content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
     plugins: [require("@tailwindcss/typography")],
     darkMode: "selector",
     theme: {
         extend: {
-            colors: { primary: "#7700FF" },
+            colors: { primary: "#7700FF", lightish: "#D4D4D8", darkish: "#3F3F46" },
             fontFamily: {
                 sans: ["Noto Sans", "system-ui", "sans-serif"],
             },
