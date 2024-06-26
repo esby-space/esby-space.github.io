@@ -41,6 +41,7 @@ export default function () {
         for (let y = 0; y < GOL.grid.height; y++) {
             for (let x = 0; x < GOL.grid.width; x++) {
                 if (GOL.grid.get(x, y)) {
+                    context.fillStyle = window.dark ? "white" : "black";
                     context.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
                 }
             }
@@ -99,7 +100,7 @@ export default function () {
                     <input
                         type="number"
                         use:model={[width, setWidth]}
-                        class="w-full rounded-md border p-2"
+                        class="w-full rounded-md border p-2 dark:bg-darkish"
                     />
                 </label>
                 <label>
@@ -107,7 +108,7 @@ export default function () {
                     <input
                         type="number"
                         use:model={[height, setHeight]}
-                        class="w-full rounded-md border p-2"
+                        class="w-full rounded-md border p-2 dark:bg-darkish"
                     />
                 </label>
                 <label>
@@ -115,7 +116,7 @@ export default function () {
                     <input
                         type="number"
                         use:model={[fps, setFPS]}
-                        class="w-full rounded-md border p-2"
+                        class="w-full rounded-md border p-2 dark:bg-darkish"
                     />
                 </label>
             </div>

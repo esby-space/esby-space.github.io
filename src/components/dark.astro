@@ -19,18 +19,25 @@
     </svg>
 </div>
 
-<script is:inline>
-    const moon = document.querySelector("#moon");
-    const html = document.querySelector("html");
+<script>
+    const moon = document.querySelector("#moon") as HTMLElement;
+    const html = document.querySelector("html") as HTMLElement;
+    window.dark = false;
 
-    if (sessionStorage.getItem("theme") == "dark") html.classList.add("dark");
+    if (sessionStorage.getItem("theme") == "dark") {
+        html.classList.add("dark");
+        window.dark = true;
+    }
+
     moon.addEventListener("click", () => {
         if (sessionStorage.getItem("theme") == "dark") {
             html.classList.remove("dark");
             sessionStorage.setItem("theme", "light");
+            window.dark = false;
         } else {
             html.classList.add("dark");
             sessionStorage.setItem("theme", "dark");
+            window.dark = true;
         }
     });
 </script>

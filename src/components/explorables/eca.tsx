@@ -111,7 +111,7 @@ export default function () {
                     <input
                         type="number"
                         use:model={[rule, setRule]}
-                        class="w-full rounded-md border p-2"
+                        class="w-full rounded-md border p-2 dark:bg-darkish"
                     />
                 </label>
                 <label>
@@ -119,7 +119,7 @@ export default function () {
                     <input
                         type="number"
                         use:model={[width, setWidth]}
-                        class="w-full rounded-md border p-2"
+                        class="w-full rounded-md border p-2 dark:bg-darkish"
                     />
                 </label>
                 <label>
@@ -127,7 +127,7 @@ export default function () {
                     <input
                         type="number"
                         use:model={[height, setHeight]}
-                        class="w-full rounded-md border p-2"
+                        class="w-full rounded-md border p-2 dark:bg-darkish"
                     />
                 </label>
             </div>
