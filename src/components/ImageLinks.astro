@@ -19,7 +19,7 @@ const { data } = Astro.props;
         data.map(({ image, alt, href, name, descpriton, loading }) => (
             <a
                 href={href}
-                class="text-lg hover:translate-y-[-0.5rem] odd:last:col-span-2 odd:last:w-1/2 odd:last:mx-auto transition"
+                class="text-lg hover:translate-y-[-0.5rem] sm:odd:last:col-span-2 sm:odd:last:w-1/2 sm:odd:last:mx-auto transition"
             >
                 <Image
                     src={image}
