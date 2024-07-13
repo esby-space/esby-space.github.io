@@ -14,12 +14,12 @@ type Props = { data: Link[] };
 const { data } = Astro.props;
 ---
 
-<div class="grid gap-4 grid-cols-1 sm:grid-cols-2 not-prose">
+<div class="grid grid-cols-1 sm:grid-cols-2 not-prose">
     {
         data.map(({ image, alt, href, name, descpriton, loading }) => (
             <a
                 href={href}
-                class="text-lg hover:translate-y-[-0.5rem] sm:odd:last:col-span-2 sm:odd:last:w-1/2 sm:odd:last:mx-auto transition"
+                class="p-2 rounded-md text-lg hover:translate-y-[-0.5rem] hover:bg-lightish dark:hover:bg-darkish sm:odd:last:col-span-2 sm:odd:last:w-1/2 sm:odd:last:mx-auto transition"
             >
                 <Image
                     src={image}

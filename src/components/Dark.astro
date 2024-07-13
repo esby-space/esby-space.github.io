@@ -24,7 +24,11 @@
     const html = document.querySelector("html") as HTMLElement;
     window.dark = false;
 
-    if (sessionStorage.getItem("theme") == "dark") {
+    if (
+        sessionStorage.getItem("theme") == "dark" ||
+        (!sessionStorage.getItem("theme") &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
         html.classList.add("dark");
         window.dark = true;
     }

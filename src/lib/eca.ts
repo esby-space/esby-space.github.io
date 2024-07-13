@@ -57,7 +57,7 @@ const Rule = {
     },
 };
 
-export const ECA = {
+export default {
     grid: Grid,
     rule: Rule,
 
@@ -77,7 +77,7 @@ export const ECA = {
     },
 
     randomize() {
-        for (let x = 0; x < ECA.grid.width; x++) {
+        for (let x = 0; x < this.grid.width; x++) {
             this.grid.get(x, 0).alive = Math.random() > 0.5;
         }
 
@@ -85,10 +85,10 @@ export const ECA = {
     },
 
     clear() {
-        for (let x = 0; x < ECA.grid.width; x++) {
-            ECA.grid.get(x, 0).alive = false;
+        for (let x = 0; x < this.grid.width; x++) {
+            this.grid.get(x, 0).alive = false;
         }
 
-        ECA.update();
+        this.update();
     },
 };

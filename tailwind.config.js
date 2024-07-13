@@ -10,10 +10,11 @@ export default {
             colors: {
                 primary: "#7700FF",
                 lightish: "#D4D4D8",
-                darkish: "#3F3F46"
+                darkish: "#3F3F46",
+                dark: "#18181b"
             },
             fontFamily: {
-                sans: ["Noto Sans", "system-ui", "sans-serif"],
+                sans: ["Helvetica", "system-ui", "sans-serif"],
             },
         },
     },

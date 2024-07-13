@@ -26,7 +26,7 @@ const photos = getPhotos(collection).map((photo) => ({
 ---
 
 <Gallery>
-    <h1 class="hover:-translate-y-2 transition"><a href="/photos" class="font-bold">{titles[collection]}</a></h1>
+    <h1 class="w-fit p-2 rounded-md hover:-translate-y-2 hover:bg-lightish dark:hover:bg-darkish transition"><a href="/photos" class="font-bold">&lt; {titles[collection]}</a></h1>
     <section id="embla">
         <div class="flex justify-center gap-8">
             <button id="embla__prev" class="w-16 h-16 rounded-full grid place-items-center hover:bg-lightish dark:hover:bg-darkish dark:fill-white transition" type="button">

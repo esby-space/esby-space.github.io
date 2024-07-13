@@ -1,5 +1,5 @@
 import { onMount, createSignal, createEffect } from "solid-js";
-import { GOL } from "../../lib/gol";
+import GOL from "../../lib/gol";
 import { model } from "../../lib/utils";
 
 export default function () {

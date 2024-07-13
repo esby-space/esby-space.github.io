@@ -1,8 +1,8 @@
 import { onMount, createSignal, createEffect } from "solid-js";
-import { ECA } from "../../lib/eca";
+import ECA from "../../lib/eca";
 import { model } from "../../lib/utils";
 
-export default function () {
+export default function() {
     let canvas: HTMLCanvasElement;
     let context: CanvasRenderingContext2D;
     let cellSize: number;

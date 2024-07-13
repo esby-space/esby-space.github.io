@@ -1,0 +1,152 @@
+<canvas id="meteor" class="w-full h-full absolute -z-10 invisible dark:visible"></canvas>
+
+<script>
+    const PRIMES = [2, 3, 5, 7, 11, 13, 17, 23, 29, 31];
+
+    const STAR_COLOR = "#D4D4D8";
+    const STAR_VOLUME = 50000; // pixels^2 per star
+    const STAR_RADIUS_MIN = 1;
+    const STAR_RADIUS_MAX = 5;
+
+    const METEOR_COLOR = "#93C5FD";
+    const METEOR_VOLUME = 1000000; // pixels^2 per star
+    const METEOR_DIRECTION = 1; // in radians
+    const METEOR_WIDTH = 5;
+    const METEOR_LENGTH = 200;
+    const METEOR_SPEED = 1000;
+    const METEOR_LIFESPAN = 4;
+    const METEOR_INTERVAL = 2000;
+
+    function main() {
+        let canvas = document.querySelector("#meteor") as HTMLCanvasElement;
+        let context = canvas.getContext("2d")!;
+        if (!context) throw new Error("cannot initialize starry background x_x");
+
+        resizeCanvas(canvas);
+        // window.addEventListener("resize", () => resizeCanvas(canvas));
+
+        Stars.init(canvas.width, canvas.height);
+        Meteors.init(canvas.width, canvas.height);
+
+        let old = 0;
+        const loop = (time: number) => {
+            let dt = (time - old) / 1000;
+            old = time;
+
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
+            Meteors.update(dt);
+
+            Stars.draw(context);
+            Meteors.draw(context);
+
+            window.requestAnimationFrame(loop);
+        };
+
+        window.requestAnimationFrame(loop);
+    }
+
+    class Meteor {
+        x: number;
+        y: number;
+        length = 0;
+        timer = 0;
+        disabled = false;
+
+        constructor(maxX: number, maxY: number) {
+            this.x = maxX * Math.random();
+            this.y = maxY * Math.random();
+        }
+
+        update(dt: number) {
+            this.timer += dt;
+            this.x += Math.cos(METEOR_DIRECTION) * METEOR_SPEED * dt;
+            this.y += Math.sin(METEOR_DIRECTION) * METEOR_SPEED * dt;
+            this.length = Math.sin(this.timer * METEOR_LIFESPAN) * METEOR_LENGTH;
+            if (this.length < 0) this.disabled = true;
+        }
+
+        draw(context: CanvasRenderingContext2D) {
+            context.beginPath();
+            context.moveTo(this.x, this.y);
+            context.lineTo(
+                this.x - Math.cos(METEOR_DIRECTION) * this.length,
+                this.y - Math.sin(METEOR_DIRECTION) * this.length
+            );
+            context.closePath();
+            context.stroke();
+        }
+
+        reset(maxX: number, maxY: number) {
+            this.x = maxX * Math.random();
+            this.y = maxY * Math.random();
+            this.length = 0;
+            this.timer = 0;
+            this.disabled = false;
+        }
+    }
+
+    const Meteors = {
+        meteors: [] as Meteor[],
+
+        init(maxX: number, maxY: number) {
+            let meteorCount = maxX * maxY / METEOR_VOLUME;
+            for (let i = 0; i < meteorCount; i++) {
+                let meteor = new Meteor(maxX, maxY);
+                let interval = PRIMES[i % PRIMES.length] * METEOR_INTERVAL;
+                setTimeout(() => this.meteors.push(meteor), interval);
+                setInterval(() => meteor.reset(maxX, maxY), interval);
+            }
+        },
+
+        update(dt: number) {
+            for (let meteor of this.meteors) {
+                if (!meteor.disabled) meteor.update(dt);
+            }
+        },
+
+        draw(context: CanvasRenderingContext2D) {
+            context.lineWidth = METEOR_WIDTH;
+            context.strokeStyle = METEOR_COLOR;
+
+            for (let meteor of this.meteors) {
+                if (!meteor.disabled) meteor.draw(context);
+            }
+        }
+    }
+
+    const Stars = {
+        stars: [] as { x: number, y: number, radius: number }[],
+
+        init(maxX: number, maxY: number) {
+            let starCount = maxX * maxY / STAR_VOLUME;
+            for (let i = 0; i < starCount; i++) {
+                this.stars.push({
+                    x: maxX * Math.random(),
+                    y: maxY * Math.random(),
+                    radius: Math.random() * (STAR_RADIUS_MAX - STAR_RADIUS_MIN) + STAR_RADIUS_MIN,
+                });
+            }
+        },
+
+        draw(context: CanvasRenderingContext2D) {
+            context.fillStyle = STAR_COLOR;
+            context.strokeStyle = STAR_COLOR;
+            context.lineWidth = 1;
+
+            for (let star of this.stars) {
+                context.beginPath();
+                context.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
+                context.closePath();
+                context.fill();
+            }
+        }
+    };
+
+    function resizeCanvas(canvas: HTMLCanvasElement) {
+        canvas.width = canvas.clientWidth * window.devicePixelRatio;
+        canvas.height = canvas.clientHeight * window.devicePixelRatio;
+    }
+
+    main();
+</script>

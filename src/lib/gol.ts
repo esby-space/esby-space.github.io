@@ -34,7 +34,7 @@ const Grid = {
     },
 };
 
-export const GOL = {
+export default {
     grid: Grid,
 
     init(width: number, height: number) {
